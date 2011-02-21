@@ -1,0 +1,15 @@
+*~
+*.swp
+*.swo
+*.swn
+*.swm
+*.swl
+*.log
+*.bak
+*.bk
+*.svn
+*.db
+.~lock*
+.DS_Store
+Thumbs.db
+Desktop.ini
