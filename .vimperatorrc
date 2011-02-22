@@ -1,0 +1,130 @@
+"2.1 (created: 2009/05/21 13:13:06)
+
+set runtimepath=/home/pochy/.vimperator
+"source! /home/pochy/.vimperatorrc.local
+command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
+
+" vim: set ft=vimperator:
+
+" ブラウザのタイトル変更
+set titlestring=Firefox
+" 検索語を強調表示
+set hlsearch
+" 検索での大文字小文字を無視
+set ic
+" ビープ音を無効化
+set visualbell
+hi Bell display:none;
+" 常にタブ表示
+set showtabline=2
+" コマンド補完
+" exモード時の補完候補がTabキーを押さなくても自動的に表示
+set wildoptions=auto
+" アドレス補完
+set complete=lbsSt
+" 詳細表示レベル？ 内容確認中、左下のステータス状況か？
+" 「:javascript! 」で表示される内容レベル
+set verbose=9
+" HintのStyle
+hi Hint z-index:5000; font-family:monospace; font-size:14px; color:white; background-color:blue; border-color:ButtonShadow; border-width:0px; border-style:solid; padding:0px 1px 0px 1px; position:absolute;
+" 自動でテキストエリアにフォーカスしない
+set focuscontent
+" アクセスキーを無効に
+set! ui.key.generalAccessKey=0
+" リンクをバックグランドで開く
+set! browser.tabs.loadDivertedInBackground=true
+
+set editor=gvim -f %F
+
+" map
+" =============================================
+" タブの切り替え
+inoremap <Space> <C-TAB>
+inoremap <C-n> <C-TAB>
+inoremap <C-p> <C-S-TAB>
+" tabopen
+map <C-t> :tabopen<CR>
+inoremap <C-t> <ESC>:tabopen<CR>
+
+" 直前にフォーカスしていたタブに戻る 
+map d <C-w>
+" 再起動
+map ,R :restart<CR>
+" Stop loading
+map ,c :stop<CR>
+" 上のディレクトリに移動
+map <S-BS> gu
+map <C-BS> gU
+" Backspace に戻るを割り当て
+map <BS> <A-Left>
+" <S-r> で .vimperatorrc をリロード
+map <S-r> :source ~/.vimperatorrc<CR>
+" URLとタイトルをコピー
+map <S-c> :copy titleAndURL<CR>
+" .vimperatorrcを再読み込み
+map ,s :so ~/.vimperatorrc<CR>
+" ダイアログ表示してブックマーク追加
+map ,a <esc>:dialog addbookmark<cr>
+" ブックマーク追加
+map ,b :bmark<CR>
+" Shift + ← → で現在のタブの位置変更
+map <S-Right> :tabmove! +1<CR>
+map <S-Left>  :tabmove! -1<CR>
+
+" cssをはぎ取る
+" ! で現在のページのCSSのON/OFFを切り替える
+noremap ! :set invusermode<CR>
+" 移動の調整
+noremap j 3j
+noremap k 3k
+
+" direct_bookmark.js
+map s :sbm [
+
+
+" colorscheme
+" =============================================
+colorscheme sweets_snaka
+
+" extends
+" =============================================
+" フィードボタンをステータスラインに移動
+js <<EOM
+(function(){
+ var feedPanel = document.createElement('statusbarpanel');
+ var feedButton = document.getElementById('feed-button');
+ feedPanel.setAttribute('id','feed-panel-clone');
+ feedPanel.appendChild(feedButton.cloneNode(true));
+ feedButton.parentNode.removeChild(feedButton);
+ document.getElementById('status-bar').insertBefore(feedPanel,document.getElementById('security-button'));
+})();
+EOM
+
+" Gmail/GoogleReaderでは新規タブをバックグラウンドで開く
+autocmd LocationChange (?!https?://(mail\.google\.com\/(mail|a)\/|www\.google\.com/reader)) :set! browser.tabs.loadDivertedInBackground=false
+autocmd LocationChange https?://(mail\.google\.com\/(mail|a)\/|www\.google\.com/reader) :set! browser.tabs.loadDivertedInBackground=true
+autocmd LocationChange http://localhost/~tohae/foxkuser.html :set! browser.tabs.loadDivertedInBackground=true
+
+
+" plugins
+" =============================================
+
+" direct_bookmark.js
+let g:direct_sbm_use_services_by_tag = "d" 
+let g:direct_sbm_use_services_by_post = "d"
+
+
+" feedSomeKeys_3.js
+" Gmail
+lazy fmaps -u='^https?://mail\.google\.com/(mail|a)/' c / j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gc
+" Google Reader
+command! -nargs=+ lazyfmapsgooglereader lazy fmaps -urls='www\.google\.com/reader' -events=vkeypress <args>
+lazyfmapsgooglereader j k J K <Space> <S-Space> n p N P X O s v gh ga gs gS gu gt gT gd gf gF gc ge gp r u 1 2 / a
+" Tumblr (use: tombloo.xpi, dashboard+tombloo.user.js, reblogcommand.user.js, playontumblr.user.js)
+lazy fmaps -u='^http://[^\./]*\.tumblr\.com/' i,tj e,tk n,h
+" iview
+lazy fmaps -u='^chrome://iviewfx/content/iview\.html' j k s a z o i,tj p
+
+
+" Readability
+map ,r :js Readability.enableREADABILITY({target: {id: 'readability-statusbar-icon'}})<CR>
