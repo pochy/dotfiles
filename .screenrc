@@ -1,0 +1,45 @@
+# onにしておくとscreenがいきなりお亡くなりになられても、その時のプロセスは生きて残る
+autodetach on
+bell_msg "^G"
+
+defkanji utf-8
+defencoding utf-8
+encoding utf-8 utf-8
+defscrollback 10000
+escape ^Jj
+# offにするとスタートアップ画面を表示させなくする。
+startup_message off
+# onにすると、ビープを鳴らすときに錫際に音を鳴らさず、下のメッセージ領域にメッセージを表示させる。
+vbell off
+
+# caption always "%{= wb} %-w%{=bu dr}%n %t%{-}%+w %= %{=b wk} [%l] %{=b wb}%y/%m/%d(%D) %{=b wm}%c"
+bind n screen
+bind h prev
+bind j next
+bind l windowlist
+
+#split window
+bind s eval split focus "select 0"
+bind ^s eval split focus "select 0"
+
+#resize
+bind r eval 'command -c resize'
+bind ^r eval 'command -c resize'
+bind + eval 'command -c resize'
+bind - eval 'command -c resize'
+bind -c resize j eval 'resize +1' 'command -c resize'
+bind -c resize k eval 'resize -1' 'command -c resize'
+
+#move current window
+bind j focus down
+bind ^j focus down
+bind k focus up
+bind ^k focus up
+
+#close current window
+bind c remove
+bind ^c remove
+
+#close all other windows
+bind o only
+bind ^o only
