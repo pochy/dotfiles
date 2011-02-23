@@ -337,6 +337,24 @@ nnoremap <Leader>gp :<C-u>Git push
 
 
 " =====> surround
+" [key map]
+" 1 : <h1>|</h1>
+" 2 : <h2>|</h2>
+" 3 : <h3>|</h3>
+" 4 : <h4>|</h4>
+" 5 : <h5>|</h5>
+" 6 : <h6>|</h6>
+"
+" p : <p>|</p>
+" u : <ul>|</ul>
+" o : <ol>|</ol>
+" l : <li>|</li>
+" a : <a href="">|</a>
+" A : <a href="|"></a>
+" i : <img src="|" alt="" />
+" I : <img src="" alt"|" />
+" d : <div>|</div>
+" D : <div class="section">|</div>
 autocmd FileType html let b:surround_49  = "<h1>\r</h1>"
 autocmd FileType html let b:surround_50  = "<h2>\r</h2>"
 autocmd FileType html let b:surround_51  = "<h3>\r</h3>"
