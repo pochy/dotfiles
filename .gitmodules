@@ -49,3 +49,6 @@
 [submodule ".vim/bundle/quickrun"]
 	path = .vim/bundle/quickrun
 	url = git://github.com/ujihisa/quickrun.git
+[submodule ".vim/bundle/perldoc-vim"]
+	path = .vim/bundle/perldoc-vim
+	url = https://github.com/hotchpotch/perldoc-vim.git
