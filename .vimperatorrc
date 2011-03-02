@@ -128,3 +128,10 @@ lazy fmaps -u='^chrome://iviewfx/content/iview\.html' j k s a z o i,tj p
 
 " Readability
 map ,r :js Readability.enableREADABILITY({target: {id: 'readability-statusbar-icon'}})<CR>
+
+" char_hints_mod2.js
+let g:hintsio="iO"
+let g:hintchars="HJKLASDFGYUIOPQWERTNMZXCVB"
+
+"ime_controller+.js
+let g:hint_ime_mode = "inactive"

@@ -8,7 +8,7 @@ var PLUGIN_INFO =
     <license>GPL</license>
     <minVersion>2.0pre</minVersion>
     <maxVersion>2.2</maxVersion>
-    <updateURL>http://svn.coderepos.org/share/lang/javascript/vimperator-plugins/trunk/direct_bookmark.js</updateURL>
+    <updateURL>https://github.com/vimpr/vimperator-plugins/raw/master/direct_bookmark.js</updateURL>
     <detail><![CDATA[
 Social Bookmark direct add script for Vimperator 2.2
 for Migemo search: require XUL/Migemo Extension
@@ -297,14 +297,8 @@ for Migemo search: require XUL/Migemo Extension
     //
 
     function getNormalizedPermalink(url){
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET","http://api.pathtraq.com/normalize_url?url=" + url,false);
-        xhr.send(null);
-        if(xhr.status != 200){
-            liberator.echoerr("Pathtraq: FAILED to normalize URL!!");
-            return undefined;
-        }
-        return xhr.responseText;
+        var canonical = plugins.libly.$U.getFirstNodeFromXPath('//link[@rel="canonical"]');
+        return canonical ? canonical.href : url;
     }
 
     function getUserAccount(form,post,arg){
