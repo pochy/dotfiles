@@ -1,6 +1,6 @@
 "2.1 (created: 2009/05/21 13:13:06)
 
-set runtimepath=/home/pochy/.vimperator
+"set runtimepath=/home/pochy/.vimperator
 "source! /home/pochy/.vimperatorrc.local
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 
