@@ -294,6 +294,7 @@ let g:vimshell_user_prompt = 'printf("%s %s", fnamemodify(getcwd(), ":~"), vimsh
 
 
 " =====> zencoding
+" <C-y>,で使用する
 let g:user_zen_settings = { 'indentation':'  ' }
 
 
