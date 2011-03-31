@@ -180,6 +180,10 @@ set scrolloff=2
 set sidescrolloff=3
 "初期ディレクトリをバッファの開いたディレクトリにする
 set browsedir=buffer
+"バックアップファイルの作成場所指定
+set backupdir=~/.vim/backup
+"スワップファイルの作成場所指定
+set directory=~/.vim/backup
 
 " 全角スペースの表示
 highlight JpSpace cterm=underline ctermfg=Blue guifg=Blue
