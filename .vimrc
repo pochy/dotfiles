@@ -61,6 +61,12 @@
 "     > gundo - https://github.com/sjl/gundo.vim
 "       Graph your Vim undo tree in style.
 "
+"     > ActionScript-3-Omnicomplete - https://github.com/vim-scripts/ActionScript-3-Omnicomplete.git
+"       Omnicompletion plug-in for ActionScript 3
+"
+"     > actionscript.vim--Leider - https://github.com/vim-scripts/actionscript.vim--Leider.git
+"       ActionScript 3.0 syntax file
+"
 " ============================================
 
 

@@ -52,3 +52,9 @@
 [submodule ".vim/bundle/perldoc-vim"]
 	path = .vim/bundle/perldoc-vim
 	url = https://github.com/hotchpotch/perldoc-vim.git
+[submodule ".vim/bundle/ActionScript-3-Omnicomplete"]
+	path = .vim/bundle/ActionScript-3-Omnicomplete
+	url = https://github.com/vim-scripts/ActionScript-3-Omnicomplete.git
+[submodule ".vim/bundle/actionscript.vim"]
+	path = .vim/bundle/actionscript.vim
+	url = https://github.com/vim-scripts/actionscript.vim--Leider.git
