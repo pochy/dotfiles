@@ -239,6 +239,7 @@ nnoremap <Leader>i :set list!<CR>
 " ============================================
 
 au BufNewFile,BufRead *.as set filetype=actionscript
+au BufNewFile,BufRead *.mxml set filetype=mxml
 au BufNewFile,BufRead *.tt set filetype=html
 au BufNewFile,BufRead *.mt set filetype=html
 au BufNewFile,BufRead *.vimperatorrc set filetype=vim
