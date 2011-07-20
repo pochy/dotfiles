@@ -256,9 +256,13 @@ alias gD="git diff --cached"
 alias gb="git branch -a -v"
 alias gl="git log --graph --pretty=format:'%Cblue%an: %Creset%s - %Cred%h%Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --all"
 alias gz="git log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s' --all"
+alias gh="git log --graph --date=short --pretty=format:'%Creset%s' --all"
 alias glp="git log -p"
 alias gls="git log --pretty=short"
 alias gcp="git cherry-pick"
+
+bindkey '^R' history-incremental-pattern-search-backward
+bindkey '^S' history-incremental-pattern-search-forwar
 
 ## load user .zshrc configuration file
 #
