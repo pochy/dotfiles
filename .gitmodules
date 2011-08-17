@@ -58,3 +58,6 @@
 [submodule ".vim/bundle/actionscript.vim"]
 	path = .vim/bundle/actionscript.vim
 	url = https://github.com/vim-scripts/actionscript.vim--Leider.git
+[submodule ".vim/bundle/vim-textmanip.git"]
+	path = .vim/bundle/vim-textmanip.git
+	url = https://github.com/t9md/vim-textmanip.git
