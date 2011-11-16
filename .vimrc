@@ -9,63 +9,69 @@
 "
 "
 " Plugins_Included:
-"     > vim-pathogen - https://github.com/tpope/vim-pathogen
-"       pathogen.vim: manage your runtimepath
-"
-"     > neocomplcache - https://github.com/Shougo/neocomplcache
-"       Ultimate auto-completion system for Vim.
-"
-"     > vimshell - https://github.com/Shougo/vimshell
-"       Powerful shell implemented by vim.
-"
-"     > vimproc - https://github.com/Shougo/vimproc.git
-"       Interactive command execution in Vim.
-"
-"     > unite - https://github.com/Shougo/unite.vim
-"       unite all sources
-"
-"     > vim-ref - https://github.com/thinca/vim-ref.git
-"       Integrated reference viewer.
-"
-"     > zencoding-vim - https://github.com/mattn/zencoding-vim
-"       zen-coding for vim
-"
-"     > perlomni.vim - https://github.com/c9s/perlomni.vim
-"       perl omnicompletion for vim
-"
-"     > vim-perl - https://github.com/petdance/vim-perl
-"       Support for Perl 5 and Perl 6 in Vim
-"
-"     > git-vim - https://github.com/motemen/git-vim
-"       My vim files for Git
+"     > ActionScript-3-Omnicomplete - https://github.com/vim-scripts/ActionScript-3-Omnicomplete.git
+"       Omnicompletion plug-in for ActionScript 3
 "
 "     > EnhCommentify.vim - https://github.com/vim-scripts/EnhCommentify.vim
 "       comment lines in a program
 "
-"     > vim-surround - https://github.com/tpope/vim-surround
-"       surround.vim: quoting/parenthesizing made simple
+"     > actionscript.vim--Leider - https://github.com/vim-scripts/actionscript.vim--Leider.git
+"       ActionScript 3.0 syntax file
+"
+"     > git-vim - https://github.com/motemen/git-vim
+"       My vim files for Git
+"
+"     > gundo - https://github.com/sjl/gundo.vim
+"       Graph your Vim undo tree in style.
+"
+"     > neocomplcache - https://github.com/Shougo/neocomplcache
+"       Ultimate auto-completion system for Vim.
+"
+"     > nerdtree - https://github.com/scrooloose/nerdtree
+"       hax0r vim script to give you a tree explorer
+"
+"     > perldoc-vim - https://github.com/hotchpotch/perldoc-vim.git
+"       Perldoc plugin for vim
+"
+"     > perlomni.vim - https://github.com/c9s/perlomni.vim
+"       perl omnicompletion for vim
+"
+"     > quickrun - https://github.com/thinca/vim-quickrun.git
+"       Run commands quickly.
 "
 "     > snipmate - https://github.com/msanders/snipmate.vim
 "       nipMate.vim aims to be a concise vim script that implements some of
 "       TextMate's snippets features in Vim.
 "
-"     > vim-quickrun - https://github.com/ujihisa/quickrun
-"       quick vim quick
+"     > unite - https://github.com/Shougo/unite.vim
+"       unite all sources
 "
-"     > nerdtree - https://github.com/scrooloose/nerdtree
-"       hax0r vim script to give you a tree explorer
+"     > vim-pathogen - https://github.com/tpope/vim-pathogen
+"       pathogen.vim: manage your runtimepath
+"
+"     > vim-perl - https://github.com/petdance/vim-perl
+"       Support for Perl 5 and Perl 6 in Vim
+"
+"     > vim-ref - https://github.com/thinca/vim-ref.git
+"       Integrated reference viewer.
+"
+"     > vim-surround - https://github.com/tpope/vim-surround
+"       surround.vim: quoting/parenthesizing made simple
+"
+"     > vim-textmanip - https://github.com/t9md/vim-textmanip.git
+"       easy text manupilation for vim
+"
+"     > vimproc - https://github.com/Shougo/vimproc.git
+"       Interactive command execution in Vim.
+"
+"     > vimshell - https://github.com/Shougo/vimshell
+"       Powerful shell implemented by vim.
 "
 "     > xoria256 - https://github.com/vim-scripts/xoria256.vim
 "       Finely tuned soft gamma, 256 colors, dark background, gvim == vim
 "
-"     > gundo - https://github.com/sjl/gundo.vim
-"       Graph your Vim undo tree in style.
-"
-"     > ActionScript-3-Omnicomplete - https://github.com/vim-scripts/ActionScript-3-Omnicomplete.git
-"       Omnicompletion plug-in for ActionScript 3
-"
-"     > actionscript.vim--Leider - https://github.com/vim-scripts/actionscript.vim--Leider.git
-"       ActionScript 3.0 syntax file
+"     > zencoding-vim - https://github.com/mattn/zencoding-vim
+"       zen-coding for vim
 "
 " ============================================
 
