@@ -73,6 +73,16 @@
 "     > zencoding-vim - https://github.com/mattn/zencoding-vim
 "       zen-coding for vim
 "
+"
+" Setup:
+"     $ git pull
+"     $ git submodule init
+"     $ git submodule update
+"     $ cd .vim/bundle/vim-pathogen
+"     $ git branch master
+"     $ cd ../../autoload
+"     $ ln -s ../bundle/vim-pathogen/autoload/pathogen.vim .
+"
 " ============================================
 
 
