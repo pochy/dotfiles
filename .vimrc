@@ -396,3 +396,13 @@ nmap <silent> <F3> :<C-u>NERDTreeToggle<CR>
 
 " gundo
 nmap U :<C-u>GundoToggle<CR>
+
+" =====> textmanip
+" 選択したテキストの移動
+vmap <C-j> <Plug>(textmanip-move-down)
+vmap <C-k> <Plug>(textmanip-move-up)
+vmap <C-h> <Plug>(textmanip-move-left)
+vmap <C-l> <Plug>(textmanip-move-right)
+" 行の複製
+vmap <M-d> <Plug>(textmanip-duplicate-down)
+nmap <M-d> <Plug>(textmanip-duplicate-down)
