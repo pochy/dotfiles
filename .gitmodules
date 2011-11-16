@@ -61,3 +61,6 @@
 [submodule ".vim/bundle/vim-textmanip.git"]
 	path = .vim/bundle/vim-textmanip.git
 	url = https://github.com/t9md/vim-textmanip.git
+[submodule ".vim/bundle/tagexplorer.vim"]
+	path = .vim/bundle/tagexplorer.vim
+	url = https://github.com/vim-scripts/tagexplorer.vim.git

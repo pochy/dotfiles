@@ -43,6 +43,9 @@
 "       nipMate.vim aims to be a concise vim script that implements some of
 "       TextMate's snippets features in Vim.
 "
+"     > tagexplorer - https://github.com/vim-scripts/tagexplorer.vim.git
+"       Tag explorer for various programming language files
+"
 "     > unite - https://github.com/Shougo/unite.vim
 "       unite all sources
 "
@@ -436,3 +439,7 @@ let g:quickrun_config = {}
 let g:quickrun_config['php.unit'] = {'command': 'phpunitrunner'}
 let g:quickrun_config['python.unit'] = {'command': 'nosetests', 'cmdopt': '-s -vv'}
 let g:quickrun_config['perl.unit'] = {'command': 'prove'}
+
+" =====> tagexplorer
+:set tags=tags
+nmap <silent> <F2> :<C-u>TagExplorer<CR>
