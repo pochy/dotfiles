@@ -226,6 +226,11 @@ map <leader>e :e! ~/.vimrc<cr>
 
 noremap <Space> :bnext<CR>
 noremap <S-Space> :bprevious<CR>
+" 端末
+" <C-Space> を押すと <NUL> が送られてくるようなので、逆に <NUL> が来たら
+" <C-Space> になるようにしておく。
+map <NUL> <S-Space>
+map! <NUL> <S-Space>
 
 "Visual mode で選択したテキストを検索する
 "Visual mode の * に機能を割り当てる
