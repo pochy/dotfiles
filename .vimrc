@@ -406,3 +406,17 @@ vmap <C-l> <Plug>(textmanip-move-right)
 " 行の複製
 vmap <M-d> <Plug>(textmanip-duplicate-down)
 nmap <M-d> <Plug>(textmanip-duplicate-down)
+
+" =====> quickrun
+" Prove を quickrun する - Heavens hell
+" http://d.hatena.ne.jp/heavenshell/20110228/1298899167
+augroup QuickRunUnitTest
+  autocmd!
+  autocmd BufWinEnter,BufNewFile *test.php set filetype=php.unit
+  autocmd BufWinEnter,BufNewFile test_*.py set filetype=python.unit
+  autocmd BufWinEnter,BufNewFile *.t set filetype=perl.unit
+augroup END
+let g:quickrun_config = {}
+let g:quickrun_config['php.unit'] = {'command': 'phpunitrunner'}
+let g:quickrun_config['python.unit'] = {'command': 'nosetests', 'cmdopt': '-s -vv'}
+let g:quickrun_config['perl.unit'] = {'command': 'prove'}
