@@ -1,0 +1,91 @@
+# The Bar && Font
+#
+#wbarcommand="wbar -bpress -above-desk -pos top"
+
+i: /usr/share/wbar/iconpack/wbar.osx/osxbarback.png
+c: wbar -bpress -above-desk -pos center -zoomf 1.3 -isize 72 -idist 4 -jumpf 1 -nanim 3 -balfa 25
+t: /usr/share/wbar/iconpack/wbar.osx/font/12
+
+i: /usr/share/icons/Faenza/apps/48/google-chrome.png
+c: google-chrome
+t: Chrome
+
+i: /usr/share/icons/Faenza/apps/48/firefox.png
+c: firefox -no-remote -P default
+t: firefox
+
+i: /usr/share/icons/Faenza/apps/48/fusion-icon.png
+c: firefox -no-remote -P vimp
+t: vimp
+
+i: /usr/share/icons/Faenza/apps/48/access.png
+c: xtightvncviewer
+t: xtightvncviewer
+
+i: /usr/share/icons/Faenza/apps/48/vinagre.png
+c: vinagre
+t: vinagre
+
+i: /opt/teamviewer/teamviewer/6/desktop/teamviewer.png
+c: teamviewer
+t: teamviewer
+
+i: /usr/share/icons/Faenza/apps/48/control-center2.png
+c: wbarconf
+t: wbarconf
+
+i: /usr/share/icons/Faenza/apps/48/kupfer.png
+c: kupfer
+t: kupfer
+
+i: /usr/share/icons/Faenza/apps/48/tomboy.png
+c: tomboy
+t: Tomboy
+
+i: /usr/share/icons/Faenza/apps/48/audacious.png
+c: audacious
+t: audacious
+
+i: /usr/share/icons/Faenza/apps/48/text-editor.png
+c: gedit
+t: gedit
+
+i: /usr/share/icons/Faenza/apps/48/vim.png
+c: gvim
+t: gvim
+
+i: /usr/share/icons/Faenza/apps/48/rhythmbox.png
+c: rhythmbox
+t: rhythmbox
+
+i: /usr/share/icons/Faenza/apps/48/ubuntu-tweak.png
+c: ubuntu-tweak
+t: Ubuntu Tweak
+
+i: /usr/share/icons/Faenza/apps/48/gnome-system-monitor.png
+c: xfce4-taskmanager
+t: xfce4-taskmanager
+
+i: /usr/share/icons/Faenza/apps/48/file-manager.png
+c: pcmanfm /home/pochy/
+t: PCManFM
+
+i: /usr/share/icons/Faenza/places/48/folder-download.png
+c: pcmanfm /home/pochy/Downloads/
+t: Downloads
+
+i: /usr/share/icons/Faenza/places/48/folder-music.png
+c: pcmanfm /home/pochy/Music/
+t: Music
+
+i: /usr/share/icons/Faenza/apps/48/gnome-terminal.png
+c: gnome-terminal
+t: Gnome Terminal
+
+i: /usr/share/icons/Faenza/apps/48/wireshark.png
+c: gksu wireshark
+t: Wireshark
+
+i: /usr/share/icons/Faenza/apps/48/virtualbox.png
+c: virtualbox
+t: virtualbox
