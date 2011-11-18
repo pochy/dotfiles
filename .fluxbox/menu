@@ -1,0 +1,6 @@
+[begin] (fluxbox)
+[include] (/etc/X11/fluxbox/fluxbox-menu)
+   [submenu] (アクセサリ) {}
+      [exec] (Nautilus) {nautilus --no-desktop} <>
+   [end]
+[end]
