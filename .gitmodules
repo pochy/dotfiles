@@ -64,3 +64,6 @@
 [submodule ".vim/bundle/tagexplorer.vim"]
 	path = .vim/bundle/tagexplorer.vim
 	url = https://github.com/vim-scripts/tagexplorer.vim.git
+[submodule ".vim/bundle/hahhah-vim"]
+	path = .vim/bundle/hahhah-vim
+	url = https://github.com/mattn/hahhah-vim.git
