@@ -67,3 +67,6 @@
 [submodule ".vim/bundle/hahhah-vim"]
 	path = .vim/bundle/hahhah-vim
 	url = https://github.com/mattn/hahhah-vim.git
+[submodule ".vim/bundle/open-browser.vim"]
+	path = .vim/bundle/open-browser.vim
+	url = git://github.com/tyru/open-browser.vim.git
