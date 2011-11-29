@@ -438,17 +438,33 @@ augroup QuickRunUnitTest
   autocmd BufWinEnter,BufNewFile test_*.py set filetype=python.unit
   autocmd BufWinEnter,BufNewFile *.t set filetype=perl.unit
   autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=ruby.rspec
+  autocmd BufRead,BufNewFile *.mkd  setfiletype mkd
+  autocmd BufRead,BufNewFile *.md  setfiletype mkd
 augroup END
 let g:quickrun_config = {}
+" デフォルト
 let g:quickrun_config["_"] = {
     \ "runner" : "vimproc",
     \ "runner/vimproc/updatetime" : 10,
     \ "outputter/buffer/split" : ":rightbelow vsplit"
 \ }
+" 実行
+let g:quickrun_config["run/vimproc"] = {
+    \ "exec": "%s:p:r %a",
+    \ "output_encode" : "utf-8",
+    \ "runner" : "vimproc",
+    \ "outputter" : "buffer"
+\ }
 let g:quickrun_config['php.unit'] = {'command': 'phpunitrunner'}
 let g:quickrun_config['python.unit'] = {'command': 'nosetests', 'cmdopt': '-s -vv'}
 let g:quickrun_config['perl.unit'] = {'command': 'prove', 'cmdopt': '-lv'}
+let g:quickrun_config['perl'] = {'command': 'perl', 'cmdopt': '-l'}
 let g:quickrun_config['ruby.rspec'] = {'command': 'spec'}
+let g:quickrun_config['markdown'] = {
+    \ 'type': 'markdown/pandoc',
+    \ 'outputter': 'browser',
+    \ 'cmdopt': '-s'
+\ }
 
 " =====> tagexplorer
 :set tags=tags
