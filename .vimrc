@@ -437,11 +437,16 @@ augroup QuickRunUnitTest
   autocmd BufWinEnter,BufNewFile *test.php set filetype=php.unit
   autocmd BufWinEnter,BufNewFile test_*.py set filetype=python.unit
   autocmd BufWinEnter,BufNewFile *.t set filetype=perl.unit
+  autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=ruby.rspec
 augroup END
 let g:quickrun_config = {}
 let g:quickrun_config['php.unit'] = {'command': 'phpunitrunner'}
 let g:quickrun_config['python.unit'] = {'command': 'nosetests', 'cmdopt': '-s -vv'}
-let g:quickrun_config['perl.unit'] = {'command': 'prove'}
+let g:quickrun_config['perl.unit'] = {'command': 'prove -lv'}
+let g:quickrun_config['ruby.rspec'] = {'command': 'spec'}
+if has("gui_running")
+  let g:quickrun_config['*'] = {'runmode': 'async:remote:vimproc'}
+endif
 
 " =====> tagexplorer
 :set tags=tags
