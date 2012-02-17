@@ -372,7 +372,7 @@ nnoremap <Leader>gl :<C-u>GitLog<Enter>
 nnoremap <Leader>gL :<C-u>GitLog -u \| head -10000<Enter>
 nnoremap <Leader>ga :<C-u>GitAdd<Enter>
 nnoremap <Leader>gA :<C-u>GitAdd <cfile><Enter>
-nnoremap <Leader>gc :<C-u>GitCommit<Enter>
+nnoremap <Leader>gc :<C-u>GitCommit -v<Enter>
 nnoremap <Leader>gC :<C-u>GitCommit --amend<Enter>
 nnoremap <Leader>gp :<C-u>Git push
 
