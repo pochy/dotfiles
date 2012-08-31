@@ -70,3 +70,9 @@
 [submodule ".vim/bundle/open-browser.vim"]
 	path = .vim/bundle/open-browser.vim
 	url = git://github.com/tyru/open-browser.vim.git
+[submodule ".vim/bundle/mojo.vim"]
+	path = .vim/bundle/mojo.vim
+	url = git://github.com/yko/mojo.vim.git
+[submodule ".vim/bundle/sudo.vim"]
+	path = .vim/bundle/sudo.vim
+	url = git://github.com/vim-scripts/sudo.vim.git

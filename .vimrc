@@ -84,9 +84,8 @@
 "     $ git pull
 "     $ git submodule init
 "     $ git submodule update
-"     $ cd .vim/bundle/vim-pathogen
-"     $ git branch master
-"     $ cd ../../autoload
+"     $ git submodule foreach 'git checkout master'
+"     $ cd .vim/autoload
 "     $ ln -s ../bundle/vim-pathogen/autoload/pathogen.vim .
 "
 " ============================================
@@ -273,6 +272,7 @@ au BufNewFile,BufRead *.vimperatorrc set filetype=vim
 au BufReadPost,BufNewFile *.t :setl filetype=perl
 au BufReadPost,BufNewFile *.psgi :setl filetype=perl
 au BufReadPost,BufNewFile *.vimperatorrc :setl filetype=vim
+au BufReadPost,BufNewFile *.html.ep :setl filetype=html
 
 " ============================================
 " template
@@ -378,6 +378,32 @@ nnoremap <Leader>gp :<C-u>Git push
 
 
 " =====> surround
+"
+"
+" #--- コマンド／囲みの中を操作
+" di" 	""の中を削除
+" yi" 	""の中をヤンク
+" dit 	XMLタグの中を削除
+" yit 	XMLタグの中をヤンク
+"
+" #--- コマンド／囲み自体を操作
+" ds" 	囲みの""を削除
+" cs"’ 	囲みの"を’に変更
+" dst 	XMLタグの囲みを削除
+" cst<piyo> 	XMLタグを<piyo>に変更
+" ysst<piyo> 	行を<piyo>で囲む
+"
+" #---  コマンド／ヴィジュアルモードで選択した範囲を囲む
+" S" 	""で囲む
+" St<piyo> 	<piyo></piyo>で囲む
+"
+" #--- 独自タグ
+" 例えばこれを <h1>大見出し</h1> こうしたいとする <h1><a href="#">大見出し</a></h1>
+" ysit<a href="#"<Enter>
+"
+"
+"
+"
 " [key map]
 " 1 : <h1>|</h1>
 " 2 : <h2>|</h2>
@@ -396,6 +422,9 @@ nnoremap <Leader>gp :<C-u>Git push
 " I : <img src="" alt"|" />
 " d : <div>|</div>
 " D : <div class="section">|</div>
+" s : <strong></strong>
+" e : <em></em>
+" b : <b></b>
 autocmd FileType html let b:surround_49  = "<h1>\r</h1>"
 autocmd FileType html let b:surround_50  = "<h2>\r</h2>"
 autocmd FileType html let b:surround_51  = "<h3>\r</h3>"
@@ -412,6 +441,9 @@ autocmd FileType html let b:surround_105 = "<img src=\"\r\" alt=\"\" />"
 autocmd FileType html let b:surround_73  = "<img src=\"\" alt=\"\r\" />"
 autocmd FileType html let b:surround_100 = "<div>\r</div>"
 autocmd FileType html let b:surround_68  = "<div class=\"section\">\r</div>"
+autocmd FileType html let b:surround_115  = "<strong>\r</strong>"
+autocmd FileType html let b:surround_101  = "<em>\r</em>"
+autocmd FileType html let b:surround_98  = "<b>\r</b>"
 
 " NERD Tree
 nmap <silent> <F3> :<C-u>NERDTreeToggle<CR>
@@ -440,6 +472,7 @@ augroup QuickRunUnitTest
   autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=ruby.rspec
   autocmd BufRead,BufNewFile *.mkd  setfiletype mkd
   autocmd BufRead,BufNewFile *.md  setfiletype mkd
+  autocmd BufRead,BufNewFile *.html.ep  setfiletype html
 augroup END
 let g:quickrun_config = {}
 " デフォルト
