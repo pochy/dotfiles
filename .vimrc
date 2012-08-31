@@ -111,6 +111,21 @@ colo xoria256
 "color summerfruit256
 "color desert256
 
+
+" ============================================
+" fonts
+" ============================================
+if has('gui_macvim')
+    set guifont=Menlo:h14
+    set guifontwide=M+2VM+IPAG_circle
+endif
+
+if has('gui_gtk2')
+    set guifont=Menlo\ 10
+    set guifontwide=M+2VM+IPAG\ circle\ 12
+endif
+
+
 " ============================================
 " option
 " ============================================
