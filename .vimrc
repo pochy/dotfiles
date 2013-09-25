@@ -243,7 +243,7 @@ autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
 augroup END
 "ステータス行に文字コードの表示
 "set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
-set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %(%{GitBranch()}\ %)\ %F%=[%{GitBranch()}]\ =%{g:HahHah()}\ %l,%c%V%8P
+set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %(%{GitBranch()}\ %)\ %F%=[%{GitBranch()}]\ =%{hahhah#get_text()}\ %l,%c%V%8P
 
 
 " ============================================
