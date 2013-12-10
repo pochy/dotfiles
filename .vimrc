@@ -9,14 +9,8 @@
 "
 "
 " Plugins_Included:
-"     > ActionScript-3-Omnicomplete - https://github.com/vim-scripts/ActionScript-3-Omnicomplete.git
-"       Omnicompletion plug-in for ActionScript 3
-"
 "     > EnhCommentify.vim - https://github.com/vim-scripts/EnhCommentify.vim
 "       comment lines in a program
-"
-"     > actionscript.vim--Leider - https://github.com/vim-scripts/actionscript.vim--Leider.git
-"       ActionScript 3.0 syntax file
 "
 "     > git-vim - https://github.com/motemen/git-vim
 "       My vim files for Git
@@ -75,9 +69,6 @@
 "
 "     > zencoding-vim - https://github.com/mattn/zencoding-vim
 "       zen-coding for vim
-"
-"     > hahhah-vim - https://github.com/mattn/hahhah-vim.git
-"       ﾊｧﾊｧ statusline for vim
 "
 "
 " Setup:
@@ -242,8 +233,7 @@ autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
 autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
 augroup END
 "ステータス行に文字コードの表示
-"set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
-set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %(%{GitBranch()}\ %)\ %F%=[%{GitBranch()}]\ =%{hahhah#get_text()}\ %l,%c%V%8P
+set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %(%{GitBranch()}\ %)\ %F%=[%{GitBranch()}]\ %l,%c%V%8P
 
 
 " ============================================

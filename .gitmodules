@@ -52,27 +52,15 @@
 [submodule ".vim/bundle/perldoc-vim"]
 	path = .vim/bundle/perldoc-vim
 	url = https://github.com/hotchpotch/perldoc-vim.git
-[submodule ".vim/bundle/ActionScript-3-Omnicomplete"]
-	path = .vim/bundle/ActionScript-3-Omnicomplete
-	url = https://github.com/vim-scripts/ActionScript-3-Omnicomplete.git
-[submodule ".vim/bundle/actionscript.vim"]
-	path = .vim/bundle/actionscript.vim
-	url = https://github.com/vim-scripts/actionscript.vim--Leider.git
 [submodule ".vim/bundle/vim-textmanip.git"]
 	path = .vim/bundle/vim-textmanip.git
 	url = https://github.com/t9md/vim-textmanip.git
 [submodule ".vim/bundle/tagexplorer.vim"]
 	path = .vim/bundle/tagexplorer.vim
 	url = https://github.com/vim-scripts/tagexplorer.vim.git
-[submodule ".vim/bundle/hahhah-vim"]
-	path = .vim/bundle/hahhah-vim
-	url = https://github.com/mattn/hahhah-vim.git
 [submodule ".vim/bundle/open-browser.vim"]
 	path = .vim/bundle/open-browser.vim
 	url = git://github.com/tyru/open-browser.vim.git
-[submodule ".vim/bundle/mojo.vim"]
-	path = .vim/bundle/mojo.vim
-	url = git://github.com/yko/mojo.vim.git
 [submodule ".vim/bundle/sudo.vim"]
 	path = .vim/bundle/sudo.vim
 	url = git://github.com/vim-scripts/sudo.vim.git
