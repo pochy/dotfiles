@@ -108,7 +108,7 @@ colo xoria256
 " ============================================
 if has('gui_macvim')
     set guifont=Menlo:h14
-    set guifontwide=M+2VM+IPAG_circle
+    "set guifontwide=M+2VM+IPAG_circle
 endif
 
 if has('gui_gtk2')
