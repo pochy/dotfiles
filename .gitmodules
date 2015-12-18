@@ -64,3 +64,6 @@
 [submodule ".vim/bundle/sudo.vim"]
 	path = .vim/bundle/sudo.vim
 	url = git://github.com/vim-scripts/sudo.vim.git
+[submodule ".vim/sudo.vim"]
+	path = .vim/sudo.vim
+	url = git://github.com/vim-scripts/sudo.vim.git
