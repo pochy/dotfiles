@@ -222,6 +222,10 @@ set directory=~/.vim/backup
 " 全角スペースの表示
 highlight JpSpace cterm=underline ctermfg=Blue guifg=Blue
 au BufRead,BufNew * match JpSpace /　/
+" 行末のスペースを赤く表示する
+highlight WhitespaceEOL ctermbg=red guibg=red
+match WhitespaceEOL /\s\+$/
+autocmd BufRead,BufNew,WinEnter * match WhitespaceEOL /\s\+$/
 
 " ============================================
 " statusline
