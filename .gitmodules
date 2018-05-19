@@ -7,9 +7,6 @@
 [submodule ".vim/bundle/git-vim"]
 	path = .vim/bundle/git-vim
 	url = https://github.com/motemen/git-vim.git
-[submodule ".vim/bundle/neocomplcache"]
-	path = .vim/bundle/neocomplcache
-	url = https://github.com/Shougo/neocomplcache.git
 [submodule ".vim/bundle/unite.vim"]
 	path = .vim/bundle/unite.vim
 	url = https://github.com/Shougo/unite.vim.git
@@ -70,3 +67,9 @@
 [submodule ".vim/bundle/undotree"]
 	path = .vim/bundle/undotree
 	url = https://github.com/mbbill/undotree.git
+[submodule ".vim/bundle/perlomni"]
+	path = .vim/bundle/perlomni
+	url = https://github.com/c9s/perlomni.vim.git
+[submodule ".vim/bundle/neocomplete.vim"]
+	path = .vim/bundle/neocomplete.vim
+	url = https://github.com/Shougo/neocomplete.vim.git

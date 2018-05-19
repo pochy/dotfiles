@@ -18,8 +18,8 @@
 "     > undotree - https://github.com/mbbill/undotree
 "       The ultimate undo history visualizer for VIM.
 "
-"     > neocomplcache - https://github.com/Shougo/neocomplcache
-"       Ultimate auto-completion system for Vim.
+"     > neocomplete - https://github.com/Shougo/neocomplete.vim
+"       Next generation completion framework after neocomplcache.
 "
 "     > nerdtree - https://github.com/scrooloose/nerdtree
 "       hax0r vim script to give you a tree explorer
@@ -69,6 +69,9 @@
 "
 "     > emmet-vim - https://github.com/mattn/emmet-vim
 "       emmet-coding for vim
+"
+"     > perlomni.vim - https://github.com/c9s/perlomni.vim
+"       perl omnicompletion for vim (including base class function compleltions .. etc)
 "
 "
 " Setup:
@@ -299,48 +302,71 @@ autocmd BufNewFile *.t  0r $HOME/.vim/template/perl-test.txt
 " ============================================
 
 
-" =====> neocomplcache
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
+" =====> neocomplete
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_min_keyword_length = 3
-let g:neocomplcache_plugin_completion_length = {
-  \ 'snipMate_complete' : 1,
-  \ 'buffer_complete'   : 2,
-  \ 'include_complete'  : 2,
-  \ 'syntax_complete'   : 2,
-  \ 'filename_complete' : 2,
-  \ 'keyword_complete'  : 2,
-  \ 'omni_complete'     : 1
-  \ }
-let g:neocomplcache_dictionary_filetype_lists = {
-  \ 'default'    : '',
-  \ 'actionscript' : $HOME . '/.vim/dict/actionscript3.dict',
-  \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
-  \ 'mxml'       : $HOME . '/.vim/dict/mxml.dict',
-  \ 'perl'       : $HOME . '/.vim/dict/perl.dict',
-  \ 'int-perlsh' : $HOME . '/.vim/dict/perl.dict'
-  \ }
-let g:neocomplcache_same_filetype_lists = {
-  \ 'c'          : 'ref-man,ref-erlang',
-  \ 'perl'       : 'ref-perldoc',
-  \ 'tt2html'    : 'html,perl',
-  \ 'int-perlsh' : 'perl,ref-perldoc',
-  \ }
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 
+" Define dictionary.
+
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'actionscript' : $HOME . '/.vim/dict/actionscript3.dict',
+    \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
+    \ 'mxml'       : $HOME . '/.vim/dict/mxml.dict',
+    \ 'perl'       : $HOME . '/.vim/dict/perl.dict',
+    \ 'int-perlsh' : $HOME . '/.vim/dict/perl.dict'
+    \ }
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " =====> vimshell
 let g:vimshell_split_command = 'split'
 let g:vimshell_smart_case = 1
 let g:vimshell_prompt = $USER."% "
-let g:vimshell_user_prompt = 'printf("%s %s", fnamemodify(getcwd(), ":~"), vimshell#vcs#info("(%s)-[%b]"))'
+let g:vimshell_user_prompt = 'printf("%s", ":~")'
 
 
 " =====> emmet
