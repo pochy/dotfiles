@@ -9,9 +9,9 @@ make install
 
 cd
 
-wget http://ftp.gnu.org/gnu/screen/screen-4.0.3.tar.gz
-tar zxvf screen-4.0.3.tar.gz
-cd screen-4.0.3/
+wget http://ftp.gnu.org/gnu/screen/screen-4.6.2.tar.gz
+tar zxvf screen-4.6.2.tar.gz
+cd screen-4.6.2/
 ./configure --prefix=$HOME/local --enable-colors256 --enable-locale
 make
 make install
