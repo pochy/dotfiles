@@ -81,6 +81,20 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias g="git"
+alias ga="git add -p"
+alias gr="git reset"
+alias go="git checkout"
+alias gs="git status"
+alias gd="git diff"
+alias gD="git diff --cached"
+alias gb="git branch -a -v"
+alias gl="git log --graph --pretty=format:'%Cblue%an: %Creset%s - %Cred%h%Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --all"
+alias gz="git log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s' --all"
+alias gh="git log --graph --date=short --pretty=format:'%Creset%s' --all"
+alias glp="git log -p"
+alias gls="git log --pretty=short"
+alias gcp="git cherry-pick"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert

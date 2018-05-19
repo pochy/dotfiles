@@ -15,8 +15,8 @@
 "     > git-vim - https://github.com/motemen/git-vim
 "       My vim files for Git
 "
-"     > gundo - https://github.com/sjl/gundo.vim
-"       Graph your Vim undo tree in style.
+"     > undotree - https://github.com/mbbill/undotree
+"       The ultimate undo history visualizer for VIM.
 "
 "     > neocomplcache - https://github.com/Shougo/neocomplcache
 "       Ultimate auto-completion system for Vim.
@@ -67,8 +67,8 @@
 "     > xoria256 - https://github.com/vim-scripts/xoria256.vim
 "       Finely tuned soft gamma, 256 colors, dark background, gvim == vim
 "
-"     > zencoding-vim - https://github.com/mattn/zencoding-vim
-"       zen-coding for vim
+"     > emmet-vim - https://github.com/mattn/emmet-vim
+"       emmet-coding for vim
 "
 "
 " Setup:
@@ -82,13 +82,15 @@
 " ============================================
 
 
+:set runtimepath+=$HOME/.vim
+
 
 " ============================================
 " enable pathogen
 " ============================================
 "setup
 "ln -s ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim ~/.vim/autoload/
-call pathogen#incubate()
+execute pathogen#infect()
 call pathogen#helptags()
 
 
@@ -98,7 +100,7 @@ call pathogen#helptags()
 "vimの256色化
 set t_Co=256
 "colo wombat
-colo xoria256
+colorscheme xoria256
 "color summerfruit256
 "color desert256
 
@@ -341,9 +343,7 @@ let g:vimshell_prompt = $USER."% "
 let g:vimshell_user_prompt = 'printf("%s %s", fnamemodify(getcwd(), ":~"), vimshell#vcs#info("(%s)-[%b]"))'
 
 
-" =====> zencoding
-" <C-y>,で使用する
-let g:user_zen_settings = { 'indentation':'  ' }
+" =====> emmet
 
 
 " =====> unite
@@ -458,8 +458,8 @@ autocmd FileType html let b:surround_98  = "<b>\r</b>"
 " NERD Tree
 nmap <silent> <F3> :<C-u>NERDTreeToggle<CR>
 
-" gundo
-nmap U :<C-u>GundoToggle<CR>
+" undotree
+nmap U :<C-u>UndotreeToggle<CR>
 
 " =====> textmanip
 " 選択したテキストの移動
