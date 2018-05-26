@@ -14,4 +14,9 @@
 Thumbs.db
 Desktop.ini
 .vim/.netrwhist
+.vim/bundle/.cache
+.vim/bundle/cache_gvim
+.vim/bundle/cache_vim
+.vim/bundle/state_vim.vim
+.vim/bundle/repos
 .vimperator/info

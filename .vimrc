@@ -27,9 +27,6 @@
 "     > perldoc-vim - https://github.com/hotchpotch/perldoc-vim.git
 "       Perldoc plugin for vim
 "
-"     > perlomni.vim - https://github.com/c9s/perlomni.vim
-"       perl omnicompletion for vim
-"
 "     > quickrun - https://github.com/thinca/vim-quickrun.git
 "       Run commands quickly.
 "
@@ -84,8 +81,73 @@
 "
 " ============================================
 
+" ============================================
+" Key Mapping
+" ============================================
 
-:set runtimepath+=$HOME/.vim
+" <silent>
+" コマンドラインへの出力を抑制します。キーマッピングからコマンドを実行する場合などに指定します。
+" <unique>
+" すでにマッピングが存在する場合、エラーにします。通常は上書きされます。
+" <buffer>
+" バッファローカルなキーマッピングを定義します。
+" <expr>
+" マップ先の文字列を Vim の式とみなして、評価した結果の文字列をマップ先とします。
+
+
+" ============================================
+" PLUGIN
+" ============================================
+
+
+":set runtimepath+=$HOME/.vim
+
+if &compatible
+  set nocompatible
+endif
+
+"dein.vimディレクトリをruntimepathに追加する
+set runtimepath+=~/dotfiles/.vim/bundle/repos/github.com/Shougo/dein.vim
+
+"以下定型文
+if dein#load_state("~/dotfiles/.vim/bundle")
+  call dein#begin("~/dotfiles/.vim/bundle")
+    call dein#add("~/dotfiles/.vim/bundle/repos/github.com/Shougo/dein.vim")
+    
+      "好きなプラグインを dein#add() 追加していく
+      "call dein#add('好きなプラグイン')
+      call dein#add('vim-airline/vim-airline')
+      call dein#add('motemen/git-vim')
+      call dein#add('mbbill/undotree')
+      call dein#add('scrooloose/nerdtree')
+      call dein#add('hotchpotch/perldoc-vim.git')
+      call dein#add('thinca/vim-quickrun.git')
+      call dein#add('thinca/vim-ref.git')
+      call dein#add('msanders/snipmate.vim')
+      call dein#add('Shougo/vimproc.git')
+      call dein#add('Shougo/neocomplete.vim')
+      call dein#add('Shougo/unite.vim')
+      call dein#add('Shougo/neomru.vim')
+      call dein#add('Shougo/vimshell.vim')
+      call dein#add('petdance/vim-perl')
+      call dein#add('tpope/vim-surround')
+      call dein#add('t9md/vim-textmanip.git')
+      call dein#add('vim-scripts/tagexplorer.vim.git')
+      call dein#add('vim-scripts/EnhCommentify.vim')
+      call dein#add('vim-scripts/xoria256.vim')
+      call dein#add('mattn/emmet-vim')
+      call dein#add('c9s/perlomni.vim')
+
+    call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
+syntax enable
+
+if dein#check_install()
+  call dein#install()
+endif
 
 
 " ============================================
@@ -93,8 +155,8 @@
 " ============================================
 "setup
 "ln -s ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim ~/.vim/autoload/
-execute pathogen#infect()
-call pathogen#helptags()
+"execute pathogen#infect()
+"call pathogen#helptags()
 
 
 " ============================================
@@ -136,12 +198,12 @@ else
 endif
 
 "helptags ~/.vim/doc
-:helptags $HOME/.vim/doc
+:helptags $HOME/dotfiles/.vim/doc
 
 " Sets how many lines of history VIM has to remember
 set history=700
 
-" Set backspace config
+" バックスペースでいろいろ消せる
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
@@ -175,7 +237,7 @@ set showcmd
 set smartindent
 set cindent
 " 改行コードの自動認識
-set fileformats=unix
+set fileformats=unix,mac,dos
 set fileencoding=utf-8
 
 "タブの代わりに空白文字を挿入する
@@ -220,9 +282,9 @@ set sidescrolloff=3
 "初期ディレクトリをバッファの開いたディレクトリにする
 set browsedir=buffer
 "バックアップファイルの作成場所指定
-set backupdir=~/.vim/backup
+set backupdir=~/dotfiles/.vim/backup
 "スワップファイルの作成場所指定
-set directory=~/.vim/backup
+set directory=~/dotfiles/.vim/backup
 
 " 全角スペースの表示
 highlight JpSpace cterm=underline ctermfg=Blue guifg=Blue
@@ -292,9 +354,9 @@ au BufReadPost,BufNewFile *.html.ep :setl filetype=html
 " ============================================
 " template
 " ============================================
-autocmd BufNewFile *.pl 0r $HOME/.vim/template/perl-script.txt
-autocmd BufNewFile *.pm 0r $HOME/.vim/template/perl-module.txt
-autocmd BufNewFile *.t  0r $HOME/.vim/template/perl-test.txt
+autocmd BufNewFile *.pl 0r $HOME/dotfiles/.vim/template/perl-script.txt
+autocmd BufNewFile *.pm 0r $HOME/dotfiles/.vim/template/perl-module.txt
+autocmd BufNewFile *.t  0r $HOME/dotfiles/.vim/template/perl-test.txt
 
 
 " ============================================
@@ -316,11 +378,11 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
-    \ 'actionscript' : $HOME . '/.vim/dict/actionscript3.dict',
-    \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
-    \ 'mxml'       : $HOME . '/.vim/dict/mxml.dict',
-    \ 'perl'       : $HOME . '/.vim/dict/perl.dict',
-    \ 'int-perlsh' : $HOME . '/.vim/dict/perl.dict'
+    \ 'actionscript' : $HOME . '/dotfiles/.vim/dict/actionscript3.dict',
+    \ 'javascript' : $HOME . '/dotfiles/.vim/dict/javascript.dict',
+    \ 'mxml'       : $HOME . '/dotfiles/.vim/dict/mxml.dict',
+    \ 'perl'       : $HOME . '/dotfiles/.vim/dict/perl.dict',
+    \ 'int-perlsh' : $HOME . '/dotfiles/.vim/dict/perl.dict'
     \ }
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -389,8 +451,8 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory = []
-"let g:neosnippet#snippets_directory += ['~/.vim/bundle/neosnippet-snippets/neosnippets']
-let g:neosnippet#snippets_directory += ['~/.vim/bundle/vim-snippets/snippets']
+"let g:neosnippet#snippets_directory += ['~/dotfiles/.vim/bundle/neosnippet-snippets/neosnippets']
+let g:neosnippet#snippets_directory += ['~/dotfiles/.vim/bundle/vim-snippets/snippets']
 
 
 " =====> vimshell
@@ -404,16 +466,33 @@ let g:vimshell_user_prompt = 'printf("%s", ":~")'
 
 
 " =====> unite
+let g:unite_source_history_yank_enable =1
 " 入力モードで開始する
-" let g:unite_enable_start_insert=1
+"let g:unite_enable_start_insert=1
+" 大文字小文字を区別しない
+let g:unite_enable_ignore_case = 1
+let g:unite_enable_smart_case = 1
+
+" grep検索
+nnoremap <silent> ,ug  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+" カーソル位置の単語をgrep検索
+nnoremap <silent> ,cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W>
+" grep検索結果の再呼出
+nnoremap <silent> ,ur  :<C-u>UniteResume search-buffer<CR>
 " バッファ一覧
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+nnoremap <silent> ,U :<C-u>Unite buffer<CR>
+" ブックマーク
+nnoremap <silent> ,uk :<C-u>Unite bookmark<CR>
+" タブを表示
+nnoremap <silent> ,ut :<C-u>Unite tab<CR>
 " ファイル一覧
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 " 最近使用したファイル一覧
 nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+" 最近開いたディレクトリを表示
+nnoremap <silent> ,ud :<C-u>Unite<Space>directory_mru<CR>
 " 常用セット
 nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
 " 全部乗せ
@@ -423,11 +502,22 @@ au FileType unite nnoremap <silent> <buffer> <expr> <C-k> unite#do_action('split
 au FileType unite inoremap <silent> <buffer> <expr> <C-k> unite#do_action('split')
 " ウィンドウを縦に分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplitegister register<CR>
+au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
 " ESCキーを2回押すと終了する
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--vimgrep'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+" unite grep に ag(The Silver Searcher) を使う
+" if executable('ag')
+"   let g:unite_source_grep_command = 'ag'
+"   let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+"   let g:unite_source_grep_recursive_opt = ''
+" endif
 
 " =====> git-vim
 let g:git_no_map_default = 1
