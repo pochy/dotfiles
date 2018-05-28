@@ -38,6 +38,7 @@ bind s eval split focus "select 0"
 bind ^s eval split focus "select 0"
 # 縦分割
 bind V split -v
+bind b split -v
 
 #resize
 bind r eval 'command -c cresize'
