@@ -137,6 +137,7 @@ if dein#load_state("~/dotfiles/.vim/bundle")
       call dein#add('vim-scripts/xoria256.vim')
       call dein#add('mattn/emmet-vim')
       call dein#add('c9s/perlomni.vim')
+      call dein#add('vim-syntastic/syntastic')
 
     call dein#end()
   call dein#save_state()
@@ -357,6 +358,7 @@ au BufReadPost,BufNewFile *.html.ep :setl filetype=html
 autocmd BufNewFile *.pl 0r $HOME/dotfiles/.vim/template/perl-script.txt
 autocmd BufNewFile *.pm 0r $HOME/dotfiles/.vim/template/perl-module.txt
 autocmd BufNewFile *.t  0r $HOME/dotfiles/.vim/template/perl-test.txt
+autocmd BufNewFile,BufRead *.psgi   set filetype=perl
 
 
 " ============================================
@@ -375,6 +377,10 @@ let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 " Define dictionary.
+"
+let g:neocomplcache_ctags_arguments_list = {
+      \ 'perl' : '-R -h ".pm"'
+      \ }
 
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
@@ -463,6 +469,25 @@ let g:vimshell_user_prompt = 'printf("%s", ":~")'
 
 
 " =====> emmet
+let g:user_emmet_settings = {
+\  'variables' : {
+\    'lang' : "ja"
+\  },
+\  'indentation' : '  ',
+\  'html' : {
+\    'snippets' : {
+\      'html:5': "<!DOCTYPE html>\n"
+\        ."<html lang=\"${lang}\">\n"
+\        ."<head>\n"
+\        ."\t<meta charset=\"${charset}\">\n"
+\        ."\t<meta name=\"description\" content=\"\">\n"
+\        ."\t<title></title>\n"
+\        ."</head>\n"
+\        ."<body>\n\t${child}|\n</body>\n"
+\        ."</html>",
+\    }
+\  }
+\}
 
 
 " =====> unite
@@ -659,3 +684,20 @@ let g:quickrun_config['markdown'] = {
 " =====> tagexplorer
 :set tags=tags
 nmap <silent> <F2> :<C-u>TagExplorer<CR>
+
+
+" ======> syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_enable_perl_checker = 1
+let carton_path = system('carton exec perl -e "print join(q/,/,@INC)"')
+let lib_path = fnamemodify(finddir("lib", ";"), ":p")
+let g:syntastic_perl_lib_path = split(carton_path, ',\s*') + split(lib_path, ',\s*')
+let g:syntastic_perl_checkers = ['perl']
