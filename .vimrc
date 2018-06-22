@@ -240,6 +240,7 @@ set cindent
 " 改行コードの自動認識
 set fileformats=unix,mac,dos
 set fileencoding=utf-8
+set fileencodings=utf-8,ms932,cp932,iso-2022-jp,euc-jp,sjis
 
 "タブの代わりに空白文字を挿入する
 set expandtab
