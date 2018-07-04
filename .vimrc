@@ -660,7 +660,7 @@ augroup END
 let g:quickrun_config = {}
 " デフォルト
 let g:quickrun_config["_"] = {
-    \ "runner" : "vimproc",
+    \ "runner" : "job",
     \ "runner/vimproc/updatetime" : 10,
     \ "outputter/buffer/split" : ":rightbelow vsplit"
 \ }
@@ -668,7 +668,7 @@ let g:quickrun_config["_"] = {
 let g:quickrun_config["run/vimproc"] = {
     \ "exec": "%s:p:r %a",
     \ "output_encode" : "utf-8",
-    \ "runner" : "vimproc",
+    \ "runner" : "job",
     \ "outputter" : "buffer"
 \ }
 let g:quickrun_config['php.unit'] = {'command': 'phpunitrunner'}
