@@ -659,10 +659,15 @@ augroup QuickRunUnitTest
 augroup END
 let g:quickrun_config = {}
 " デフォルト
+"    \ "outputter/buffer/split" : ":rightbelow vsplit"
 let g:quickrun_config["_"] = {
     \ "runner" : "job",
     \ "runner/vimproc/updatetime" : 10,
-    \ "outputter/buffer/split" : ":rightbelow vsplit"
+    \ 'outputter' : 'error',
+    \ 'outputter/error/success' : 'buffer',
+    \ 'outputter/error/error'   : 'quickfix',
+    \ 'outputter/buffer/split'  : ':rightbelow 8sp',
+    \ 'outputter/buffer/close_on_empty' : 1,
 \ }
 " 実行
 let g:quickrun_config["run/vimproc"] = {
@@ -681,6 +686,17 @@ let g:quickrun_config['markdown'] = {
     \ 'outputter': 'browser',
     \ 'cmdopt': '-s'
 \ }
+
+" q でquickfixを閉じれるようにする。
+au FileType qf nnoremap <silent><buffer>q :quit<CR>
+
+" \r でquickfixを閉じて、保存してからquickrunを実行する。
+let g:quickrun_no_default_key_mappings = 1
+nnoremap \r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
+xnoremap \r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
+
+" <C-c> でquickrunを停止
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 " =====> tagexplorer
 :set tags=tags

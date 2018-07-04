@@ -148,6 +148,7 @@ alias du="du -h"
 alias df="df -h"
 
 alias su="su -l"
+alias grep="grep -n --color=auto "
 
 
 ## terminal configuration
