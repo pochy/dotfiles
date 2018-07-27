@@ -1,5 +1,6 @@
 export SHELL=/usr/bin/zsh
 export TERM=xterm-256color
+export EDITOR=vim
 
 
 # users generic .zshrc file for zsh(1)
@@ -15,6 +16,7 @@ case ${UID} in
     ;;
 esac
 
+export DISPLAY=:0.0
 #export PATH=/usr/local/bin:/bin:/usr/local/sbin/:/usr/local/mysql/bin:$PATH:/usr/sbin:$HOME/local/bin:/usr/local/libexec/git-core/
 #export PATH=$PATH:$HOME/local/bin
 export PATH=$PATH:$HOME/.vim/bin:$HOME/local/bin:/usr/local/bin:/bin:/usr/local/sbin/:$HOME/local/AdobeAIRSDK/bin:/usr/local/flex3/bin:/usr/local/mysql/bin:/usr/sbin:$HOME/local/flex_sdk_4.1.0/bin:/var/lib/gems/1.8/bin:$HOME/local/android-sdk-linux_x86/tools:/opt/airsdk/bin:/opt/flex/bin
@@ -149,6 +151,8 @@ alias df="df -h"
 
 alias su="su -l"
 alias grep="grep -n --color=auto "
+alias grepa="grep --with-filename --line-number --color=always"
+LESS=' -R '
 
 
 ## terminal configuration
