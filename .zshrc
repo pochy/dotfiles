@@ -25,6 +25,8 @@ export PERL5LIB=$PERL5LIB:./lib
 # export JAVA_HOME=/usr/lib/jvm/java-6-sun
 # export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:/home/pochy/glassfishv3/jdk/lib:/home/pochy/glassfishv3/jdk/jre/lib:/home/pochy/glassfishv3/mq/lib
 
+export DISPLAY=127.0.0.1:0.0
+export LIBGL_ALWAYS_INDIRECT=1
 
 ## Default shell configuration
 #
