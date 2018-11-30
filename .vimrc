@@ -146,6 +146,12 @@ if dein#load_state("~/dotfiles/.vim/bundle")
       call dein#add('Yggdroot/indentLine')
       call dein#add('osyo-manga/vim-anzu')
       call dein#add('rhysd/clever-f.vim')
+      call dein#add('kana/vim-filetype-haskell')
+      call dein#add('eagletmt/ghcmod-vim')
+      call dein#add('ujihisa/neco-ghc')
+      call dein#add('osyo-manga/vim-watchdogs')
+      call dein#add('ujihisa/ref-hoogle')
+      call dein#add('ujihisa/unite-haskellimport')
 
     call dein#end()
   call dein#save_state()
@@ -726,3 +732,5 @@ let carton_path = system('carton exec perl -e "print join(q/,/,@INC)"')
 let lib_path = fnamemodify(finddir("lib", ";"), ":p")
 let g:syntastic_perl_lib_path = split(carton_path, ',\s*') + split(lib_path, ',\s*')
 let g:syntastic_perl_checkers = ['perl']
+
+let g:syntastic_haskell_checkers = ["hlint"]
