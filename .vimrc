@@ -269,6 +269,8 @@ set softtabstop=2
 " インデントを shiftwidth に丸める
 set shiftround
 
+set nrformats=
+
 "カーソルを行頭、行末で止まらないようにする
 set whichwrap=b,s,h,l,<,>,[,]
 " 強化されたコマンドライン補完を使用
