@@ -7,6 +7,14 @@ cd zsh-4.3.10
 make
 make install
 
+
+curl -L https://sourceforge.net/projects/zsh/files/zsh/5.6.2/zsh-5.6.2.tar.xz > zsh-5.6.2.tar.xz
+xz -dc zsh-5.6.2.tar.xz | tar xfv -
+cd zsh-5.6.2/
+./configure --enable-multibyte
+make
+make install
+
 cd
 
 wget http://ftp.gnu.org/gnu/screen/screen-4.6.2.tar.gz
