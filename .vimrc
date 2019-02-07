@@ -152,6 +152,7 @@ if dein#load_state("~/dotfiles/.vim/bundle")
       call dein#add('osyo-manga/vim-watchdogs')
       call dein#add('ujihisa/ref-hoogle')
       call dein#add('ujihisa/unite-haskellimport')
+      call dein#add('fatih/vim-go')
 
     call dein#end()
   call dein#save_state()
@@ -261,13 +262,17 @@ set expandtab
 "行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする。
 set smarttab
 "ファイル内の <Tab> が対応する空白の数
-set tabstop=2
+set tabstop=4
 "シフト移動幅
-set shiftwidth=2
+set shiftwidth=4
 " 編集中でのタブの幅
-set softtabstop=2
+set softtabstop=4
 " インデントを shiftwidth に丸める
 set shiftround
+
+:autocmd Filetype ruby set softtabstop=2
+:autocmd Filetype ruby set sw=2
+:autocmd Filetype ruby set ts=2
 
 set nrformats=
 
@@ -710,6 +715,7 @@ au FileType qf nnoremap <silent><buffer>q :quit<CR>
 let g:quickrun_no_default_key_mappings = 1
 nnoremap \r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
 xnoremap \r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
+nnoremap \q :<C-u>bw! \[quickrun\ output\]<CR>
 
 " <C-c> でquickrunを停止
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
