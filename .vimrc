@@ -123,7 +123,7 @@ if dein#load_state("~/dotfiles/.vim/bundle")
       call dein#add('hotchpotch/perldoc-vim.git')
       call dein#add('thinca/vim-quickrun.git')
       call dein#add('thinca/vim-ref.git')
-      call dein#add('msanders/snipmate.vim')
+"      call dein#add('msanders/snipmate.vim')
       call dein#add('Shougo/vimproc.git')
       call dein#add('Shougo/neocomplete.vim')
       call dein#add('Shougo/unite.vim')
@@ -153,6 +153,9 @@ if dein#load_state("~/dotfiles/.vim/bundle")
       call dein#add('ujihisa/ref-hoogle')
       call dein#add('ujihisa/unite-haskellimport')
       call dein#add('fatih/vim-go')
+      call dein#add('AndrewRadev/splitjoin.vim')
+      call dein#add('SirVer/ultisnips')
+      call dein#add('ctrlpvim/ctrlp.vim')
 
     call dein#end()
   call dein#save_state()
@@ -308,6 +311,9 @@ set browsedir=buffer
 set backupdir=~/dotfiles/.vim/backup
 "スワップファイルの作成場所指定
 set directory=~/dotfiles/.vim/backup
+
+" :make を実行したらファイルの内容を自動的に保存
+set autowrite
 
 " 全角スペースの表示
 highlight JpSpace cterm=underline ctermfg=Blue guifg=Blue
@@ -475,7 +481,7 @@ endif
 
 let g:neosnippet#disable_runtime_snippets = {'_' : 1}
 " Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
+"let g:neosnippet#enable_snipmate_compatibility = 1
 
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory = []
@@ -742,3 +748,58 @@ let g:syntastic_perl_lib_path = split(carton_path, ',\s*') + split(lib_path, ',\
 let g:syntastic_perl_checkers = ['perl']
 
 let g:syntastic_haskell_checkers = ["hlint"]
+
+" ======> vim-go
+let g:go_fmt_command = "goimports"
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_build_constraints = 1
+
+" Open :GoDeclsDir with ctrl-g
+nmap <C-g> :GoDeclsDir<cr>
+imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+
+" :GoTest
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+"autocmd FileType go nmap <leader>b  <Plug>(go-build)
+
+" :GoDoc
+autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+
+" :GoCoverageToggle
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+
+" :GoInfo
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+
+" :GoMetaLinter
+autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+
+" :GoDef but opens in a vertical split
+autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+" :GoDef but opens in a horizontal split
+autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
