@@ -16,6 +16,8 @@ case ${UID} in
     ;;
 esac
 
+export TZ=JST-9
+
 export DISPLAY=:0.0
 #export PATH=/usr/local/bin:/bin:/usr/local/sbin/:/usr/local/mysql/bin:$PATH:/usr/sbin:$HOME/local/bin:/usr/local/libexec/git-core/
 #export PATH=$PATH:$HOME/local/bin
