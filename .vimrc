@@ -156,6 +156,7 @@ if dein#load_state("~/dotfiles/.vim/bundle")
       call dein#add('AndrewRadev/splitjoin.vim')
       call dein#add('SirVer/ultisnips')
       call dein#add('ctrlpvim/ctrlp.vim')
+      call dein#add('chr4/nginx.vim')
 
     call dein#end()
   call dein#save_state()

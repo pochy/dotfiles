@@ -15,6 +15,7 @@ case ${UID} in
     LANG=C
     ;;
 esac
+export LANG=ja_JP.UTF-8
 
 export TZ=JST-9
 
@@ -29,6 +30,11 @@ export PERL5LIB=$PERL5LIB:./lib
 
 export DISPLAY=127.0.0.1:0.0
 export LIBGL_ALWAYS_INDIRECT=1
+
+
+export RBENV_ROOT="/opt/rbenv"
+export PATH="${RBENV_ROOT}/bin:${PATH}"
+eval "$(rbenv init -)"
 
 ## Default shell configuration
 #
@@ -81,7 +87,7 @@ setopt nolistbeep
 # emacs like keybind (e.x. Ctrl-a gets to line head and Ctrl-e gets
 #   to end) and something additions
 #
-bindkey -e
+bindkey -v
 bindkey "^[[1~" beginning-of-line # Home gets to line head
 bindkey "^[[4~" end-of-line # End gets to line end
 bindkey "^[[3~" delete-char # Del
@@ -157,6 +163,8 @@ alias su="su -l"
 alias grep="grep -n --color=auto "
 alias grepa="grep --with-filename --line-number --color=always"
 LESS=' -R '
+LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
+alias lessh='LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s" less -M '
 
 
 ## terminal configuration
@@ -272,6 +280,23 @@ alias gcp="git cherry-pick"
 
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forwar
+
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $m $c select-bracketed
+  done
+done
+
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N change-surround surround
+zle -N add-surround surround
+bindkey -a cs change-surround
+bindkey -a ds delete-surround
+bindkey -a ys add-surround
+bindkey -M visual S add-surround
 
 ## load user .zshrc configuration file
 #
