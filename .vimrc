@@ -278,6 +278,10 @@ set shiftround
 :autocmd Filetype ruby set sw=2
 :autocmd Filetype ruby set ts=2
 
+:autocmd Filetype typescript set softtabstop=4
+:autocmd Filetype typescript set sw=4
+:autocmd Filetype typescript set ts=4
+
 set nrformats=
 
 "カーソルを行頭、行末で止まらないようにする
@@ -771,6 +775,8 @@ imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
 
 " run :GoBuild or :GoTestCompile based on the go file
+" build_go_files is a custom function that builds or compiles the test file.
+" It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
 function! s:build_go_files()
   let l:file = expand('%')
   if l:file =~# '^\f\+_test\.go$'
@@ -780,8 +786,14 @@ function! s:build_go_files()
   endif
 endfunction
 
+" :GoBuild and :GoTestCompile
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-"autocmd FileType go nmap <leader>b  <Plug>(go-build)
+
+" :GoTest
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
+" :GoRun
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
 " :GoDoc
 autocmd FileType go nmap <Leader>d <Plug>(go-doc)
@@ -800,6 +812,7 @@ autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
 " :GoDef but opens in a horizontal split
 autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
 
+" :GoAlternate  commands :A, :AV, :AS and :AT
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
 autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
