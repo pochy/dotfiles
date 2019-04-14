@@ -157,6 +157,7 @@ if dein#load_state("~/dotfiles/.vim/bundle")
       call dein#add('SirVer/ultisnips')
       call dein#add('ctrlpvim/ctrlp.vim')
       call dein#add('chr4/nginx.vim')
+      call dein#add('mattn/sonictemplate-vim')
 
     call dein#end()
   call dein#save_state()
@@ -817,3 +818,7 @@ autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
 autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
 autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+
+let g:sonictemplate_vim_template_dir = [
+\ '$HOME/.vim/template',
+\]
