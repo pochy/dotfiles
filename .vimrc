@@ -754,6 +754,7 @@ let g:syntastic_perl_lib_path = split(carton_path, ',\s*') + split(lib_path, ',\
 let g:syntastic_perl_checkers = ['perl']
 
 let g:syntastic_haskell_checkers = ["hlint"]
+let g:syntastic_javascript_checkers = ['eslint']
 
 " ======> vim-go
 let g:go_fmt_command = "goimports"
