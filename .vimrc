@@ -57,6 +57,8 @@
 "
 "     > vimproc - https://github.com/Shougo/vimproc.git
 "       Interactive command execution in Vim.
+"       ## Install WSL from kaoriya VIM
+"       cp /mnt/c/bin/vim/plugins/vimproc/lib/vimproc_win64.dll ~/dotfiles/.vim/bundle/.cache/.vimrc/.dein/lib/
 "
 "     > vimshell - https://github.com/Shougo/vimshell
 "       Powerful shell implemented by vim.
@@ -124,7 +126,7 @@ if dein#load_state("~/dotfiles/.vim/bundle")
       call dein#add('thinca/vim-quickrun.git')
       call dein#add('thinca/vim-ref.git')
 "      call dein#add('msanders/snipmate.vim')
-      call dein#add('Shougo/vimproc.git')
+      call dein#add('Shougo/vimproc.git', {'build': 'make'})
       call dein#add('Shougo/neocomplete.vim')
       call dein#add('Shougo/unite.vim')
       call dein#add('Shougo/unite-outline')
@@ -138,7 +140,6 @@ if dein#load_state("~/dotfiles/.vim/bundle")
       call dein#add('vim-scripts/xoria256.vim')
       call dein#add('mattn/emmet-vim')
       call dein#add('c9s/perlomni.vim')
-      call dein#add('vim-syntastic/syntastic')
       call dein#add('Quramy/tsuquyomi')
       call dein#add('leafgarland/typescript-vim')
       call dein#add('othree/yajs.vim')
@@ -158,6 +159,10 @@ if dein#load_state("~/dotfiles/.vim/bundle")
       call dein#add('ctrlpvim/ctrlp.vim')
       call dein#add('chr4/nginx.vim')
       call dein#add('mattn/sonictemplate-vim')
+      call dein#add('elmcast/elm-vim')
+      call dein#add('dense-analysis/ale')
+      call dein#add('mxw/vim-jsx')
+      call dein#add('ternjs/tern_for_vim')
 
     call dein#end()
   call dein#save_state()
@@ -165,6 +170,7 @@ endif
 
 filetype plugin indent on
 syntax enable
+set omnifunc=syntaxcomplete#Complete
 
 if dein#check_install()
   call dein#install()
@@ -736,25 +742,10 @@ nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() 
 :set tags=tags
 nmap <silent> <F2> :<C-u>TagExplorer<CR>
 
-
-" ======> syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_enable_perl_checker = 1
-let carton_path = system('carton exec perl -e "print join(q/,/,@INC)"')
-let lib_path = fnamemodify(finddir("lib", ";"), ":p")
-let g:syntastic_perl_lib_path = split(carton_path, ',\s*') + split(lib_path, ',\s*')
-let g:syntastic_perl_checkers = ['perl']
-
-let g:syntastic_haskell_checkers = ["hlint"]
-let g:syntastic_javascript_checkers = ['eslint']
+" ======> ale
+let g:ale_linters = {
+    \'javascript': ['eslint', 'flow', 'flow-language-server', 'jscs', 'tsserver', 'standard', 'xo']
+\}
 
 " ======> vim-go
 let g:go_fmt_command = "goimports"
