@@ -1,0 +1,20 @@
+# delete
+# :call map(dein#check_clean(), "delete(v:val, 'rf')")
+# :call dein#recache_runtimepath()
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+
+[[plugins]]
+repo = 'motemen/git-vim'
+
+[[plugins]]
+repo = 'vim-scripts/xoria256.vim'
+
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+rev = 'release'
+merged = '0'

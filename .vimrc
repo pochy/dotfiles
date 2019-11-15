@@ -74,12 +74,10 @@
 "
 "
 " Setup:
-"     $ git pull
-"     $ git submodule init
-"     $ git submodule update
-"     $ git submodule foreach 'git checkout master'
-"     $ cd .vim/autoload
-"     $ ln -s ../bundle/vim-pathogen/autoload/pathogen.vim .
+"     $ curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+"     $ sh ./installer.sh ~/.cache/dein
+"     $ export XDG_CONFIG_HOME=$HOME/.config
+"     $ export XDG_CACHE_HOME=$HOME/.cache
 "
 " ============================================
 
@@ -108,61 +106,18 @@ if &compatible
   set nocompatible
 endif
 
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
+let s:dein_config_dir = $XDG_CONFIG_HOME . '/nvim'
+let s:dein_cache_dir = s:cache_home . '/dein'
+
 "dein.vimディレクトリをruntimepathに追加する
-set runtimepath+=~/dotfiles/.vim/bundle/repos/github.com/Shougo/dein.vim
+set runtimepath+=$XDG_CACHE_HOME/dein/repos/github.com/Shougo/dein.vim
 
 "以下定型文
-if dein#load_state("~/dotfiles/.vim/bundle")
-  call dein#begin("~/dotfiles/.vim/bundle")
-    call dein#add("~/dotfiles/.vim/bundle/repos/github.com/Shougo/dein.vim")
-    
-      "好きなプラグインを dein#add() 追加していく
-      "call dein#add('好きなプラグイン')
-      call dein#add('vim-airline/vim-airline')
-      call dein#add('motemen/git-vim')
-      call dein#add('mbbill/undotree')
-      call dein#add('scrooloose/nerdtree')
-      call dein#add('hotchpotch/perldoc-vim.git')
-      call dein#add('thinca/vim-quickrun.git')
-      call dein#add('thinca/vim-ref.git')
-"      call dein#add('msanders/snipmate.vim')
-      call dein#add('Shougo/vimproc.git', {'build': 'make'})
-      call dein#add('Shougo/neocomplete.vim')
-      call dein#add('Shougo/unite.vim')
-      call dein#add('Shougo/unite-outline')
-      call dein#add('Shougo/neomru.vim')
-      call dein#add('Shougo/vimshell.vim')
-      call dein#add('petdance/vim-perl')
-      call dein#add('tpope/vim-surround')
-      call dein#add('t9md/vim-textmanip.git')
-      call dein#add('vim-scripts/tagexplorer.vim.git')
-      call dein#add('vim-scripts/EnhCommentify.vim')
-      call dein#add('vim-scripts/xoria256.vim')
-      call dein#add('mattn/emmet-vim')
-      call dein#add('c9s/perlomni.vim')
-      call dein#add('Quramy/tsuquyomi')
-      call dein#add('leafgarland/typescript-vim')
-      call dein#add('othree/yajs.vim')
-      call dein#add('othree/es.next.syntax.vim')
-      call dein#add('Yggdroot/indentLine')
-      call dein#add('osyo-manga/vim-anzu')
-      call dein#add('rhysd/clever-f.vim')
-      call dein#add('kana/vim-filetype-haskell')
-      call dein#add('eagletmt/ghcmod-vim')
-      call dein#add('ujihisa/neco-ghc')
-      call dein#add('osyo-manga/vim-watchdogs')
-      call dein#add('ujihisa/ref-hoogle')
-      call dein#add('ujihisa/unite-haskellimport')
-      call dein#add('fatih/vim-go')
-      call dein#add('AndrewRadev/splitjoin.vim')
-      call dein#add('SirVer/ultisnips')
-      call dein#add('ctrlpvim/ctrlp.vim')
-      call dein#add('chr4/nginx.vim')
-      call dein#add('mattn/sonictemplate-vim')
-      call dein#add('elmcast/elm-vim')
-      call dein#add('dense-analysis/ale')
-      call dein#add('mxw/vim-jsx')
-      call dein#add('ternjs/tern_for_vim')
+if dein#load_state(s:dein_cache_dir)
+  call dein#begin(s:dein_cache_dir)
+    call dein#load_toml(s:dein_config_dir . '/dein.toml', {'lazy': 0})
+    call dein#load_toml(s:dein_config_dir . '/dein_lazy.toml', {'lazy': 1})
 
     call dein#end()
   call dein#save_state()
@@ -181,7 +136,7 @@ endif
 " enable pathogen
 " ============================================
 "setup
-"ln -s ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim ~/.vim/autoload/
+"ln -s ~/.vim/bundles/vim-pathogen/autoload/pathogen.vim ~/.vim/autoload/
 "execute pathogen#infect()
 "call pathogen#helptags()
 
@@ -383,6 +338,9 @@ nnoremap <Leader>i :set list!<CR>
 " ============================================
 
 au BufNewFile,BufRead *.as set filetype=actionscript
+au BufNewFile,BufRead *.ts set filetype=typescript
+au BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+au BufNewFile,BufRead *.jsx set filetype=javascript.tsx
 au BufNewFile,BufRead *.mxml set filetype=mxml
 au BufNewFile,BufRead *.tt set filetype=html
 au BufNewFile,BufRead *.mt set filetype=html
@@ -406,69 +364,25 @@ autocmd BufNewFile,BufRead *.psgi   set filetype=perl
 " ============================================
 
 
+autocmd FileType json syntax match Comment +\/\/.\+$+
+set conceallevel=0
+let g:vim_json_syntax_conceal = 0
+
+
+
+"set completeopt+=preview
+
 " =====> neocomplete
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-" Define dictionary.
-"
-let g:neocomplcache_ctags_arguments_list = {
-      \ 'perl' : '-R -h ".pm"'
-      \ }
-
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'actionscript' : $HOME . '/dotfiles/.vim/dict/actionscript3.dict',
-    \ 'javascript' : $HOME . '/dotfiles/.vim/dict/javascript.dict',
-    \ 'mxml'       : $HOME . '/dotfiles/.vim/dict/mxml.dict',
-    \ 'perl'       : $HOME . '/dotfiles/.vim/dict/perl.dict',
-    \ 'int-perlsh' : $HOME . '/dotfiles/.vim/dict/perl.dict'
-    \ }
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " =====> neosnippet.vim
 " Plugin key-mappings.
@@ -500,7 +414,6 @@ let g:neosnippet#snippets_directory = []
 "let g:neosnippet#snippets_directory += ['~/dotfiles/.vim/bundle/neosnippet-snippets/neosnippets']
 let g:neosnippet#snippets_directory += ['~/dotfiles/.vim/bundle/vim-snippets/snippets']
 
-
 " =====> vimshell
 let g:vimshell_split_command = 'split'
 let g:vimshell_smart_case = 1
@@ -509,6 +422,10 @@ let g:vimshell_user_prompt = 'printf("%s", ":~")'
 
 
 " =====> emmet
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,javascript,typescript EmmetInstall
+"let g:user_emmet_mode='a'
+"let g:user_emmet_leader_key = '<C-E>'
 let g:user_emmet_settings = {
 \  'variables' : {
 \    'lang' : "ja"
@@ -700,13 +617,14 @@ let g:quickrun_config = {}
 " デフォルト
 "    \ "outputter/buffer/split" : ":rightbelow vsplit"
 let g:quickrun_config["_"] = {
-    \ "runner" : "job",
-    \ "runner/vimproc/updatetime" : 10,
+    \ "runner" : "vimproc",
+    \ "runner/vimproc/updatetime" : 60,
     \ 'outputter' : 'error',
     \ 'outputter/error/success' : 'buffer',
     \ 'outputter/error/error'   : 'quickfix',
     \ 'outputter/buffer/split'  : ':rightbelow 8sp',
     \ 'outputter/buffer/close_on_empty' : 1,
+    \ 'outputter/popup': '',
 \ }
 " 実行
 let g:quickrun_config["run/vimproc"] = {
@@ -736,7 +654,7 @@ xnoremap \r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
 nnoremap \q :<C-u>bw! \[quickrun\ output\]<CR>
 
 " <C-c> でquickrunを停止
-nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+"nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 " =====> tagexplorer
 :set tags=tags
@@ -751,6 +669,8 @@ let g:ale_linters = {
 let g:go_fmt_command = "goimports"
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
+let g:go_def_mapping_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
 
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -792,7 +712,7 @@ autocmd FileType go nmap <leader>r  <Plug>(go-run)
 autocmd FileType go nmap <Leader>d <Plug>(go-doc)
 
 " :GoCoverageToggle
-autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+"autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 
 " :GoInfo
 autocmd FileType go nmap <Leader>i <Plug>(go-info)

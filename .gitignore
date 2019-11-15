@@ -19,4 +19,5 @@ Desktop.ini
 .vim/bundle/cache_vim
 .vim/bundle/state_vim.vim
 .vim/bundle/repos
+.vim/bundles
 .vimperator/info
