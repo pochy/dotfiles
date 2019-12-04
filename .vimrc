@@ -179,6 +179,10 @@ if has("gui_running")
 else
 endif
 
+if has("clipboard")
+    set clipboard=unnamedplus
+endif
+
 "helptags ~/.vim/doc
 :helptags $HOME/dotfiles/.vim/doc
 
