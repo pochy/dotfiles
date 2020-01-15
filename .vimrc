@@ -240,6 +240,23 @@ set softtabstop=4
 " インデントを shiftwidth に丸める
 set shiftround
 
+" Some servers have issues with backup files, see #649
+" coc.nvim
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
 :autocmd Filetype ruby set softtabstop=2
 :autocmd Filetype ruby set sw=2
 :autocmd Filetype ruby set ts=2
@@ -670,11 +687,13 @@ let g:ale_linters = {
 \}
 
 " ======> vim-go
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:go_fmt_command = "goimports"
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
 let g:go_def_mapping_enabled = 0
 let g:go_doc_keywordprg_enabled = 0
+let g:go_metalinter_autosave = 1
 
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
@@ -687,9 +706,6 @@ let g:go_highlight_build_constraints = 1
 " Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
 imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
-
-" :GoTest
-autocmd FileType go nmap <leader>t  <Plug>(go-test)
 
 " run :GoBuild or :GoTestCompile based on the go file
 " build_go_files is a custom function that builds or compiles the test file.
@@ -707,10 +723,10 @@ endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 " :GoTest
-autocmd FileType go nmap <leader>t  <Plug>(go-test)
+autocmd FileType go nmap <leader>t <Plug>(go-test)
 
 " :GoRun
-autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>h <Plug>(go-run)
 
 " :GoDoc
 autocmd FileType go nmap <Leader>d <Plug>(go-doc)
@@ -738,3 +754,33 @@ autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 let g:sonictemplate_vim_template_dir = [
 \ '$HOME/.vim/template',
 \]
+
+" ======> coc
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype ==# 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    if coc#util#has_float()
+      pc
+    else
+      call CocActionAsync('doHover')
+    endif
+  endif
+endfunction
+
+
+" ======> typescript-vim
+let g:typescript_indent_disable = 1

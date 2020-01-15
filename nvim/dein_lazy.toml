@@ -81,6 +81,7 @@ repo = 'osyo-manga/vim-watchdogs'
 
 [[plugins]]
 repo = 'fatih/vim-go'
+on_ft = 'go'
 
 [[plugins]]
 repo = 'AndrewRadev/splitjoin.vim'
@@ -108,7 +109,3 @@ repo = 'ryanolsonx/vim-lsp-typescript'
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
-
-[[plugins]]
-repo = 'fatih/vim-go'
-on_ft = 'go'
