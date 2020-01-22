@@ -46,9 +46,6 @@ repo = 'mbbill/undotree'
 repo = 'scrooloose/nerdtree'
 
 [[plugins]]
-repo = 'vim-airline/vim-airline'
-
-[[plugins]]
 repo = 't9md/vim-textmanip.git'
 
 [[plugins]]
@@ -109,3 +106,18 @@ repo = 'ryanolsonx/vim-lsp-typescript'
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
+
+[[plugins]]
+repo = 'junegunn/fzf'
+build = './install --bin'
+merged = '0'
+
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+depends = 'fzf'
+hook_add = '''
+  command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --line-number --no-heading '.shellescape(<q-args>), 0,
+    \   fzf#vim#with_preview({'options': '--exact --reverse'}, 'right:50%:wrap'))
+'''

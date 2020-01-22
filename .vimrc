@@ -147,7 +147,15 @@ endif
 "vimの256色化
 set t_Co=256
 "colo wombat
-colorscheme xoria256
+"colorscheme xoria256
+let g:gruvbox_italic=1
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set background=dark
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'medium'
+let g:gruvbox_termcolors = 256
 "color summerfruit256
 "color desert256
 
@@ -213,6 +221,7 @@ set listchars=eol:$,tab:>\ ,extends:<
 set nocompatible
 "行番号を表示する
 set number
+set relativenumber
 "閉じ括弧が入力されたとき、対応する括弧を表示する
 set showmatch
 "モード表示
@@ -318,11 +327,11 @@ autocmd BufRead,BufNew,WinEnter * match WhitespaceEOL /\s\+$/
 "入力モード時、ステータスラインのカラーを変更
 augroup InsertHook
 autocmd!
-autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
-autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
+"autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
+"autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
 augroup END
 "ステータス行に文字コードの表示
-set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %(%{GitBranch()}\ %)\ %F%=[%{GitBranch()}]\ %l,%c%V%8P
+"set statusline=%<[%n]%m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%y\ %(%{GitBranch()}\ %)\ %F%=[%{GitBranch()}]\ %l,%c%V%8P
 
 
 " ============================================
@@ -353,6 +362,9 @@ vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><C
 
 " set list のトグル
 nnoremap <Leader>i :set list!<CR>
+
+" Escを2回押すとハイライトを消す
+nnoremap <Esc><Esc> :nohlsearch<CR>
 
 " ============================================
 " filetype
@@ -634,7 +646,12 @@ augroup QuickRunUnitTest
   autocmd BufRead,BufNewFile *.md  setfiletype mkd
   autocmd BufRead,BufNewFile *.html.ep  setfiletype html
 augroup END
-let g:quickrun_config = {}
+let g:quickrun_config = {
+    \ "*": {"runner": "remote/vimproc"},
+    \ 'python': {
+        \ 'command': 'python3'
+    \ }
+\ }
 " デフォルト
 "    \ "outputter/buffer/split" : ":rightbelow vsplit"
 let g:quickrun_config["_"] = {
@@ -784,3 +801,50 @@ endfunction
 
 " ======> typescript-vim
 let g:typescript_indent_disable = 1
+
+" ======> airline
+
+" ○や□の文字が崩れる問題を回避
+set ambiwidth=double
+let g:airline#extensions#tabline#enabled = 1
+
+" Powerline系フォントを利用する
+set laststatus=2
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
+let g:airline_theme = 'gruvbox'
+"let g:airline_theme = 'papercolor'
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.maxlinenr = '☰'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = '∄'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''

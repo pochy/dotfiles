@@ -15,6 +15,15 @@ repo = 'motemen/git-vim'
 repo = 'vim-scripts/xoria256.vim'
 
 [[plugins]]
+repo = 'morhetz/gruvbox'
+
+[[plugins]]
 repo = 'neoclide/coc.nvim'
 rev = 'release'
 merged = '0'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
