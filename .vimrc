@@ -373,7 +373,8 @@ nnoremap <Esc><Esc> :nohlsearch<CR>
 au BufNewFile,BufRead *.as set filetype=actionscript
 au BufNewFile,BufRead *.ts set filetype=typescript
 au BufNewFile,BufRead *.tsx set filetype=typescript.tsx
-au BufNewFile,BufRead *.jsx set filetype=javascript.tsx
+au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+au BufNewFile,BufRead *.js set filetype=javascript
 au BufNewFile,BufRead *.mxml set filetype=mxml
 au BufNewFile,BufRead *.tt set filetype=html
 au BufNewFile,BufRead *.mt set filetype=html
@@ -848,3 +849,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md PrettierAsync

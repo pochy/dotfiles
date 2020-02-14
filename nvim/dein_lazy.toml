@@ -121,3 +121,8 @@ hook_add = '''
     \   'rg --line-number --no-heading '.shellescape(<q-args>), 0,
     \   fzf#vim#with_preview({'options': '--exact --reverse'}, 'right:50%:wrap'))
 '''
+
+[[plugins]]
+repo = 'prettier/vim-prettier'
+build = 'npm install'
+on_ft    = ['javascript.jsx', 'javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown']
