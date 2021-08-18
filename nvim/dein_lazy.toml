@@ -102,9 +102,6 @@ repo = 'mxw/vim-jsx'
 repo = 'ternjs/tern_for_vim'
 
 [[plugins]]
-repo = 'ryanolsonx/vim-lsp-typescript'
-
-[[plugins]]
 repo = 'leafgarland/typescript-vim'
 
 [[plugins]]

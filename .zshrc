@@ -16,6 +16,7 @@ case ${UID} in
     ;;
 esac
 export LANG=ja_JP.UTF-8
+eval $(/usr/bin/locale-check C.UTF-8)
 
 export TZ=JST-9
 
@@ -30,11 +31,13 @@ export PERL5LIB=$PERL5LIB:./lib
 
 export DISPLAY=127.0.0.1:0.0
 export LIBGL_ALWAYS_INDIRECT=1
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
 
 
-export RBENV_ROOT="/opt/rbenv"
-export PATH="${RBENV_ROOT}/bin:${PATH}"
-eval "$(rbenv init -)"
+#export RBENV_ROOT="/opt/rbenv"
+#export PATH="${RBENV_ROOT}/bin:${PATH}"
+#eval "$(rbenv init -)"
 
 ## Default shell configuration
 #
