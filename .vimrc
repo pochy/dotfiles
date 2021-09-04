@@ -114,14 +114,14 @@ let s:dein_cache_dir = s:cache_home . '/dein'
 set runtimepath+=$XDG_CACHE_HOME/dein/repos/github.com/Shougo/dein.vim
 
 "以下定型文
-if dein#load_state(s:dein_cache_dir)
+"if dein#load_state(s:dein_cache_dir)
   call dein#begin(s:dein_cache_dir)
-    call dein#load_toml(s:dein_config_dir . '/dein.toml', {'lazy': 0})
-    call dein#load_toml(s:dein_config_dir . '/dein_lazy.toml', {'lazy': 1})
-
-    call dein#end()
-  call dein#save_state()
-endif
+  "call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#load_toml(s:dein_config_dir . '/dein.toml', {'lazy': 0})
+  call dein#load_toml(s:dein_config_dir . '/dein_lazy.toml', {'lazy': 0})
+  call dein#end()
+  "call dein#save_state()
+"endif
 
 filetype plugin indent on
 syntax enable
@@ -153,8 +153,13 @@ set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set background=dark
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = 'medium'
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_ui_contrast = 'high'
+"let g:gruvbox_material_background = 'soft'
+"let g:gruvbox_material_enable_italic = 1
+"let g:gruvbox_material_disable_italic_comment = 1
+colorscheme gruvbox-material
+"let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_termcolors = 256
 "color summerfruit256
 "color desert256
@@ -372,7 +377,8 @@ nnoremap <Esc><Esc> :nohlsearch<CR>
 
 au BufNewFile,BufRead *.as set filetype=actionscript
 au BufNewFile,BufRead *.ts set filetype=typescript
-au BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+"au BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+au BufNewFile,BufRead *.tsx set filetype=typescriptreact
 au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
 au BufNewFile,BufRead *.js set filetype=javascript
 au BufNewFile,BufRead *.mxml set filetype=mxml
@@ -785,9 +791,11 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <leader>do <Plug>(coc-codeaction)
 
 " Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+"nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call CocAction('doHover')<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -809,6 +817,13 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
 
 " ======> typescript-vim
 let g:typescript_indent_disable = 1
@@ -825,7 +840,8 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
-let g:airline_theme = 'gruvbox'
+"let g:airline_theme = 'gruvbox'
+let g:airline_theme = 'gruvbox_material'
 "let g:airline_theme = 'papercolor'
 
 if !exists('g:airline_symbols')
@@ -863,3 +879,10 @@ let g:airline_symbols.linenr = ''
 
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md PrettierAsync
+
+if system('uname -a | grep Microsoft') != ''
+  augroup myYank
+    autocmd!
+    autocmd TextYankPost * :call system('clip.exe', @")
+  augroup END
+endif

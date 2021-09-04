@@ -51,14 +51,14 @@ repo = 't9md/vim-textmanip.git'
 [[plugins]]
 repo = 'mattn/emmet-vim'
 
-[[plugins]]
-repo = 'Quramy/tsuquyomi'
+#[[plugins]]
+#repo = 'Quramy/tsuquyomi'
 
 [[plugins]]
 repo = 'othree/yajs.vim'
 
-[[plugins]]
-repo = 'othree/es.next.syntax.vim'
+#[[plugins]]
+#repo = 'othree/es.next.syntax.vim'
 
 #[[plugins]]
 #repo = 'Yggdroot/indentLine'
@@ -92,17 +92,26 @@ repo = 'ctrlpvim/ctrlp.vim'
 [[plugins]]
 repo = 'mattn/sonictemplate-vim'
 
-[[plugins]]
-repo = 'dense-analysis/ale'
+#[[plugins]]
+#repo = 'dense-analysis/ale'
 
-[[plugins]]
-repo = 'mxw/vim-jsx'
+#[[plugins]]
+#repo = 'mxw/vim-jsx'
 
-[[plugins]]
-repo = 'ternjs/tern_for_vim'
+#[[plugins]]
+#repo = 'ternjs/tern_for_vim'
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
+
+[[plugins]]
+repo = 'peitalin/vim-jsx-typescript'
+
+#[[plugins]]
+#repo = 'MaxMEllon/vim-jsx-pretty'
+
+[[plugins]]
+repo = 'styled-components/vim-styled-components'
 
 [[plugins]]
 repo = 'junegunn/fzf'

@@ -14,21 +14,23 @@
         "javascript",
         "javascriptreact"
     ],
+    "tsserver.formatOnType": true,
+    "eslint.autoFixOnSave": true,
+    "eslint.filetypes": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "prettier.disableSuccessMessage": true,
     "list.autoResize": true,
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
     "python.jediEnabled": false,
     "languageserver": {
         "golang": {
             "command": "gopls",
-            "rootPatterns": [
-                "go.mod",
-                ".vim/",
-                ".git/",
-                ".hg/"
-            ],
-            "filetypes": [
-                "go"
-            ]
+            "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+            "filetypes": ["go"]
         }
     }
 }

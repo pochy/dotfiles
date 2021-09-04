@@ -34,6 +34,8 @@ export LIBGL_ALWAYS_INDIRECT=1
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 
+export PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init -)"
 
 #export RBENV_ROOT="/opt/rbenv"
 #export PATH="${RBENV_ROOT}/bin:${PATH}"

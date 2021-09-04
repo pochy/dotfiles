@@ -14,8 +14,11 @@ repo = 'motemen/git-vim'
 [[plugins]]
 repo = 'vim-scripts/xoria256.vim'
 
+#[[plugins]]
+#repo = 'morhetz/gruvbox'
+
 [[plugins]]
-repo = 'morhetz/gruvbox'
+repo = 'sainnhe/gruvbox-material'
 
 [[plugins]]
 repo = 'neoclide/coc.nvim'
