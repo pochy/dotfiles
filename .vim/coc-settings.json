@@ -26,11 +26,5 @@
     "list.autoResize": true,
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
     "python.jediEnabled": false,
-    "languageserver": {
-        "golang": {
-            "command": "gopls",
-            "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-            "filetypes": ["go"]
-        }
-    }
+    "explorer.icon.enableNerdfont": true
 }
