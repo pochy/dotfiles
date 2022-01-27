@@ -9,9 +9,6 @@ repo = 'Shougo/vimproc.vim'
 build = 'make'
 
 [[plugins]]
-repo = 'motemen/git-vim'
-
-[[plugins]]
 repo = 'vim-scripts/xoria256.vim'
 
 #[[plugins]]

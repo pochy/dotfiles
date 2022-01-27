@@ -111,6 +111,40 @@ repo = 'peitalin/vim-jsx-typescript'
 #repo = 'MaxMEllon/vim-jsx-pretty'
 
 [[plugins]]
+repo = 'ryanoasis/vim-devicons'
+
+[[plugins]]
+repo = 'lambdalisue/fern.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-git-status.vim'
+
+[[plugins]]
+repo = 'lambdalisue/nerdfont.vim'
+
+[[plugins]]
+repo = 'lambdalisue/fern-renderer-nerdfont.vim'
+hook_add = '''
+  let g:fern#renderer = 'nerdfont'
+'''
+
+[[plugins]]
+repo = 'lambdalisue/glyph-palette.vim'
+hook_add = '''
+  augroup my-glyph-palette
+    autocmd! *
+    autocmd FileType fern call glyph_palette#apply()
+    autocmd FileType nerdtree,startify call glyph_palette#apply()
+  augroup END
+'''
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
 repo = 'styled-components/vim-styled-components'
 
 [[plugins]]
@@ -127,6 +161,10 @@ hook_add = '''
     \   'rg --line-number --no-heading '.shellescape(<q-args>), 0,
     \   fzf#vim#with_preview({'options': '--exact --reverse'}, 'right:50%:wrap'))
 '''
+
+[[plugins]]
+repo = 'yuki-yano/fzf-preview.vim'
+rev = 'release/rpc'
 
 [[plugins]]
 repo = 'prettier/vim-prettier'
