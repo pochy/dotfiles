@@ -54,8 +54,8 @@ repo = 'mattn/emmet-vim'
 #[[plugins]]
 #repo = 'Quramy/tsuquyomi'
 
-[[plugins]]
-repo = 'othree/yajs.vim'
+# [[plugins]]
+# repo = 'othree/yajs.vim'
 
 #[[plugins]]
 #repo = 'othree/es.next.syntax.vim'
@@ -101,11 +101,11 @@ repo = 'mattn/sonictemplate-vim'
 #[[plugins]]
 #repo = 'ternjs/tern_for_vim'
 
-[[plugins]]
-repo = 'leafgarland/typescript-vim'
+# [[plugins]]
+# repo = 'leafgarland/typescript-vim'
 
-[[plugins]]
-repo = 'peitalin/vim-jsx-typescript'
+# [[plugins]]
+# repo = 'peitalin/vim-jsx-typescript'
 
 #[[plugins]]
 #repo = 'MaxMEllon/vim-jsx-pretty'

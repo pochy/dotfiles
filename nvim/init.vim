@@ -145,7 +145,7 @@ endif
 " color
 " ============================================
 "vimの256色化
-set t_Co=256
+"set t_Co=256
 "colo wombat
 "colorscheme xoria256
 "colorscheme morning
@@ -153,14 +153,14 @@ let g:gruvbox_italic=1
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-set background=dark
-let g:gruvbox_material_background = 'hard'
-let g:gruvbox_material_ui_contrast = 'high'
+"set background=dark
+"let g:gruvbox_material_background = 'hard'
+"let g:gruvbox_material_ui_contrast = 'high'
 "let g:gruvbox_material_background = 'soft'
 "let g:gruvbox_material_enable_italic = 1
 "let g:gruvbox_material_disable_italic_comment = 1
 colorscheme gruvbox-material
-let g:gruvbox_contrast_dark = 'medium'
+"let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_termcolors = 256
 "color summerfruit256
 "color desert256
@@ -1103,3 +1103,25 @@ hi ReduxKeywords ctermfg=204 guifg=#C678DD
 hi ReduxHooksKeywords ctermfg=204 guifg=#C176A7
 hi WebBrowser ctermfg=204 guifg=#56B6C2
 hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
+
+
+
+
+
+" ======> nvim-treesitter
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    disable = {      -- 一部の言語では無効にする
+      'lua',
+      'ruby',
+      'toml',
+      'c_sharp',
+      'vue',
+    }
+  },
+  ensure_installed = 'maintained'
+}
+EOF

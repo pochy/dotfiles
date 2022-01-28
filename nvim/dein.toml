@@ -30,3 +30,35 @@ repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
+
+# [[plugins]]
+# repo = 'leafgarland/typescript-vim'
+
+# [[plugins]]
+# repo = 'peitalin/vim-jsx-typescript'
+
+
+# [[plugins]]
+# repo = 'othree/yajs.vim'
+
+# [[plugins]]
+# repo = 'othree/es.next.syntax.vim'
+
+# [[plugins]]
+# repo = 'MaxMEllon/vim-jsx-pretty'
+# hook_add = '''
+# let g:vim_jsx_pretty_colorful_config = 1
+# " let g:vim_jsx_pretty_disable_tsx = 1
+# '''
+
+# [[plugins]]
+# repo = 'pangloss/vim-javascript'
+# hook_add = '''
+# set conceallevel=1
+# let g:javascript_plugin_jsdoc = 1
+# let g:javascript_plugin_flow = 1
+# '''
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+merged = '0'
