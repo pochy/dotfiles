@@ -20,22 +20,22 @@ eval $(/usr/bin/locale-check C.UTF-8)
 
 export TZ=JST-9
 
-export DISPLAY=:0.0
+#export DISPLAY=:0.0
 #export PATH=/usr/local/bin:/bin:/usr/local/sbin/:/usr/local/mysql/bin:$PATH:/usr/sbin:$HOME/local/bin:/usr/local/libexec/git-core/
 #export PATH=$PATH:$HOME/local/bin
-export PATH=$PATH:$HOME/.vim/bin:$HOME/local/bin:/usr/local/bin:/bin:/usr/local/sbin/:$HOME/local/AdobeAIRSDK/bin:/usr/local/flex3/bin:/usr/local/mysql/bin:/usr/sbin:$HOME/local/flex_sdk_4.1.0/bin:/var/lib/gems/1.8/bin:$HOME/local/android-sdk-linux_x86/tools:/opt/airsdk/bin:/opt/flex/bin
-export PERL5LIB=$PERL5LIB:./lib
+export PATH=$PATH:$HOME/.vim/bin:$HOME/local/bin:/usr/local/bin:/bin:/usr/local/sbin/:/usr/local/mysql/bin:/usr/sbin
+#export PERL5LIB=$PERL5LIB:./lib
 # export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.20
 # export JAVA_HOME=/usr/lib/jvm/java-6-sun
 # export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:/home/pochy/glassfishv3/jdk/lib:/home/pochy/glassfishv3/jdk/jre/lib:/home/pochy/glassfishv3/mq/lib
 
-export DISPLAY=127.0.0.1:0.0
-export LIBGL_ALWAYS_INDIRECT=1
+#export DISPLAY=127.0.0.1:0.0
+#export LIBGL_ALWAYS_INDIRECT=1
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 
 export PATH="$HOME/.anyenv/bin:$PATH"
-eval "$(anyenv init -)"
+#eval "$(anyenv init -)"
 
 #export RBENV_ROOT="/opt/rbenv"
 #export PATH="${RBENV_ROOT}/bin:${PATH}"
