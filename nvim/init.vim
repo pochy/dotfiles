@@ -165,6 +165,10 @@ let g:gruvbox_termcolors = 256
 "color summerfruit256
 "color desert256
 
+" transparent bg
+autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
+" For Vim<8, replace EndOfBuffer by NonText
+autocmd vimenter * hi EndOfBuffer guibg=NONE ctermbg=NONE
 
 " ============================================
 " fonts
@@ -257,11 +261,11 @@ set expandtab
 "行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする。
 set smarttab
 "ファイル内の <Tab> が対応する空白の数
-set tabstop=4
+set tabstop=2
 "シフト移動幅
-set shiftwidth=4
+set shiftwidth=2
 " 編集中でのタブの幅
-set softtabstop=4
+set softtabstop=2
 " インデントを shiftwidth に丸める
 set shiftround
 
@@ -289,6 +293,10 @@ set signcolumn=yes
 :autocmd Filetype typescript set softtabstop=2
 :autocmd Filetype typescript set sw=2
 :autocmd Filetype typescript set ts=2
+
+:autocmd Filetype typescriptreact set softtabstop=2
+:autocmd Filetype typescriptreact set sw=2
+:autocmd Filetype typescriptreact set ts=3
 
 set nrformats=
 
@@ -1122,6 +1130,6 @@ require'nvim-treesitter.configs'.setup {
       'vue',
     }
   },
-  ensure_installed = 'maintained'
+  ensure_installed = 'all'
 }
 EOF
