@@ -161,9 +161,9 @@ let g:gruvbox_termcolors = 256
 "color desert256
 
 " transparent bg
-autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
+"autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
 " For Vim<8, replace EndOfBuffer by NonText
-autocmd vimenter * hi EndOfBuffer guibg=NONE ctermbg=NONE
+"autocmd vimenter * hi EndOfBuffer guibg=NONE ctermbg=NONE
 
 " ============================================
 " fonts
@@ -795,6 +795,8 @@ autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit'
 autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
 autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 
+" ======> sonictemplate
+
 let g:sonictemplate_vim_template_dir = [
 \ '$HOME/.vim/template',
 \]
@@ -1110,4 +1112,6 @@ require'nvim-treesitter.configs'.setup {
 EOF
 
 
+
+" 色を最後に指定しないとgit反映されない
 colorscheme gruvbox-material
