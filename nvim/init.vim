@@ -63,9 +63,6 @@
 "     > vimshell - https://github.com/Shougo/vimshell
 "       Powerful shell implemented by vim.
 "
-"     > xoria256 - https://github.com/vim-scripts/xoria256.vim
-"       Finely tuned soft gamma, 256 colors, dark background, gvim == vim
-"
 "     > emmet-vim - https://github.com/mattn/emmet-vim
 "       emmet-coding for vim
 "
@@ -145,22 +142,20 @@ endif
 " color
 " ============================================
 "vimの256色化
-"set t_Co=256
-"colo wombat
-"colorscheme xoria256
+set t_Co=256
 "colorscheme morning
 let g:gruvbox_italic=1
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-"set background=dark
-"let g:gruvbox_material_background = 'hard'
-"let g:gruvbox_material_ui_contrast = 'high'
+set background=dark
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_ui_contrast = 'high'
 "let g:gruvbox_material_background = 'soft'
 "let g:gruvbox_material_enable_italic = 1
 "let g:gruvbox_material_disable_italic_comment = 1
 colorscheme gruvbox-material
-"let g:gruvbox_contrast_dark = 'medium'
+let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_termcolors = 256
 "color summerfruit256
 "color desert256
@@ -296,7 +291,7 @@ set signcolumn=yes
 
 :autocmd Filetype typescriptreact set softtabstop=2
 :autocmd Filetype typescriptreact set sw=2
-:autocmd Filetype typescriptreact set ts=3
+:autocmd Filetype typescriptreact set ts=2
 
 set nrformats=
 
@@ -806,16 +801,6 @@ let g:sonictemplate_vim_template_dir = [
 
 " ======> coc
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
-
-
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
@@ -1070,9 +1055,6 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 
 
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md PrettierAsync
-
 if system('uname -a | grep Microsoft') != ''
   augroup myYank
     autocmd!
@@ -1122,14 +1104,10 @@ lua <<EOF
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
-    disable = {      -- 一部の言語では無効にする
-      'lua',
-      'ruby',
-      'toml',
-      'c_sharp',
-      'vue',
-    }
   },
   ensure_installed = 'all'
 }
 EOF
+
+
+colorscheme gruvbox-material

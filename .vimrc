@@ -148,6 +148,7 @@ endif
 set t_Co=256
 "colo wombat
 "colorscheme xoria256
+"colorscheme morning
 let g:gruvbox_italic=1
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -159,7 +160,7 @@ let g:gruvbox_material_ui_contrast = 'high'
 "let g:gruvbox_material_enable_italic = 1
 "let g:gruvbox_material_disable_italic_comment = 1
 colorscheme gruvbox-material
-"let g:gruvbox_contrast_dark = 'medium'
+let g:gruvbox_contrast_dark = 'medium'
 let g:gruvbox_termcolors = 256
 "color summerfruit256
 "color desert256
@@ -177,6 +178,16 @@ if has('gui_gtk2')
     set guifont=Menlo\ 10
     set guifontwide=M+2VM+IPAG\ circle\ 12
 endif
+
+set guifont=DroidSansMono\ Nerd\ Font\ 14
+set guifontwide=DroidSansMono\ Nerd\ Font\ 14
+
+"set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete\ 12
+"set guifontwide=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete\ 12
+set encoding=utf-8
+
+"set guifont=Cica\ 13
+"set guifontwide=Cica\ 13
 
 
 " ============================================
@@ -275,9 +286,9 @@ set signcolumn=yes
 :autocmd Filetype ruby set sw=2
 :autocmd Filetype ruby set ts=2
 
-:autocmd Filetype typescript set softtabstop=4
-:autocmd Filetype typescript set sw=4
-:autocmd Filetype typescript set ts=4
+:autocmd Filetype typescript set softtabstop=2
+:autocmd Filetype typescript set sw=2
+:autocmd Filetype typescript set ts=2
 
 set nrformats=
 
@@ -348,13 +359,16 @@ augroup END
 "let g:mapleader = ","
 
 " Fast saving
-nmap <leader>w :w!<cr>
+nmap <Leader>w :w!<cr>
 
 " Fast editing of the .vimrc
-map <leader>e :e! ~/.vimrc<cr>
+map <Leader>e :e! ~/.config/nvim/init.vim<cr>
+map <Leader>r :source ~/.config/nvim/init.vim<cr>
 
-noremap <Space> :bnext<CR>
-noremap <S-Space> :bprevious<CR>
+nnoremap <silent> <C-j> :bprevious<CR>
+nnoremap <silent> <C-k> :bnext<CR>
+"noremap <Space> :bnext<CR>
+"noremap <S-Space> :bprevious<CR>
 " 端末
 " <C-Space> を押すと <NUL> が送られてくるようなので、逆に <NUL> が来たら
 " <C-Space> になるようにしておく。
@@ -375,11 +389,14 @@ nnoremap <Esc><Esc> :nohlsearch<CR>
 " filetype
 " ============================================
 
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
 au BufNewFile,BufRead *.as set filetype=actionscript
 au BufNewFile,BufRead *.ts set filetype=typescript
 "au BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 au BufNewFile,BufRead *.tsx set filetype=typescriptreact
 au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 au BufNewFile,BufRead *.js set filetype=javascript
 au BufNewFile,BufRead *.mxml set filetype=mxml
 au BufNewFile,BufRead *.tt set filetype=html
@@ -694,8 +711,8 @@ au FileType qf nnoremap <silent><buffer>q :quit<CR>
 
 " \r でquickfixを閉じて、保存してからquickrunを実行する。
 let g:quickrun_no_default_key_mappings = 1
-nnoremap \r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
-xnoremap \r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
+nnoremap \R :cclose<CR>:write<CR>:QuickRun -mode n<CR>
+xnoremap \R :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
 nnoremap \q :<C-u>bw! \[quickrun\ output\]<CR>
 
 " <C-c> でquickrunを停止
@@ -780,6 +797,42 @@ let g:sonictemplate_vim_template_dir = [
 \]
 
 " ======> coc
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-P>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -794,8 +847,8 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <leader>do <Plug>(coc-codeaction)
 
 " Use K to show documentation in preview window
-"nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <silent> K :call CocAction('doHover')<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+"nnoremap <silent> K :call CocAction('doHover')<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -817,12 +870,143 @@ nmap <leader>rn <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" coc explorer
+nmap <space>e <Cmd>CocCommand explorer<CR>
+
+"" git操作
+" g]で前の変更箇所へ移動する
+nnoremap g[ :GitGutterPrevHunk<CR>
+" g[で次の変更箇所へ移動する
+nnoremap g] :GitGutterNextHunk<CR>
+" ghでdiffをハイライトする
+nnoremap gh :GitGutterLineHighlightsToggle<CR>
+" gpでカーソル行のdiffを表示する
+nnoremap gp :GitGutterPreviewHunk<CR>
+" 記号の色を変更する
+highlight GitGutterAdd ctermfg=green
+highlight GitGutterChange ctermfg=blue
+highlight GitGutterDelete ctermfg=red
+
+"" 反映時間を短くする(デフォルトは4000ms)
+set updatetime=250
+
+" ======> coc ================================//
+" ======> fzf
+"" fzf.vim
+
+" space+fでファイルツリーを表示/非表示する
+nnoremap <space>f :Fern . -reveal=% -drawer -toggle -width=40<CR>
+
+" Ctrl+pでファイル検索を開く
+" git管理されていれば:GFiles、そうでなければ:Filesを実行する
+fun! FzfOmniFiles()
+  let is_git = system('git status')
+  if v:shell_error
+    :Files
+  else
+    :GFiles
+  endif
+endfun
+nnoremap <space>p :call FzfOmniFiles()<CR>
+
+" Ctrl+gで文字列検索を開く
+" <S-?>でプレビューを表示/非表示する
+command! -bang -nargs=* Rg
+\ call fzf#vim#grep(
+\ "rg -g '!dist/' -g '!yarn.lock' -g '!.git' -g '!node_modules' --column --line-number --hidden --ignore-case --no-heading --color=always ".shellescape(<q-args>), 1,
+\ <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 3..'}, 'up:60%')
+\ : fzf#vim#with_preview({'options': '--exact --delimiter : --nth 3..'}, 'right:50%:hidden', '?'),
+\ <bang>0)
+nnoremap <C-g> :Rg<CR>
+
+" frでカーソル位置の単語をファイル検索する
+nnoremap fr vawy:Rg <C-R>"<CR>
+" frで選択した単語をファイル検索する
+xnoremap fr y:Rg <C-R>"<CR>
+
+" fbでバッファ検索を開く
+nnoremap fb :Buffers<CR>
+" fpでバッファの中で1つ前に開いたファイルを開く
+nnoremap fp :Buffers<CR><CR>
+" flで開いているファイルの文字列検索を開く
+nnoremap fl :BLines<CR>
+" fmでマーク検索を開く
+nnoremap fm :Marks<CR>
+" fhでファイル閲覧履歴検索を開く
+nnoremap fh :History<CR>
+" fcでコミット履歴検索を開く
+nnoremap fc :Commits<CR>
+
+
+nmap <Leader>f [fzf-p]
+xmap <Leader>f [fzf-p]
+
+nnoremap <silent> [fzf-p]p     :<C-u>FzfPreviewFromResourcesRpc project_mru git<CR>
+nnoremap <silent> [fzf-p]gs    :<C-u>FzfPreviewGitStatusRpc<CR>
+nnoremap <silent> [fzf-p]ga    :<C-u>FzfPreviewGitActionsRpc<CR>
+nnoremap <silent> [fzf-p]b     :<C-u>FzfPreviewBuffersRpc<CR>
+nnoremap <silent> [fzf-p]B     :<C-u>FzfPreviewAllBuffersRpc<CR>
+nnoremap <silent> [fzf-p]o     :<C-u>FzfPreviewFromResourcesRpc buffer project_mru<CR>
+nnoremap <silent> [fzf-p]<C-o> :<C-u>FzfPreviewJumpsRpc<CR>
+nnoremap <silent> [fzf-p]g;    :<C-u>FzfPreviewChangesRpc<CR>
+nnoremap <silent> [fzf-p]/     :<C-u>FzfPreviewLinesRpc --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+nnoremap <silent> [fzf-p]*     :<C-u>FzfPreviewLinesRpc --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+nnoremap          [fzf-p]gr    :<C-u>FzfPreviewProjectGrepRpc<Space>
+xnoremap          [fzf-p]gr    "sy:FzfPreviewProjectGrepRpc<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
+nnoremap <silent> [fzf-p]t     :<C-u>FzfPreviewBufferTagsRpc<CR>
+nnoremap <silent> [fzf-p]q     :<C-u>FzfPreviewQuickFixRpc<CR>
+nnoremap <silent> [fzf-p]l     :<C-u>FzfPreviewLocationListRpc<CR>
 
 
 " ======> typescript-vim
@@ -831,17 +1015,18 @@ let g:typescript_indent_disable = 1
 " ======> airline
 
 " ○や□の文字が崩れる問題を回避
-set ambiwidth=double
-let g:airline#extensions#tabline#enabled = 1
+"set ambiwidth=double
+"let g:airline#extensions#tabline#enabled = 1
 
 " Powerline系フォントを利用する
 set laststatus=2
-let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 "let g:airline_theme = 'gruvbox'
 let g:airline_theme = 'gruvbox_material'
+"let g:airline_theme = 'tomorrow'
 "let g:airline_theme = 'papercolor'
 
 if !exists('g:airline_symbols')
@@ -849,10 +1034,10 @@ if !exists('g:airline_symbols')
 endif
 
 " unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
+"let g:airline_left_sep = '»'
+"let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '«'
+"let g:airline_right_sep = '◀'
 let g:airline_symbols.crypt = '🔒'
 let g:airline_symbols.linenr = '␊'
 let g:airline_symbols.linenr = '␤'
@@ -872,9 +1057,9 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
+
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
 
 
 let g:prettier#autoformat = 0
@@ -886,3 +1071,35 @@ if system('uname -a | grep Microsoft') != ''
     autocmd TextYankPost * :call system('clip.exe', @")
   augroup END
 endif
+
+
+
+" dark red
+hi tsxTagName guifg=#E06C75
+hi tsxComponentName guifg=#E06C75
+hi tsxCloseComponentName guifg=#E06C75
+
+" orange
+hi tsxCloseString guifg=#F99575
+hi tsxCloseTag guifg=#F99575
+hi tsxCloseTagName guifg=#F99575
+hi tsxAttributeBraces guifg=#F99575
+hi tsxEqual guifg=#F99575
+
+" yellow
+hi tsxAttrib guifg=#F8BD7F cterm=italic
+
+" light-grey
+hi tsxTypeBraces guifg=#999999
+" dark-grey
+hi tsxTypes guifg=#666666
+
+" Other keywords
+hi ReactState guifg=#C176A7
+hi ReactProps guifg=#D19A66
+hi ApolloGraphQL guifg=#CB886B
+hi Events ctermfg=204 guifg=#56B6C2
+hi ReduxKeywords ctermfg=204 guifg=#C678DD
+hi ReduxHooksKeywords ctermfg=204 guifg=#C176A7
+hi WebBrowser ctermfg=204 guifg=#56B6C2
+hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
