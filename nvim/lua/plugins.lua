@@ -9,6 +9,7 @@ vim.cmd [[packadd packer.nvim]]
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'sainnhe/gruvbox-material'
+  use 'eddyekofo94/gruvbox-flat.nvim'
   use 'nvim-lua/plenary.nvim' -- Common utilities(requre null-ls)
   use 'nvim-lualine/lualine.nvim' -- Statusline
   use 'onsails/lspkind-nvim' -- vscode-like pictograms
