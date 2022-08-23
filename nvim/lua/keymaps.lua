@@ -1,9 +1,4 @@
-local opts = { noremap = true, silent = true }
-local term_opts = { silent = true }
-
 local keymap = vim.keymap
-
-
 
 -- Modes
 --   normal_mode = "n",
@@ -12,7 +7,6 @@ local keymap = vim.keymap
 --   visual_block_mode = "x",
 --   term_mode = "t",
 --   command_mode = "c",
-
 
 
 -- Normal --
@@ -42,39 +36,39 @@ keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
 
 -- Navigate buffers
-keymap.set("n", "<S-l>", ":bnext<CR>", opts)
-keymap.set("n", "<S-h>", ":bprevious<CR>", opts)
+keymap.set("n", "<S-l>", ":bnext<CR>")
+keymap.set("n", "<S-h>", ":bprevious<CR>")
 
 -- Move text up and down
---keymap.set("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
---keymap.set("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+--keymap.set("n", "<A-j>", "<Esc>:m .+1<CR>==gi")
+--keymap.set("n", "<A-k>", "<Esc>:m .-2<CR>==gi")
 
 
 
 -- Visual --
 -- Stay in indent mode
-keymap.set("v", "<", "<gv", opts)
-keymap.set("v", ">", ">gv", opts)
+keymap.set("v", "<", "<gv")
+keymap.set("v", ">", ">gv")
 
 -- Move text up and down
-keymap.set("v", "<A-j>", ":m .+1<CR>==", opts)
-keymap.set("v", "<A-k>", ":m .-2<CR>==", opts)
-keymap.set("v", "p", '"_dP', opts)
+keymap.set("v", "<A-j>", ":m .+1<CR>==")
+keymap.set("v", "<A-k>", ":m .-2<CR>==")
+keymap.set("v", "p", '"_dP')
 
 
 
 -- Visual Block --
 -- Move text up and down
-keymap.set("x", "J", ":move '>+1<CR>gv-gv", opts)
-keymap.set("x", "K", ":move '<-2<CR>gv-gv", opts)
-keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
-keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+keymap.set("x", "J", ":move '>+1<CR>gv-gv")
+keymap.set("x", "K", ":move '<-2<CR>gv-gv")
+keymap.set("x", "<A-j>", ":move '>+1<CR>gv-gv")
+keymap.set("x", "<A-k>", ":move '<-2<CR>gv-gv")
 
 
 
 -- Terminal --
 -- Better terminal navigation
-keymap.set("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
-keymap.set("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
-keymap.set("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
-keymap.set("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+keymap.set("t", "<C-h>", "<C-\\><C-N><C-w>h")
+keymap.set("t", "<C-j>", "<C-\\><C-N><C-w>j")
+keymap.set("t", "<C-k>", "<C-\\><C-N><C-w>k")
+keymap.set("t", "<C-l>", "<C-\\><C-N><C-w>l")

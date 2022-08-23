@@ -8,5 +8,5 @@ mason.setup({
 })
 
 lspconfig.setup {
-  ensure_installed = { "sumneko_lua", "tailwindcss" },
+  ensure_installed = { "sumneko_lua", "tsserver", "eslint_d", "eslint-lsp", "emmet_ls", "prettier", "prettierd", "css_lsp" },
 }

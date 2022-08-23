@@ -67,7 +67,10 @@ nvim_lsp.tsserver.setup {
   on_attach = on_attach,
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
   cmd = { "typescript-language-server", "--stdio" },
-  capabilities = capabilities
+  capabilities = capabilities,
+  init_options = {
+    hostInfo = "neovim"
+  },
 }
 
 nvim_lsp.sourcekit.setup {
@@ -78,6 +81,10 @@ nvim_lsp.sumneko_lua.setup {
   on_attach = on_attach,
   settings = {
     Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
         globals = { 'vim' },
@@ -93,7 +100,9 @@ nvim_lsp.sumneko_lua.setup {
 }
 
 --require'lspconfig'.stylelint_lsp.setup{}
+nvim_lsp.gopls.setup {}
 nvim_lsp.html.setup {}
+nvim_lsp.eslint.setup {}
 nvim_lsp.cssls.setup {
   filetypes = { "css", "scss", "less" },
   cmd = { "vscode-css-language-server", "--stdio" },
@@ -105,18 +114,29 @@ require'lspconfig'.cssls.setup{
   cmd = { "vscode-css-language-server", "--stdio" },
   capabilities = capabilities,
 }
-nvim_lsp.emmet_ls.setup {}
-require'lspconfig'.emmet_ls.setup{}
+--nvim_lsp.emmet_ls.setup {}
+require'lspconfig'.emmet_ls.setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
+  init_options = {
+    html = {
+      options = {
+        ["bem.enabled"] = true,
+      },
+    },
+  },
+}
 
 -- nvim_lsp.tailwindcss.setup {}
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
-  underline = true,
-  update_in_insert = false,
-  virtual_text = { spacing = 4, prefix = "●" },
-  severity_sort = true,
-}
+    underline = true,
+    update_in_insert = false,
+    virtual_text = { spacing = 4, prefix = "●" },
+    severity_sort = true,
+  }
 )
 
 -- Diagnostic symbols in the sign column (gutter)

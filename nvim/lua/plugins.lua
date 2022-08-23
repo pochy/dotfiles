@@ -32,9 +32,11 @@ packer.startup(function(use)
   }
   use "JoosepAlviste/nvim-ts-context-commentstring"
 
+  use "kyazdani42/nvim-tree.lua"
   use 'kyazdani42/nvim-web-devicons' -- File icons
   use 'nvim-telescope/telescope.nvim' -- fuzzy finder
   use 'nvim-telescope/telescope-file-browser.nvim'
+  use 'xiyaowong/telescope-emoji.nvim'
   use 'windwp/nvim-autopairs'
   use 'windwp/nvim-ts-autotag'
   use 'norcalli/nvim-colorizer.lua'
@@ -42,4 +44,10 @@ packer.startup(function(use)
   use 'akinsho/nvim-bufferline.lua' -- Tab Workspace
   use 'lewis6991/gitsigns.nvim'
   use 'dinhhuy258/git.nvim' -- For git blame & browse
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+  })
+  use 'kylechui/nvim-surround' -- Textobject plugins
+  use 'phaazon/hop.nvim' -- jump anyware
 end)
