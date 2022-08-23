@@ -56,4 +56,5 @@ packer.startup(function(use)
   })
   use 'kylechui/nvim-surround' -- Textobject plugins
   use 'phaazon/hop.nvim' -- jump anyware
+  use 'mbbill/undotree'
 end)
