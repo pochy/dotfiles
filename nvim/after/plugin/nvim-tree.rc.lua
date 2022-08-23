@@ -21,6 +21,8 @@ vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
 vim.keymap.set('n', '<leader>E', ':NvimTreeFindFile<CR>')
 
 require("nvim-tree").setup({
+  disable_netrw = false,
+  hijack_netrw = false,
   sort_by = "case_sensitive",
   view = {
     adaptive_size = true,

@@ -166,7 +166,7 @@ hook_add = '''
 repo = 'yuki-yano/fzf-preview.vim'
 rev = 'release/rpc'
 
-#[[plugins]]
-#repo = 'prettier/vim-prettier'
-#build = 'npm install'
-#on_ft    = ['javascript.jsx', 'javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown']
+# [[plugins]]
+# repo = 'prettier/vim-prettier'
+# build = 'npm install'
+# on_ft    = ['javascript.jsx', 'javascript', 'typescript', 'vue', 'css', 'scss', 'json', 'markdown']

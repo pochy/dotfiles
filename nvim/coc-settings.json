@@ -9,6 +9,8 @@
     "coc.preferences.formatOnType": true,
     "coc.preferences.formatOnSaveFiletypes": [
         "go",
+        "css",
+        "html",
         "typescript",
         "typescriptreact",
         "javascript",
@@ -23,6 +25,7 @@
         "typescriptreact"
     ],
     "prettier.disableSuccessMessage": true,
+    //"prettier.printWidth": 120,
     "list.autoResize": true,
     "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
     "python.jediEnabled": false,

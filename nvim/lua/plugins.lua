@@ -34,7 +34,13 @@ packer.startup(function(use)
 
   use "kyazdani42/nvim-tree.lua"
   use 'kyazdani42/nvim-web-devicons' -- File icons
-  use 'nvim-telescope/telescope.nvim' -- fuzzy finder
+  use({
+    "nvim-telescope/telescope.nvim", -- fuzzy finder
+    requires = { { "kdheepak/lazygit.nvim" } },
+    config = function()
+        require("telescope").load_extension("lazygit")
+    end,
+})
   use 'nvim-telescope/telescope-file-browser.nvim'
   use 'xiyaowong/telescope-emoji.nvim'
   use 'windwp/nvim-autopairs'
