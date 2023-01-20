@@ -11,13 +11,20 @@ ts.setup {
     disable = {},
   },
   ensure_installed = {
+    "markdown",
+    "bash",
+    "make",
+    "dockerfile",
+    "javascript",
+    "typescript",
     "tsx",
     "toml",
     "json",
     "yaml",
     "css",
     "html",
-    "lua"
+    "lua",
+    "go"
   },
   autotag = {
     enable = true,

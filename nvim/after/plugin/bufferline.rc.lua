@@ -25,7 +25,9 @@ bufferline.setup({
     left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
     middle_mouse_command = nil,
     diagnostics = 'nvim_lsp',
-    indicator_icon = "▎",
+    --[[ indicator_icon = "▎", ]]
+    indicator_icon = nil,
+    indicator = { style = "icon", icon = "▎" },
     buffer_close_icon = "",
     -- buffer_close_icon = '',
     modified_icon = "●",

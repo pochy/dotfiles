@@ -23,7 +23,14 @@ packer.startup(function(use)
   use 'williamboman/mason-lspconfig.nvim'
   use "numToStr/Comment.nvim" -- Easily comment stuff
 
-  use 'glepnir/lspsaga.nvim' -- LSP UIs
+  --[[ use 'glepnir/lspsaga.nvim' -- LSP Us ]]
+  use({
+    "glepnir/lspsaga.nvim", -- LSP UIs
+    branch = "main",
+    config = function()
+        require('lspsaga').setup({})
+    end,
+  })
   use 'L3MON4D3/LuaSnip' -- Snippet
 
   use {
