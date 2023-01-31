@@ -1115,7 +1115,7 @@ hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
 
 " ======> nvim-treesitter
 
-lua <<EOF
+lua << EOF
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
