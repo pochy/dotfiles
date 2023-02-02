@@ -5,6 +5,8 @@ local augroup_format = vim.api.nvim_create_augroup("Format", { clear = true })
 
 null_ls.setup {
   sources = {
+    --[[ null_ls.builtins.formatting.gofmt ]]
+    null_ls.builtins.formatting.goimports,
     null_ls.builtins.formatting.prettier.with({
       condition = function(utils)
         return utils.has_file { ".prettierrc", ".prettierrc.js" }
@@ -24,7 +26,7 @@ null_ls.setup {
       vim.api.nvim_create_autocmd("BufWritePre", {
         group = augroup_format,
         buffer = 0,
-        callback = function() vim.lsp.buf.formatting_seq_sync() end
+        callback = function() vim.lsp.buf.format() end
       })
     end
   end,

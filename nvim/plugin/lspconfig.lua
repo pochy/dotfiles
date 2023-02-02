@@ -209,12 +209,11 @@ function goimports(timeoutms)
 end
 
 vim.api.nvim_exec([[
-  autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
+  autocmd BufWritePre *.go lua vim.lsp.buf.format()
 ]],false)
 
 
 nvim_lsp.html.setup {}
-nvim_lsp.eslint.setup {}
 nvim_lsp.cssls.setup {
   filetypes = { "css", "scss", "less" },
   cmd = { "vscode-css-language-server", "--stdio" },
