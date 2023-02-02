@@ -214,6 +214,7 @@ vim.api.nvim_exec([[
 
 
 nvim_lsp.html.setup {}
+nvim_lsp.eslint.setup {}
 nvim_lsp.cssls.setup {
   filetypes = { "css", "scss", "less" },
   cmd = { "vscode-css-language-server", "--stdio" },
