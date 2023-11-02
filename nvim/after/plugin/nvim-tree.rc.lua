@@ -6,12 +6,12 @@ end
 
 -- local lib = require("nvim-tree.lib")
 
-local config_status_ok, nvim_tree_config = pcall(require, 'nvim-tree.config')
-if not config_status_ok then
-	return
-end
-
-local tree_cb = nvim_tree_config.nvim_tree_callback
+--[[ local config_status_ok, nvim_tree_config = pcall(require, 'nvim-tree.config') ]]
+--[[ if not config_status_ok then ]]
+--[[ 	return ]]
+--[[ end ]]
+--[[]]
+--[[ local tree_cb = nvim_tree_config.nvim_tree_callback ]]
 
 
 -- To see all the supported commands, press g? to toggle the help.
@@ -120,14 +120,14 @@ require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
     adaptive_size = true,
-    mappings = {
-      list = {
-        { key = "<leader>e", action = "close" },
-        { key = "u", action = "dir_up" },
-        { key = 'v', cb = tree_cb('vsplit') },
-        { key = 's', cb = tree_cb('split') },
-      },
-    },
+    --[[ mappings = { ]]
+    --[[   list = { ]]
+    --[[     { key = "<leader>e", action = "close" }, ]]
+    --[[     { key = "u", action = "dir_up" }, ]]
+    --[[     { key = 'v', cb = tree_cb('vsplit') }, ]]
+    --[[     { key = 's', cb = tree_cb('split') }, ]]
+    --[[   }, ]]
+    --[[ }, ]]
   },
   renderer = {
     add_trailing = false,

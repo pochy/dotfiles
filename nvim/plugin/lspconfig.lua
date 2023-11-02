@@ -75,49 +75,49 @@ nvim_lsp.tsserver.setup {
   },
 }
 
-nvim_lsp.diagnosticls.setup {
-  filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact", "css"},
-  init_options = {
-    filetypes = {
-      javascript = "eslint",
-      typescript = "eslint",
-      javascriptreact = "eslint",
-      typescriptreact = "eslint"
-    },
-    linters = {
-      eslint = {
-        sourceName = "eslint",
-        command = "./node_modules/.bin/eslint",
-        rootPatterns = {
-          ".eslitrc.js",
-          "package.json"
-        },
-        debounce = 100,
-        args = {
-          "--cache",
-          "--stdin",
-          "--stdin-filename",
-          "%filepath",
-          "--format",
-          "json"
-        },
-        parseJson = {
-          errorsRoot = "[0].messages",
-          line = "line",
-          column = "column",
-          endLine = "endLine",
-          endColumn = "endColumn",
-          message = "${message} [${ruleId}]",
-          security = "severity"
-        },
-        securities = {
-          [2] = "error",
-          [1] = "warning"
-        }
-      }
-    }
-  }
-}
+-- nvim_lsp.diagnosticls.setup {
+--   filetypes = {"javascript", "javascriptreact", "typescript", "typescriptreact", "css"},
+--   init_options = {
+--     filetypes = {
+--       javascript = "eslint",
+--       typescript = "eslint",
+--       javascriptreact = "eslint",
+--       typescriptreact = "eslint"
+--     },
+--     linters = {
+--       eslint = {
+--         sourceName = "eslint",
+--         command = "./node_modules/.bin/eslint",
+--         rootPatterns = {
+--           ".eslitrc.js",
+--           "package.json"
+--         },
+--         debounce = 100,
+--         args = {
+--           "--cache",
+--           "--stdin",
+--           "--stdin-filename",
+--           "%filepath",
+--           "--format",
+--           "json"
+--         },
+--         parseJson = {
+--           errorsRoot = "[0].messages",
+--           line = "line",
+--           column = "column",
+--           endLine = "endLine",
+--           endColumn = "endColumn",
+--           message = "${message} [${ruleId}]",
+--           security = "severity"
+--         },
+--         securities = {
+--           [2] = "error",
+--           [1] = "warning"
+--         }
+--       }
+--     }
+--   }
+-- }
 
 nvim_lsp.sourcekit.setup {
   on_attach = on_attach,
@@ -214,7 +214,7 @@ vim.api.nvim_exec([[
 
 
 nvim_lsp.html.setup {}
-nvim_lsp.eslint.setup {}
+-- nvim_lsp.eslint.setup {}
 nvim_lsp.cssls.setup {
   filetypes = { "css", "scss", "less" },
   cmd = { "vscode-css-language-server", "--stdio" },
@@ -252,11 +252,11 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 -- Diagnostic symbols in the sign column (gutter)
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
+-- local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+-- for type, icon in pairs(signs) do
+--  local hl = "DiagnosticSign" .. type
+--  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+-- end
 
 vim.diagnostic.config({
   virtual_text = {
