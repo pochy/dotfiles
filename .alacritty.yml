@@ -1,0 +1,40 @@
+window:
+  dynamic_title: true
+  dimensions:
+    columns: 150
+    lines: 40
+  opacity: 0.95
+  padding:
+    x: 5
+    y: 0
+env:
+  TERM: xterm-256color
+font:
+  size: 16
+  # normal:
+  #   family: "HackGenNerd Console"
+  normal:
+    family: "Hack Nerd Font"
+    style: Regular
+  bold:
+    family: "Hack Nerd Font"
+    style: Bold
+  italic:
+    family: "Hack Nerd Font"
+    style: Italic
+  bold_italic:
+    family: "Hack Nerd Font"
+    style: Bold Italic
+  offset:
+    x: 0
+    y: 0
+  glyph_offset:
+    x: 0
+    y: 0
+  draw_bold_text_with_bright_colors: true
+
+import:
+  - ~/.config/alacritty/themes/themes/gruvbox_dark.yaml
+scrolling:
+  history: 10000
+live_config_reload: true
