@@ -2,80 +2,62 @@ export SHELL=/usr/bin/zsh
 #export TERM=xterm-256color
 export EDITOR=vim
 
+export TZ=JST-9
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
 
 # users generic .zshrc file for zsh(1)
 
+## ======================================
 ## Environment variable configuration
+## ======================================
 #
 # LANG
-#
+# 文字コードはUTF-8
 export LANG=ja_JP.UTF-8
 case ${UID} in
 0)
     LANG=C
     ;;
 esac
-export LANG=ja_JP.UTF-8
 eval $(/usr/bin/locale-check C.UTF-8)
 
-export TZ=JST-9
 
-#export DISPLAY=:0.0
-#export PATH=/usr/local/bin:/bin:/usr/local/sbin/:/usr/local/mysql/bin:$PATH:/usr/sbin:$HOME/local/bin:/usr/local/libexec/git-core/
-#export PATH=$PATH:$HOME/local/bin
-export PATH=$PATH:$HOME/.vim/bin:$HOME/local/bin:/usr/local/bin:/bin:/usr/local/sbin/:/usr/local/mysql/bin:/usr/sbin
-#export PERL5LIB=$PERL5LIB:./lib
-# export JAVA_HOME=/usr/lib/jvm/java-6-sun-1.6.0.20
-# export JAVA_HOME=/usr/lib/jvm/java-6-sun
-# export CLASSPATH=.:$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/jre/lib:$JAVA_HOME/lib:/home/pochy/glassfishv3/jdk/lib:/home/pochy/glassfishv3/jdk/jre/lib:/home/pochy/glassfishv3/mq/lib
+## ======================================
+## PATH
+## ======================================
+#
+export PATH=$PATH:$HOME/.local/bin:$HOME/.vim/bin:$HOME/local/bin:/usr/local/bin:/bin:/usr/local/sbin/:/usr/local/mysql/bin:/usr/sbin
+export PATH=$PATH:$HOME/go/bin:/usr/local/go/bin
+source "$HOME/.cargo/env"
+export PATH="$HOME/.cargo/bin:$PATH"
 
-#export DISPLAY=127.0.0.1:0.0
-#export LIBGL_ALWAYS_INDIRECT=1
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
 
-export PATH="$HOME/.anyenv/bin:$PATH"
-#eval "$(anyenv init -)"
 
-#export RBENV_ROOT="/opt/rbenv"
-#export PATH="${RBENV_ROOT}/bin:${PATH}"
-#eval "$(rbenv init -)"
-
+## ======================================
 ## Default shell configuration
+## ======================================
 #
 # set prompt
 #
-autoload colors
-colors
-case ${UID} in
-0)
-    PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') %B%{${fg[red]}%}%/#%{${reset_color}%}%b "
-    PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
-    SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
-    ;;
-*)
-    PROMPT="%{${fg[red]}%}%~%%%{${reset_color}%} "
-    PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
-    SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-        PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
-    ;;
-esac
 
 # auto change directory
-#
+# ディレクトリ名でcd
 setopt auto_cd
 
 # auto directory pushd that you can get dirs list by cd -[tab]
-#
+# cd -<tab>で以前移動したディレクトリを表示
 setopt auto_pushd
 
 # command correct edition before each completion attempt
-#
+# コマンドのスペルミスを指摘
 setopt correct
 
+# インタラクティブシェルでもコメントを許可する
+setopt interactivecomments
+
 # compacked complete list display
-#
+# 候補が多い場合は詰めて表示
 setopt list_packed
 
 # no remove postfix slash of command line
@@ -83,42 +65,27 @@ setopt list_packed
 setopt noautoremoveslash
 
 # no beep sound when complete list displayed
-#
+# 補完候補表示時にビープ音を鳴らさない
 setopt nolistbeep
 
+# コマンドラインの引数でも補完を有効にする（--prefix=/userなど）
+setopt magic_equal_subst
 
-## Keybind configuration
-#
-# emacs like keybind (e.x. Ctrl-a gets to line head and Ctrl-e gets
-#   to end) and something additions
-#
-bindkey -v
-bindkey "^[[1~" beginning-of-line # Home gets to line head
-bindkey "^[[4~" end-of-line # End gets to line end
-bindkey "^[[3~" delete-char # Del
-
-# historical backward/forward search with linehead string binded to ^P/^N
-#
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^p" history-beginning-search-backward-end
-bindkey "^n" history-beginning-search-forward-end
-bindkey "\\ep" history-beginning-search-backward-end
-bindkey "\\en" history-beginning-search-forward-end
-
-# reverse menu completion binded to Shift-Tab
-#
-bindkey "\e[Z" reverse-menu-complete
+# auto_pushdで重複するディレクトリは記録しない
+setopt pushd_ignore_dups
 
 
+## ======================================
 ## Command history configuration
+## ======================================
 #
 HISTFILE=${HOME}/.zsh_history
-HISTSIZE=5000
+# メモリ上に保存される件数（検索できる件数）
+HISTSIZE=100000
+export HISTFILESIZE=100000
 # 履歴ファイルに保存される履歴の件数
 export SAVEHIST=100000
-export HISTFILESIZE=100000
+SAVEHIST=100000
 # 重複を記録しない
 setopt hist_ignore_dups
 # 開始と終了を記録
@@ -140,26 +107,62 @@ setopt hist_expand
 # history共有
 setopt share_history
 
+# historical backward/forward search with linehead string binded to ^P/^N
+# 履歴検索
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^p" history-beginning-search-backward-end
+bindkey "^n" history-beginning-search-forward-end
+bindkey "\\ep" history-beginning-search-backward-end
+bindkey "\\en" history-beginning-search-forward-end
 
-## Completion configuration
+
+## ======================================
+## Keybind configuration
+## ======================================
 #
-fpath=(${HOME}/.zsh/functions/Completion ${fpath})
-autoload -U compinit
-compinit
+# emacs like keybind (e.x. Ctrl-a gets to line head and Ctrl-e gets
+#   to end) and something additions
+#
+bindkey -v
+bindkey "^[[1~" beginning-of-line # Home gets to line head
+bindkey "^[[4~" end-of-line # End gets to line end
+bindkey "^[[3~" delete-char # Del
+
+# reverse menu completion binded to Shift-Tab
+#
+bindkey "\e[Z" reverse-menu-complete
 
 
+## ======================================
+## Completion configuration
+## ======================================
+# autoload -Uz compinit
+# compinit
+
+autoload -Uz compinit && compinit -i  # 補完を有効にする
+zstyle ':completion:*' menu select  # Tab で選択中の項目をハイライト
+
+
+## ======================================
 ## zsh editor
+## ======================================
 #
 autoload zed
 
 
+## ======================================
 ## Prediction configuration
+## ======================================
 #
 #autoload predict-on
 #predict-off
 
 
+## ======================================
 ## Alias configuration
+## ======================================
 #
 # expand aliases before completing
 #
@@ -192,57 +195,21 @@ LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
 alias lessh='LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s" less -M '
 
 
+## ======================================
 ## terminal configuration
+## ======================================
 #
 
 # bindkey "^H" backward-delete-char
 
-# /usr/lib/oracle/xe/app/oracle/product/10.2.0/client/bin/oracle_env.sh
 
-
-# ${fg[...]} や $reset_color をロード
-
-
-function locallib () {
-  INSTALL_BASE=$1
-  if [ -d $INSTALL_BASE ]; then
-    eval $(~/local/bin/use-locallib $INSTALL_BASE)
-  fi
-}
-
-# locallib $HOME/extlib/local
-
-function rprompt-git-current-branch {
-        local name st color
-        name=`git branch 2> /dev/null | grep '^\*' | cut -b 3-`
-        if [[ -z $name ]]; then
-                return
-        fi
-        st=`git status`
-        if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
-                color=${fg[green]}
-        elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
-                color=${fg[yellow]}
-        elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
-                color=${fg_bold[red]}
-        else
-                color=${fg[red]}
-        fi
-
-        if [ "$INSTALL_BASE" = "" ]; then
-          CURRENT_LOCALLIB=""
-        else
-          CURRENT_LOCALLIB="%{${fg[magenta]}%}$(echo $INSTALL_BASE | sed -e "s|$HOME/||; s|extlib/||") %{$reset_color%}"
-        fi
-        # %{...%} は囲まれた文字列がエスケープシーケンスであることを明示する
-        # これをしないと右プロンプトの位置がずれる
-        echo "${CURRENT_LOCALLIB}%{$color%}$name%{$reset_color%} "
-}
-
+## ======================================
+## prompt configuration
+## ======================================
 # プロンプトが表示されるたびにプロンプト文字列を評価、置換する
 setopt prompt_subst
-
-RPROMPT='[`rprompt-git-current-branch`]'
+# コマンドの実行直後に右プロンプトが消える。
+setopt transient_rprompt
 
 alias g="git"
 alias ga="git add -p"
@@ -281,6 +248,27 @@ bindkey -M visual S add-surround
 
 
 export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*,.yarn.lock}" -g "!yarn.lock"'
+
+## ======================================
+## env
+## ======================================
+#export PATH="$HOME/.anyenv/bin:$PATH"
+#eval "$(anyenv init -)"
+
+. "$HOME/.asdf/asdf.sh"
+
+## ======================================
+## oh-my-zsh
+## ======================================
+plugins=(
+  asdf git last-working-dir command-not-found
+)
+
+## ======================================
+## other
+## ======================================
+eval "$(sheldon source)"
+eval "$(starship init zsh)"
 
 ## load user .zshrc configuration file
 #
