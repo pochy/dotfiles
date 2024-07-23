@@ -36,11 +36,10 @@ github = "StackExchange/blackbox"
 [plugins.enhancd]
 github = "b4b4r07/enhancd"
 
-[plugins.zsh-vi-mode]
-github = "jeffreytse/zsh-vi-mode"
+# [plugins.zsh-vi-mode]
+# github = "jeffreytse/zsh-vi-mode"
 
 # For example:
 #
 # [plugins.base16]
 # github = "chriskempson/base16-shell"
-

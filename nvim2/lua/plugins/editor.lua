@@ -101,7 +101,7 @@ return {
           telescope.extensions.file_browser.file_browser({
             path = "%:p:h",
             cwd = telescope_buffer_dir(),
-            respect_gitignore = false,
+            respect_gitignore = true,
             hidden = true,
             grouped = true,
             previewer = false,
@@ -128,6 +128,16 @@ return {
         },
       })
       opts.pickers = {
+        find_files = {
+          find_command = { "rg", "--files", "--iglob", "!.git", "--hidden" },
+          hidden = true,
+        },
+        grep_string = {
+          additional_args = { "--hidden" },
+        },
+        live_grep = {
+          additional_args = { "--hidden" },
+        },
         diagnostics = {
           theme = "ivy",
           initial_mode = "normal",

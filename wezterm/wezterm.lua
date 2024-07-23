@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 wezterm.on("gui-startup", function(cmd)
-	local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
-	window:gui_window():maximize()
+	-- local tab, pane, window = wezterm.mux.spawn_window(cmd or {})
+	-- window:gui_window():maximize()
 end)
 
 return {
@@ -62,7 +62,8 @@ return {
 	color_scheme = "GruvboxDark",
 
 	-- 透明度
-	window_background_opacity = 0.85,
+	-- window_background_opacity = 0.90,
+	window_background_opacity = 1,
 
 	hide_tab_bar_if_only_one_tab = true,
 
@@ -84,8 +85,8 @@ return {
 	},
 
 	-- フォントとフォントサイズ
-	font_size = 12.0,
-	font = wezterm.font("HackGenNerd Console"),
+	font_size = 14.0,
+	font = wezterm.font("HackGen Console NF"),
 
 	use_ime = true,
 

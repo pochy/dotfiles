@@ -29,9 +29,16 @@ eval $(/usr/bin/locale-check C.UTF-8)
 #
 export PATH=$PATH:$HOME/.local/bin:$HOME/.vim/bin:$HOME/local/bin:/usr/local/bin:/bin:/usr/local/sbin/:/usr/local/mysql/bin:/usr/sbin
 export PATH=$PATH:$HOME/go/bin:/usr/local/go/bin
-source "$HOME/.cargo/env"
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+export PATH="/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"
 
+if [ -f $HOME/.cargo/env ]; then
+  source "$HOME/.cargo/env"
+  export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
 
 
 ## ======================================
@@ -221,10 +228,11 @@ alias gD="git diff --cached"
 alias gb="git branch -a -v"
 alias gl="git log --graph --pretty=format:'%Cblue%an: %Creset%s - %Cred%h%Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --all"
 alias gz="git log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s' --all"
-alias gh="git log --graph --date=short --pretty=format:'%Creset%s' --all"
+alias glh="git log --graph --date=short --pretty=format:'%Creset%s' --all"
 alias glp="git log -p"
 alias gls="git log --pretty=short"
 alias gcp="git cherry-pick"
+alias vim="nvim"
 
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
@@ -247,7 +255,11 @@ bindkey -a ys add-surround
 bindkey -M visual S add-surround
 
 
-export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*,.yarn.lock}" -g "!yarn.lock"'
+export FZF_DEFAULT_COMMAND="rg --files --follow --hidden -g '!{**/node_modules/*,**/.git/*}'"
+export FZF_LEGACY_KEYBINDINGS=0
+export FZF_FIND_FILE_COMMAND=$FZF_DEFAULT_COMMAND
+export RIPGREP_CONFIG_PATH=$HOME/.config/.ripgreprc
+
 
 ## ======================================
 ## env
@@ -261,7 +273,7 @@ export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{n
 ## oh-my-zsh
 ## ======================================
 plugins=(
-  asdf git last-working-dir command-not-found
+  asdf last-working-dir command-not-found
 )
 
 ## ======================================
@@ -269,6 +281,7 @@ plugins=(
 ## ======================================
 eval "$(sheldon source)"
 eval "$(starship init zsh)"
+eval "$(fzf --zsh)"
 
 ## load user .zshrc configuration file
 #
