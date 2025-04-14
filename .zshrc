@@ -1,4 +1,4 @@
-export SHELL=/usr/bin/zsh
+export SHELL=/bin/zsh
 #export TERM=xterm-256color
 export EDITOR=vim
 
@@ -20,7 +20,6 @@ case ${UID} in
     LANG=C
     ;;
 esac
-eval $(/usr/bin/locale-check C.UTF-8)
 
 
 ## ======================================
@@ -234,6 +233,9 @@ alias gls="git log --pretty=short"
 alias gcp="git cherry-pick"
 alias vim="nvim"
 
+alias apidocs="docker run -p 80:8080 -e API_URL=/docs/openapi.yaml -v /Users/knakajima/Work/BYOPD-backend/docs:/usr/share/nginx/html/docs swaggerapi/swagger-ui
+"
+
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
 
@@ -286,3 +288,5 @@ eval "$(fzf --zsh)"
 ## load user .zshrc configuration file
 #
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
+
+export PATH="$PATH:$(go env GOPATH)/bin"

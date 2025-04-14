@@ -14,12 +14,12 @@ return {
     "sainnhe/gruvbox-material",
     lazy = true,
     priority = 1000,
-    opts = function()
-      return {
-        gruvbox_material_background = "soft",
-        gruvbox_material_better_performance = 1,
-        gruvbox_material_transparent_background = 2,
-      }
+    config = function()
+      vim.print("setup gruvbox-material")
+      vim.g.gruvbox_material_enable_italic = true
+      vim.g.gruvbox_material_background = "soft"
+      vim.g.gruvbox_material_better_performance = 1
+      vim.g.gruvbox_material_transparent_background = 2
     end,
   },
   -- {
