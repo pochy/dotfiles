@@ -62,8 +62,9 @@ return {
 	color_scheme = "GruvboxDark",
 
 	-- 透明度
-	-- window_background_opacity = 0.90,
-	window_background_opacity = 1,
+	window_background_opacity = 0.90,
+	-- window_background_opacity = 1,
+	macos_window_background_blur = 30,
 
 	hide_tab_bar_if_only_one_tab = true,
 
@@ -85,7 +86,7 @@ return {
 	},
 
 	-- フォントとフォントサイズ
-	font_size = 14.0,
+	font_size = 16.0,
 	font = wezterm.font("HackGen Console NF"),
 
 	use_ime = true,
@@ -94,4 +95,14 @@ return {
 	window_padding = { left = 5, right = 5, top = 5, bottom = 5 },
 
 	enable_scroll_bar = true,
+	enable_tab_bar = true,
+
+	mouse_bindings = {
+		-- Ctrl-click will open the link under the mouse cursor
+		{
+			event = { Up = { streak = 1, button = "Left" } },
+			mods = "CTRL",
+			action = wezterm.action.OpenLinkAtMouseCursor,
+		},
+	},
 }
