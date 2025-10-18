@@ -20,6 +20,10 @@ case ${UID} in
     LANG=C
     ;;
 esac
+#eval $(/usr/bin/locale-check C.UTF-8)
+export LANG=ja_JP.UTF-8
+# not working Mac
+#eval $(/usr/bin/locale-check C.UTF-8)
 
 
 ## ======================================
@@ -31,6 +35,8 @@ export PATH=$PATH:$HOME/go/bin:/usr/local/go/bin
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 export PATH="/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"
 
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
 if [ -f $HOME/.cargo/env ]; then
   source "$HOME/.cargo/env"
   export PATH="$HOME/.cargo/bin:$PATH"
@@ -39,6 +45,17 @@ fi
 export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
 
+#export PATH="$HOME/.anyenv/bin:$PATH"
+#eval "$(anyenv init -)"
+#eval "$(nodenv init -)"
+
+#export PATH="$HOME/bin:$PATH"
+#export DOCKER_HOST='tcp://127.0.0.1:2375'
+#export DOCKER_HOST='unix:///Users/pochy/.lima/docker_x86_64/sock/docker.sock'
+
+#export RBENV_ROOT="/opt/rbenv"
+#export PATH="${RBENV_ROOT}/bin:${PATH}"
+#eval "$(rbenv init -)"
 
 ## ======================================
 ## Default shell configuration
@@ -233,8 +250,8 @@ alias gls="git log --pretty=short"
 alias gcp="git cherry-pick"
 alias vim="nvim"
 
-alias apidocs="docker run -p 80:8080 -e API_URL=/docs/openapi.yaml -v /Users/knakajima/Work/BYOPD-backend/docs:/usr/share/nginx/html/docs swaggerapi/swagger-ui
-"
+
+alias vim="nvim"
 
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
@@ -256,6 +273,8 @@ bindkey -a ds delete-surround
 bindkey -a ys add-surround
 bindkey -M visual S add-surround
 
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 
 export FZF_DEFAULT_COMMAND="rg --files --follow --hidden -g '!{**/node_modules/*,**/.git/*}'"
 export FZF_LEGACY_KEYBINDINGS=0
@@ -269,7 +288,7 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/.ripgreprc
 #export PATH="$HOME/.anyenv/bin:$PATH"
 #eval "$(anyenv init -)"
 
-. "$HOME/.asdf/asdf.sh"
+#. "$HOME/.asdf/asdf.sh"
 
 ## ======================================
 ## oh-my-zsh
@@ -284,9 +303,51 @@ plugins=(
 eval "$(sheldon source)"
 eval "$(starship init zsh)"
 eval "$(fzf --zsh)"
+eval "$(zoxide init zsh)"
 
 ## load user .zshrc configuration file
 #
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
 export PATH="$PATH:$(go env GOPATH)/bin"
+[ -f "/Users/pochy/.ghcup/env" ] && source "/Users/pochy/.ghcup/env" # ghcup-env
+
+eval "$(starship init zsh)"
+
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/pochy/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+# Added by Windsurf
+export PATH="/Users/pochy/.codeium/windsurf/bin:$PATH"
+# source ~/miniconda3/bin/activate  # commented out by conda initialize
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/pochy/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/pochy/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/pochy/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/pochy/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+
+# pnpm
+export PNPM_HOME="/Users/pochy/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+export ENHANCD_HOOK_AFTER_CD=""
