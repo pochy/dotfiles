@@ -2,16 +2,40 @@ return {
   -- Create annotations with one keybind, and jump your cursor in the inserted annotation
   {
     "danymat/neogen",
+    dependencies = LazyVim.has("mini.snippets") and { "mini.snippets" } or {},
+    cmd = "Neogen",
     keys = {
       {
-        "<leader>cc",
+        "<leader>cn",
         function()
-          require("neogen").generate({})
+          require("neogen").generate()
         end,
-        desc = "Neogen Comment",
+        desc = "Generate Annotations (Neogen)",
       },
     },
-    opts = { snippet_engine = "luasnip" },
+    opts = function(_, opts)
+      if opts.snippet_engine ~= nil then
+        return
+      end
+
+      local map = {
+        ["LuaSnip"] = "luasnip",
+        ["mini.snippets"] = "mini",
+        ["nvim-snippy"] = "snippy",
+        ["vim-vsnip"] = "vsnip",
+      }
+
+      for plugin, engine in pairs(map) do
+        if LazyVim.has(plugin) then
+          opts.snippet_engine = engine
+          return
+        end
+      end
+
+      if vim.snippet then
+        opts.snippet_engine = "nvim"
+      end
+    end,
   },
   -- Refactoring tool
   {
@@ -55,19 +79,14 @@ return {
   },
 
   {
-    "simrat39/symbols-outline.nvim",
-    keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-    cmd = "SymbolsOutline",
+    "hedyhli/outline.nvim",
+    lazy = true,
+    cmd = { "Outline", "OutlineOpen" },
+    keys = { -- Example mapping to toggle outline
+      { "<leader>co", "<cmd>Outline<CR>", desc = "Toggle outline" },
+    },
     opts = {
       position = "right",
     },
-  },
-
-  {
-    "nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
-    opts = function(_, opts)
-      table.insert(opts.sources, { name = "emoji" })
-    end,
   },
 }
