@@ -62,8 +62,8 @@ return {
 	color_scheme = "GruvboxDark",
 
 	-- 透明度
-	window_background_opacity = 0.90,
-	-- window_background_opacity = 1,
+	-- window_background_opacity = 0.90,
+	window_background_opacity = 1,
 	macos_window_background_blur = 30,
 
 	hide_tab_bar_if_only_one_tab = true,
@@ -96,6 +96,12 @@ return {
 
 	enable_scroll_bar = true,
 	enable_tab_bar = true,
+
+	-- tmuxとの互換性を向上させる
+	enable_kitty_graphics = true,
+
+	-- ハイパーリンクのルールを定義（デフォルトルールを使用）
+	hyperlink_rules = wezterm.default_hyperlink_rules(),
 
 	mouse_bindings = {
 		-- Ctrl-click will open the link under the mouse cursor

@@ -1,6 +1,6 @@
 # Dotfiles
 
-このリポジトリには、macOS 環境での開発効率を最大化するための個人用 dotfiles 設定が含まれています。
+このリポジトリには、macOS/Linux 環境での開発効率を最大化するための個人用 dotfiles 設定が含まれています。
 
 ## 📁 プロジェクト構成
 
@@ -38,9 +38,9 @@ dotfiles/
 
 - **ベース**: LazyVim（Lazy.nvim ベースの Neovim ディストリビューション）
 - **カラースキーム**:
-  - Tokyo Night（メイン）
+  - Gruvbox Material（デフォルト）
+  - Tokyo Night
   - Catppuccin
-  - Gruvbox Material
 - **主要プラグイン**:
   - **コーディング支援**:
     - `neogen`: アノテーション生成
@@ -53,7 +53,15 @@ dotfiles/
     - `yazi.nvim`: ファイルマネージャー
     - `bufferline.nvim`: バッファライン
     - `zen-mode.nvim`: 集中モード
-- **言語サポート**: Go, JSON, Markdown, Python, SQL, Tailwind, TypeScript, YAML
+  - **Godot 開発**:
+    - `vim-godot`: Godot エディタ統合
+    - `gdscript-extended-lsp.nvim`: GDScript LSP サポート
+    - `snacks.nvim`: ファイルエクスプローラー
+    - `asyncrun.vim`: 非同期実行
+- **言語サポート**: Go, JSON, Markdown, Python, SQL, Tailwind, TypeScript, YAML, GDScript
+- **特殊機能**:
+  - Godot プロジェクト自動検出
+  - Godot サーバー自動起動（`server.pipe`）
 
 ### Sheldon（Zsh プラグインマネージャー）
 
@@ -85,16 +93,18 @@ dotfiles/
 
 - **カラースキーム**: GruvboxDark
 - **フォント**: HackGen Console NF（16pt）
-- **透明度**: 90%（macOS 背景ブラー 30）
+- **透明度**: 100%（不透明）
 - **キーバインド**:
   - `Super+Enter`: 垂直分割
   - `Super+Shift+Enter`: 水平分割
   - `Super+h/j/k/l`: ペイン間移動
-  - `Super+u/d`: スクロール
+  - `Super+u/d`: スクロール（ページ単位）
 - **その他機能**:
   - 日本語 IME 対応
   - リンククリック（Ctrl+クリック）
   - 単一タブ時はタブバー非表示
+  - tmux/kitty グラフィックス互換性
+  - ウィンドウパディング（5px）
 
 ### Gruvbox カラーパレット
 
@@ -106,7 +116,7 @@ dotfiles/
 
 ### 前提条件
 
-- macOS
+- macOS/Linux
 - Zsh
 - Neovim
 - Sheldon
@@ -190,20 +200,76 @@ dotfiles/
 
 ### Neovim
 
-- `<leader>gs`: Git status
-- `<leader>ga`: Git add
-- `<leader>gA`: Git add .
-- `<leader>gp`: Git push
-- `<leader>gc`: Git commit
-- `<leader>cn`: アノテーション生成
-- `<leader>r`: リファクタリング
-- `<leader>co`: アウトライン表示
-- `<leader>~`: Yazi ファイルマネージャー
-- `<leader>z`: Zen Mode
+- **Git 操作**:
+  - `<leader>gs`: Git status
+  - `<leader>ga`: Git add
+  - `<leader>gA`: Git add .
+  - `<leader>gF`: Git fetch -p
+  - `<leader>gp`: Git push
+  - `<leader>gc`: Git commit
+- **コーディング**:
+  - `<leader>cn`: アノテーション生成（Neogen）
+  - `<leader>r`: リファクタリング（ビジュアルモード）
+  - `<leader>co`: アウトライン表示
+  - `<C-a>`: インクリメント
+  - `<C-x>`: デクリメント
+- **ファイル操作**:
+  - `<leader>~`: Yazi ファイルマネージャー（現在のファイル）
+  - `<leader>cw`: Yazi ファイルマネージャー（作業ディレクトリ）
+  - `<C-Up>`: Yazi セッション再開
+- **ウィンドウ操作**:
+  - `ss`: 水平分割
+  - `sv`: 垂直分割
+  - `sh/sj/sk/sl`: ウィンドウ間移動
+  - `<Tab>`: 次のバッファ
+  - `<S-Tab>`: 前のバッファ
+- **その他**:
+  - `<leader>z`: Zen Mode
+  - `jj`: インサートモードで Esc
+  - `<C-j>`: 次の診断エラー
+- **Godot 専用**（Godot プロジェクト内で有効）:
+  - `<leader>gb`: ブレークポイント追加
+  - `<leader>gB`: すべてのブレークポイント削除
+  - `<leader>gf`: すべてのブレークポイント検索
 
 ### WezTerm
 
 - `Super+Enter`: 垂直分割
 - `Super+Shift+Enter`: 水平分割
 - `Super+h/j/k/l`: ペイン間移動
-- `Super+u/d`: スクロール
+- `Super+u/d`: スクロール（ページ単位）
+
+### Zsh
+
+- **基本設定**:
+  - viモードが有効（`bindkey -v`）
+- **履歴検索**:
+  - `Ctrl+P`: 前方に履歴検索（行頭から一致）
+  - `Ctrl+N`: 後方に履歴検索（行頭から一致）
+  - `Alt+P`: 前方に履歴検索（行頭から一致）
+  - `Alt+N`: 後方に履歴検索（行頭から一致）
+  - `Ctrl+R`: インクリメンタル履歴検索（後方）
+  - `Ctrl+S`: インクリメンタル履歴検索（前方）
+- **カーソル移動**:
+  - `Home`: 行頭へ移動
+  - `End`: 行末へ移動
+  - `Del`: カーソル位置の文字を削除
+- **補完**:
+  - `Tab`: 補完メニューを表示
+  - `Shift+Tab`: 補完メニューを逆順に移動
+- **viモード（surroundプラグイン）**:
+  - `cs`: 囲み文字を変更（viコマンドモード）
+  - `ds`: 囲み文字を削除（viコマンドモード）
+  - `ys`: 囲み文字を追加（viコマンドモード）
+  - `S`: ビジュアルモードで囲み文字を追加
+- **括弧選択**（ビジュアルモード）:
+  - `va(` / `vi(`: 括弧の外側/内側を選択
+  - `va[` / `vi[`: 角括弧の外側/内側を選択
+  - `va{` / `vi{`: 波括弧の外側/内側を選択
+  - 同様に `<>bB` にも対応
+
+**補足**:
+- viモードが有効なため、`Esc`でコマンドモード、`i`で挿入モードに切り替え
+- コマンドモードではviの標準キーバインド（`h`/`j`/`k`/`l`、`w`/`b`、`0`/`$`など）が使用可能
+- `Tab`で補完メニューを表示（`menu select`が有効で、矢印キーで選択可能）
+- `zsh-vi-mode`プラグインが有効な場合（`cplugins.toml`使用時）、追加のviモード機能が利用可能
