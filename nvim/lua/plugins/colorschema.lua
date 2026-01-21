@@ -4,7 +4,7 @@ return {
   {
     "folke/tokyonight.nvim",
     lazy = true,
-    opts = { 
+    opts = {
       style = "night",
       transparent = true,
       styles = {
@@ -104,8 +104,8 @@ return {
     "LazyVim/LazyVim",
     opts = {
       -- colorscheme = "gruvbox-flat",
-      -- colorscheme = "gruvbox-material",
-      colorscheme = "tokyonight",
+      colorscheme = "gruvbox-material",
+      -- colorscheme = "tokyonight",
     },
   },
 }
