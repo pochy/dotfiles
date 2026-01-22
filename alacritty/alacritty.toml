@@ -1,0 +1,96 @@
+# ~/.config/alacritty/alacritty.toml
+[general]
+# ライブリロード（保存したら即反映、超便利）
+live_config_reload = true
+
+# もしくは外部テーマをimport（おすすめ）
+# import = ["~/.config/alacritty/themes/catppuccin-mocha.toml"]
+import = [
+  # uncomment the flavour you want below:
+  # "~/.config/alacritty/catppuccin-latte.toml"
+  "~/.config/alacritty/catppuccin-frappe.toml"
+  # "~/.config/alacritty/catppuccin-macchiato.toml"
+  # "~/.config/alacritty/catppuccin-mocha.toml"
+]
+
+# ウィンドウ設定
+[window]
+dimensions.columns = 140            # 横幅（好みで調整）
+dimensions.lines   = 40             # 縦幅
+padding.x = 12                      # 左右余白
+padding.y = 12                      # 上下余白
+decorations = "Buttonless"   # macOSでタイトルバー非表示にしたい場合 "Full" / "None"
+# blur = true
+opacity   = 0.9             # 半透明（0.0〜1.0）
+startup_mode = "Windowed"    # "Fullscreen" も可
+dynamic_title = true                # タイトルを動的に変更
+option_as_alt = "Both" # OptionキーをAltとしてtmux/Neovimで使える（macOS特有の悩み解消）
+dynamic_padding = true # ウィンドウサイズが変わってもpaddingを調整
+
+[scrolling]
+history = 15000                     # スクロールバックバッファ（多め推奨）
+
+# フォント（Nerd Font推奨）
+[font]
+normal.family    = "Hackgen Console NF"
+normal.style     = "Regular"
+bold.family      = "Hackgen Console NF"
+bold.style       = "Bold"
+italic.family    = "Hackgen Console NF"
+italic.style     = "Italic"
+size             = 14.0
+
+# 修正後（現在の正しい書き方）
+[font.glyph_offset]
+x = 0
+y = 0               # 日本語の縦位置が少し下がり気味なら y = 1 〜 2 で調整
+
+
+# カーソル
+[cursor]
+style.shape = "Beam"          # Block / Beam / Underline
+style.blinking = "On"         # Off / On / Always
+thickness = 0.15                    # Beamの太さ（細めがきれい）
+# unfocused_hollow = true             # 非フォーカス時は空洞カーソル
+unfocused_hollow = false  # 非アクティブ時に塗りつぶしカーソル（視認性↑）
+
+[mouse]
+hide_when_typing = true             # 入力中マウス非表示（便利）
+
+[selection]
+save_to_clipboard = true # これがtrueなら選択したら即クリップボードへ（デフォルトtrue）
+
+[bell]
+animation = "EaseOutExpo"           # ベルアニメーション
+duration  = 0                       # ベル音オフ（静かにしたい場合）
+
+# シェル（デフォルトshellを使いたい場合は省略可）
+[terminal.shell]
+program = "/bin/zsh"          # または /bin/bash, /usr/bin/fish など
+# args = ["--login"]          # 必要に応じて
+
+# 色テーマ（Catppuccin Mocha の例。別ファイルimportが便利）
+[colors.primary]
+# background = "#1e1e2e"
+# foreground = "#cdd6f4"
+
+[terminal]
+
+[env]
+# TERM = "xterm-256color"
+TERM = "tmux-256color"
+
+[[keyboard.bindings]]
+key = "Equals"
+mods = "Command"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Minus"
+mods = "Command"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key = "0"
+mods = "Command"
+action = "ResetFontSize"
