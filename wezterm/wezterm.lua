@@ -5,8 +5,15 @@ wezterm.on("gui-startup", function(cmd)
 end)
 
 return {
+	initial_rows = 48,
+	initial_cols = 150,
 
 	keys = {
+		{
+			key = "Enter",
+			mods = "SHIFT",
+			action = wezterm.action({ SendString = "\x1b\r" }),
+		},
 		-- 垂直分割 (SwayのデフォルトではMod+v, ここではMod+Enterを使用)
 		{
 			key = "Enter",

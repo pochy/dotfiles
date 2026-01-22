@@ -73,4 +73,12 @@ return {
       },
     },
   },
+  {
+    "ojroques/vim-oscyank",
+    config = function()
+      vim.g.oscyank_term = "default"
+      vim.keymap.set("n", "<leader>y", "<Plug>OSCYankOperator", { noremap = true })
+      vim.keymap.set("v", "<leader>y", "<Plug>OSCYankVisual", { noremap = true })
+    end,
+  },
 }
