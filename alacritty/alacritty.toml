@@ -77,8 +77,9 @@ program = "/bin/zsh"          # または /bin/bash, /usr/bin/fish など
 [terminal]
 
 [env]
-# TERM = "xterm-256color"
-TERM = "tmux-256color"
+TERM = "alacritty"
+# alacrittyは独自のterminfoを持っており、拡張キー機能をサポートしています
+# tmux内では自動的にtmux-256colorに設定されます
 
 [[keyboard.bindings]]
 key = "Equals"
@@ -106,3 +107,9 @@ action = "ToggleSimpleFullscreen"
 key = "M"
 mods = "Command|Control"
 action = "ToggleMaximized"
+
+# Shift+Enter で改行コードを送信（weztermと同じ設定）
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001b\r"  # \x1b を \u001b に変更
