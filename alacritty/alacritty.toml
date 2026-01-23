@@ -8,9 +8,9 @@ live_config_reload = true
 import = [
   # uncomment the flavour you want below:
   # "~/.config/alacritty/catppuccin-latte.toml"
-  "~/.config/alacritty/catppuccin-frappe.toml"
+  # "~/.config/alacritty/catppuccin-frappe.toml"
   # "~/.config/alacritty/catppuccin-macchiato.toml"
-  # "~/.config/alacritty/catppuccin-mocha.toml"
+  "~/.config/alacritty/catppuccin-mocha.toml"
 ]
 
 # ウィンドウ設定
@@ -94,3 +94,15 @@ action = "DecreaseFontSize"
 key = "0"
 mods = "Command"
 action = "ResetFontSize"
+
+# フルスクリーンの切り替え (Cmd + Ctrl + F) ※macOS標準に近い挙動
+[[keyboard.bindings]]
+key = "F"
+mods = "Command|Control"
+action = "ToggleSimpleFullscreen"
+
+# 最大化の切り替え (Cmd + Ctrl + M)
+[[keyboard.bindings]]
+key = "M"
+mods = "Command|Control"
+action = "ToggleMaximized"
