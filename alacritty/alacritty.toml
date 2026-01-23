@@ -1,4 +1,8 @@
 # ~/.config/alacritty/alacritty.toml
+# TOMLの仕様: TOMLでは、16進数を直接表す \x は使えず、Unicodeエスケープである \u001b を使うのが正解です。
+# 制御文字の表現:
+# \x1b (Escape) → \u001b
+# \r (Carriage Return) → これはTOMLでもサポートされているためそのままで問題ありません。
 [general]
 # ライブリロード（保存したら即反映、超便利）
 live_config_reload = true
