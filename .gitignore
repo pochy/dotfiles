@@ -21,3 +21,4 @@ Desktop.ini
 .vim/bundle/repos
 .vim/bundles
 .vimperator/info
+.zshrc.local

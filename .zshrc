@@ -20,7 +20,7 @@ case ${UID} in
     LANG=C
     ;;
 esac
-#eval $(/usr/bin/locale-check C.UTF-8)
+# eval $(/usr/bin/locale-check C.UTF-8)
 export LANG=ja_JP.UTF-8
 # not working Mac
 #eval $(/usr/bin/locale-check C.UTF-8)
@@ -30,6 +30,8 @@ export LANG=ja_JP.UTF-8
 ## PATH
 ## ======================================
 #
+# Homebrewのパスを最初に設定
+export PATH="/opt/homebrew/bin:$PATH"
 export PATH=$PATH:$HOME/.local/bin:$HOME/.vim/bin:$HOME/local/bin:/usr/local/bin:/bin:/usr/local/sbin/:/usr/local/mysql/bin:/usr/sbin
 export PATH=$PATH:$HOME/go/bin:/usr/local/go/bin
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
@@ -164,6 +166,12 @@ bindkey "\e[Z" reverse-menu-complete
 # autoload -Uz compinit
 # compinit
 
+# append completions to fpath
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+if command -v brew &> /dev/null; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+# initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit -i  # 補完を有効にする
 zstyle ':completion:*' menu select  # Tab で選択中の項目をハイライト
 
@@ -249,9 +257,11 @@ alias glp="git log -p"
 alias gls="git log --pretty=short"
 alias gcp="git cherry-pick"
 alias vim="nvim"
+alias pip="pip3"
+alias python="python3"
 
+alias apidocs="docker run -p 80:8080 -e API_URL=/docs/openapi.yaml -v /Users/knakajima/Work/BYOPD-backend/docs:/usr/share/nginx/html/docs swaggerapi/swagger-ui"
 
-alias vim="nvim"
 
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
@@ -273,7 +283,7 @@ bindkey -a ds delete-surround
 bindkey -a ys add-surround
 bindkey -M visual S add-surround
 
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
 export FZF_DEFAULT_COMMAND="rg --files --follow --hidden -g '!{**/node_modules/*,**/.git/*}'"
@@ -288,7 +298,6 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/.ripgreprc
 #export PATH="$HOME/.anyenv/bin:$PATH"
 #eval "$(anyenv init -)"
 
-#. "$HOME/.asdf/asdf.sh"
 
 ## ======================================
 ## oh-my-zsh
@@ -300,54 +309,20 @@ plugins=(
 ## ======================================
 ## other
 ## ======================================
-eval "$(sheldon source)"
-eval "$(starship init zsh)"
-eval "$(fzf --zsh)"
-eval "$(zoxide init zsh)"
+command -v sheldon &> /dev/null && eval "$(sheldon source)"
+command -v starship &> /dev/null && eval "$(starship init zsh)"
+command -v fzf &> /dev/null && eval "$(fzf --zsh)"
+command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
 
 ## load user .zshrc configuration file
 #
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
-export PATH="$PATH:$(go env GOPATH)/bin"
-[ -f "/Users/pochy/.ghcup/env" ] && source "/Users/pochy/.ghcup/env" # ghcup-env
-
-eval "$(starship init zsh)"
-
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/pochy/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
-
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
-
-# Added by Windsurf
-export PATH="/Users/pochy/.codeium/windsurf/bin:$PATH"
-# source ~/miniconda3/bin/activate  # commented out by conda initialize
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/pochy/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/pochy/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/pochy/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/pochy/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-
-# pnpm
-export PNPM_HOME="/Users/pochy/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
+command -v go &> /dev/null && export PATH="$PATH:$(go env GOPATH)/bin"
 
 export ENHANCD_HOOK_AFTER_CD=""
+
+## load user .zshrc.local configuration file
+#
+[ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
+
