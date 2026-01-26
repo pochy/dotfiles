@@ -14,32 +14,40 @@ shell = "zsh"
 
 [plugins]
 
-[plugins.oh-my-zsh]
-github = "ohmyzsh/ohmyzsh"
+# 遅延読み込み用（起動速度向上）
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+# defer を使うプラグインはこれより後に記述
 
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
 
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+defer = -2
+
+# 必ず syntax-highlighting の「後」に読み込む（順序が逆だと入力が二重になる不具合が出る）
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 use = ["{{ name }}.zsh"]
-
-[plugins.dracula-zsh-syntax-highlighting]
-github = "dracula/zsh-syntax-highlighting"
-
-[plugins.zsh-syntax-highlighting]
-github = "zsh-users/zsh-syntax-highlighting"
+defer = -1
 
 [plugins.blackbox]
 github = "StackExchange/blackbox"
+defer = -1
 
-[plugins.enhancd]
-github = "b4b4r07/enhancd"
+[plugins.zsh-vi-mode]
+github = "jeffreytse/zsh-vi-mode"
 
-# [plugins.zsh-vi-mode]
-# github = "jeffreytse/zsh-vi-mode"
+# 履歴の途中一致検索（例: git と入力して ↑ で git status や git add を含む履歴を順に探せる）。
+# 既存の history-beginning-search-*（前方一致）を完全に上位互換。
+# ^P/^N（↑↓）で動作し、viモードでも自然に使える。
+[plugins.history-substring-search]
+github = "zsh-users/zsh-history-substring-search"
+defer = -1
 
-# For example:
-#
-# [plugins.base16]
-# github = "chriskempson/base16-shell"
+# 標準の補完メニューを fzf に置き換え（プレビュー付き高速選択）。
+# ファイル/ディレクトリ/git branch/cd履歴 などの補完が劇的に快適に。
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"
+defer = -2

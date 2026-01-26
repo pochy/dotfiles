@@ -1,328 +1,269 @@
-export SHELL=/bin/zsh
-#export TERM=xterm-256color
+# =============================================================================
+# .zshrc - Zsh Startup Configuration
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 基本環境変数
+# -----------------------------------------------------------------------------
+# SHELL はログイン時に自動設定されるため省略可ですが、明示したい場合は残す
+# export SHELL=/bin/zsh
 export EDITOR=vim
+# タイムゾーンは地域名指定が推奨 (JST-9 も可ですが汎用性を考慮)
+export TZ='Asia/Tokyo'
 
-export TZ=JST-9
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-
-# users generic .zshrc file for zsh(1)
-
-## ======================================
-## Environment variable configuration
-## ======================================
-#
-# LANG
-# 文字コードはUTF-8
-export LANG=ja_JP.UTF-8
+# -----------------------------------------------------------------------------
+# 文字コード・ロケール
+# -----------------------------------------------------------------------------
+# UTF-8 統一（LC_CTYPE だけ設定でカーソル幅計算を安定させる）
 case ${UID} in
-0)
-    LANG=C
-    ;;
+  0) export LANG=C ;;
+  *) export LANG=ja_JP.UTF-8 ;;
 esac
-# eval $(/usr/bin/locale-check C.UTF-8)
-export LANG=ja_JP.UTF-8
-# not working Mac
-#eval $(/usr/bin/locale-check C.UTF-8)
+export LC_CTYPE=$LANG
+# LC_ALL は設定せず、必要に応じて .zshrc.local で上書き
 
+# -----------------------------------------------------------------------------
+# PATH & Environment
+# -----------------------------------------------------------------------------
+# typeset -U : 重複パスを自動的に削除する
+typeset -U path PATH
 
-## ======================================
-## PATH
-## ======================================
-#
-# Homebrewのパスを最初に設定
-export PATH="/opt/homebrew/bin:$PATH"
-export PATH=$PATH:$HOME/.local/bin:$HOME/.vim/bin:$HOME/local/bin:/usr/local/bin:/bin:/usr/local/sbin/:/usr/local/mysql/bin:/usr/sbin
-export PATH=$PATH:$HOME/go/bin:/usr/local/go/bin
-export PATH="/opt/homebrew/opt/curl/bin:$PATH"
-export PATH="/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"
+# パスの優先順位設定 (上に書くほど優先度が高い)
+path=(
+  "${ASDF_DATA_DIR:-$HOME/.asdf}/shims"  # asdf は最優先
+  $HOME/.local/bin
+  $HOME/.vim/bin
+  $HOME/local/bin
+  $HOME/go/bin
+  /opt/homebrew/bin       # Apple Silicon Mac
+  /usr/local/bin          # Intel Mac / Linux
+  /usr/local/sbin
+  /usr/local/go/bin
+  $path                   # システム標準パス(/bin, /usr/bin等)を末尾に追加
+)
+export PATH
 
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+# asdf の初期化
+[ -f "${ASDF_DATA_DIR:-$HOME/.asdf}/asdf.sh" ] && . "${ASDF_DATA_DIR:-$HOME/.asdf}/asdf.sh"
 
-if [ -f $HOME/.cargo/env ]; then
-  source "$HOME/.cargo/env"
-  export PATH="$HOME/.cargo/bin:$PATH"
-fi
+# -----------------------------------------------------------------------------
+# シェルオプション
+# -----------------------------------------------------------------------------
+setopt auto_cd              # ディレクトリ名だけで cd
+setopt auto_pushd           # cd -<tab> で過去のディレクトリを表示
+setopt correct              # コマンドのスペルミスを指摘 (鬱陶しい場合は off 推奨)
+setopt interactivecomments  # インタラクティブでも # 以降をコメント扱い
+setopt list_packed          # 補完候補を詰めて表示
+setopt noautoremoveslash    # 末尾スラッシュを削除しない
+setopt nolistbeep           # 補完時にビープを鳴らさない
+setopt magic_equal_subst    # = 以降も補完（--prefix=/usr など）
+setopt pushd_ignore_dups    # pushd で重複ディレクトリを記録しない
+setopt prompt_subst         # プロンプト内で変数展開
+setopt transient_rprompt    # 実行後に右プロンプトを消す
+setopt complete_aliases     # エイリアスも補完対象
+setopt extendedglob         # (#q...) などの glob 修飾子（compinit キャッシュ判定で使用）
+setopt glob_dots          # . で始まるファイルも glob 補完対象に
+setopt auto_menu          # Tab でメニュー補完（複数候補時）
+setopt menu_complete      # 初回 Tab で即候補表示
+setopt always_to_end      # 補完時にカーソルを語尾へ移動
+setopt complete_in_word   # 単語途中でも補完
 
-export LDFLAGS="-L/opt/homebrew/opt/curl/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/curl/include"
+export KEYTIMEOUT=1       # ESC 後のモード切り替えを高速化（遅延ほぼゼロ）
 
-#export PATH="$HOME/.anyenv/bin:$PATH"
-#eval "$(anyenv init -)"
-#eval "$(nodenv init -)"
-
-#export PATH="$HOME/bin:$PATH"
-#export DOCKER_HOST='tcp://127.0.0.1:2375'
-#export DOCKER_HOST='unix:///Users/pochy/.lima/docker_x86_64/sock/docker.sock'
-
-#export RBENV_ROOT="/opt/rbenv"
-#export PATH="${RBENV_ROOT}/bin:${PATH}"
-#eval "$(rbenv init -)"
-
-## ======================================
-## Default shell configuration
-## ======================================
-#
-# set prompt
-#
-
-# auto change directory
-# ディレクトリ名でcd
-setopt auto_cd
-
-# auto directory pushd that you can get dirs list by cd -[tab]
-# cd -<tab>で以前移動したディレクトリを表示
-setopt auto_pushd
-
-# command correct edition before each completion attempt
-# コマンドのスペルミスを指摘
-setopt correct
-
-# インタラクティブシェルでもコメントを許可する
-setopt interactivecomments
-
-# compacked complete list display
-# 候補が多い場合は詰めて表示
-setopt list_packed
-
-# no remove postfix slash of command line
-#
-setopt noautoremoveslash
-
-# no beep sound when complete list displayed
-# 補完候補表示時にビープ音を鳴らさない
-setopt nolistbeep
-
-# コマンドラインの引数でも補完を有効にする（--prefix=/userなど）
-setopt magic_equal_subst
-
-# auto_pushdで重複するディレクトリは記録しない
-setopt pushd_ignore_dups
-
-
-## ======================================
-## Command history configuration
-## ======================================
-#
+# -----------------------------------------------------------------------------
+# 履歴 (History)
+# -----------------------------------------------------------------------------
 HISTFILE=${HOME}/.zsh_history
-# メモリ上に保存される件数（検索できる件数）
 HISTSIZE=100000
-export HISTFILESIZE=100000
-# 履歴ファイルに保存される履歴の件数
-export SAVEHIST=100000
 SAVEHIST=100000
-# 重複を記録しない
-setopt hist_ignore_dups
-# 開始と終了を記録
-setopt EXTENDED_HISTORY
-# ヒストリに追加されるコマンド行が古いものと同じなら古いものを削除
-setopt hist_ignore_all_dups
-# スペースで始まるコマンド行はヒストリリストから削除
-setopt hist_ignore_space
-# ヒストリを呼び出してから実行する間に一旦編集可能
-setopt hist_verify
-# 余分な空白は詰めて記録
-setopt hist_reduce_blanks
-# 古いコマンドと同じものは無視
-setopt hist_save_no_dups
-# historyコマンドは履歴に登録しない
-setopt hist_no_store
-# 保管時にヒストリを自動的に展開
-setopt hist_expand
-# history共有
-setopt share_history
 
-# historical backward/forward search with linehead string binded to ^P/^N
-# 履歴検索
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^p" history-beginning-search-backward-end
-bindkey "^n" history-beginning-search-forward-end
-bindkey "\\ep" history-beginning-search-backward-end
-bindkey "\\en" history-beginning-search-forward-end
+setopt extended_history      # 開始・終了時刻を記録
+setopt hist_ignore_all_dups  # 重複は古い方を削除
+setopt hist_ignore_space     # 先頭がスペースの行は履歴に残さない
+setopt hist_verify           # 履歴から実行する前に編集可能にする
+setopt hist_reduce_blanks    # 余分な空白を詰めて記録
+setopt hist_save_no_dups     # 保存時に重複を除く
+setopt hist_no_store         # history コマンド自体は履歴に登録しない
+setopt hist_expand           # 補完時に履歴を展開
+setopt share_history         # 履歴を他のシェルと共有
 
-
-## ======================================
-## Keybind configuration
-## ======================================
-#
-# emacs like keybind (e.x. Ctrl-a gets to line head and Ctrl-e gets
-#   to end) and something additions
-#
-bindkey -v
-bindkey "^[[1~" beginning-of-line # Home gets to line head
-bindkey "^[[4~" end-of-line # End gets to line end
-bindkey "^[[3~" delete-char # Del
-
-# reverse menu completion binded to Shift-Tab
-#
-bindkey "\e[Z" reverse-menu-complete
-
-
-## ======================================
-## Completion configuration
-## ======================================
-# autoload -Uz compinit
-# compinit
-
-# append completions to fpath
-fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
-if command -v brew &> /dev/null; then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+# -----------------------------------------------------------------------------
+# プラグイン管理 (Sheldon)
+# -----------------------------------------------------------------------------
+# 【重要】compinit より前に読み込む (fpath を通すため)
+if command -v sheldon &> /dev/null; then
+  eval "$(sheldon source)"
 fi
-# initialise completions with ZSH's compinit
-autoload -Uz compinit && compinit -i  # 補完を有効にする
-zstyle ':completion:*' menu select  # Tab で選択中の項目をハイライト
 
+# -----------------------------------------------------------------------------
+# atuin - 履歴管理の次世代ツール（zsh-vi-mode 対応 + フォールバック付き）
+# -----------------------------------------------------------------------------
+if command -v atuin &> /dev/null; then
+  # 通常初期化（デフォルトバインドは zsh-vi-mode が上書きするので最小限）
+  eval "$(atuin init zsh)"
 
-## ======================================
-## zsh editor
-## ======================================
-#
+  # zsh-vi-mode 公式推奨フック: viコマンドモードで ^R を atuin に再バインド（競合回避）
+  return_zvm() {
+    zvm_bindkey vicmd '^R' atuin-search
+    zvm_bindkey viins '^R' atuin-search  # インサートモードも明示的に
+  }
+  zvm_after_init_commands+=(return_zvm)
+
+  # 初回インポート推奨（ターミナルで一度だけ実行）
+  # atuin import auto
+else
+  # atuin がない場合: 従来のインクリメンタル検索にフォールバック
+  bindkey '^R' history-incremental-pattern-search-backward
+  bindkey '^S' history-incremental-pattern-search-forward
+fi
+
+# -----------------------------------------------------------------------------
+# 補完 (Completion)
+# -----------------------------------------------------------------------------
+# Homebrew の補完パス追加 (brew --prefix は遅いので固定パス判定で高速化)
+if [ -d "/opt/homebrew/share/zsh/site-functions" ]; then
+  fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
+elif [ -d "/usr/local/share/zsh/site-functions" ]; then
+  fpath=("/usr/local/share/zsh/site-functions" $fpath)
+fi
+
+# asdf の補完
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+
+# compinit の実行 (キャッシュ利用で高速化)
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit -C  # 24時間以内ならキャッシュ利用（チェックなし）
+else
+  compinit -i
+fi
+
+zstyle ':completion:*' menu select
+setopt complete_aliases
+
+# -----------------------------------------------------------------------------
+# キーバインド (Keybinds) - zsh-vi-mode 導入後の最小設定
+# -----------------------------------------------------------------------------
+# zsh-vi-mode が bindkey -v を上書きするため、手動 bindkey -v は不要（削除）
+
+# 特殊キー（ターミナル依存で便利なので残す）
+bindkey "^[[1~" beginning-of-line  # Home
+bindkey "^[[4~" end-of-line        # End
+bindkey "^[[3~" delete-char        # Delete
+bindkey "\e[Z" reverse-menu-complete  # Shift-Tab
+
+# history-substring-search（途中一致検索） - history-search-end の上位互換
+# ↑↓キー（多くのターミナルで有効）
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+# viコマンドモードで k/j を検索に活用（Vimらしい操作）
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+# オプション: zsh-vi-mode のキーシーケンスタイムアウト調整（surround などのレスポンス向上）
+# export ZVM_KEYTIMEOUT=0.1  # デフォルト0.4 → 0.1秒に短縮（好みで調整）
+
+# -----------------------------------------------------------------------------
+# その他 zsh 機能
+# -----------------------------------------------------------------------------
 autoload zed
 
+# -----------------------------------------------------------------------------
+# エイリアス
+# -----------------------------------------------------------------------------
+alias where='command -v'
+alias j='jobs -l'
 
-## ======================================
-## Prediction configuration
-## ======================================
-#
-#autoload predict-on
-#predict-off
-
-
-## ======================================
-## Alias configuration
-## ======================================
-#
-# expand aliases before completing
-#
-setopt complete_aliases     # aliased ls needs if file/dir completions work
-
-alias where="command -v"
-alias j="jobs -l"
-
+# ls
 case "${OSTYPE}" in
-freebsd*|darwin*)
-    alias ls="ls -G -w"
-    ;;
-linux*)
-    alias ls="ls --color=auto"
-    ;;
+  freebsd*|darwin*) alias ls='ls -G -w' ;;
+  linux*)           alias ls='ls --color=auto' ;;
 esac
+alias la='ls -a'
+alias lf='ls -F'
+alias ll='ls -l'
 
-alias la="ls -a"
-alias lf="ls -F"
-alias ll="ls -l"
+# ユーティリティ
+alias du='du -h'
+alias df='df -h'
+alias su='su -l'
+# grep -n は削除(パイプ処理での事故防止)。必要な場合は grep -n を手打ちするか alias grepn を作る
+alias grep='grep --color=auto'
+alias grepa='grep --with-filename --line-number --color=always'
 
-alias du="du -h"
-alias df="df -h"
+# less (環境依存のパスを避けて分岐)
+export LESS='-R'
+if [ -x /usr/share/source-highlight/src-hilite-lesspipe.sh ]; then
+  export LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
+elif [ -x /usr/bin/src-hilite-lesspipe.sh ]; then
+  alias lessh='LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s" less -M'
+fi
 
-alias su="su -l"
-alias grep="grep -n --color=auto "
-alias grepa="grep --with-filename --line-number --color=always"
-LESS=' -R '
-LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
-alias lessh='LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s" less -M '
+# Git
+alias g='git'
+alias ga='git add -p'
+alias gr='git reset'
+alias gs='git status'
+alias gd='git diff'
+alias gD='git diff --cached'
+alias gb='git branch -a -v'
+alias gl='git log --graph --pretty=format:"%Cblue%an: %Creset%s - %Cred%h%Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset" --abbrev-commit --date=relative --all'
+alias gz='git log --graph --date=short --pretty=format:"%Cgreen%h %cd %Cblue%cn %Creset%s" --all'
+alias glh='git log --graph --date=short --pretty=format:"%Creset%s" --all'
+alias glp='git log -p'
+alias gls='git log --pretty=short'
+alias gcp='git cherry-pick'
 
+if command -v delta &> /dev/null; then
+  alias diff='delta'
+fi
 
-## ======================================
-## terminal configuration
-## ======================================
-#
+# eza (ls の代替)
+if command -v eza &> /dev/null; then
+  alias ls='eza --icons --git'
+  alias ll='eza --icons --git -l'
+  alias la='eza --icons --git -la'
+  alias lt='eza --icons --git -T' # ツリー表示
+fi
 
-# bindkey "^H" backward-delete-char
+# bat (cat の代替)
+if command -v bat &> /dev/null; then
+  alias cat='bat'
+  alias less='bat --paging=always'
+fi
 
+if command -v fd &> /dev/null; then
+  alias find='fd'
+fi
 
-## ======================================
-## prompt configuration
-## ======================================
-# プロンプトが表示されるたびにプロンプト文字列を評価、置換する
-setopt prompt_subst
-# コマンドの実行直後に右プロンプトが消える。
-setopt transient_rprompt
+# コマンドの差し替え
+if command -v nvim &> /dev/null; then
+  alias vim='nvim'
+fi
 
-alias g="git"
-alias ga="git add -p"
-alias gr="git reset"
-# alias go="git checkout"
-alias gs="git status"
-alias gd="git diff"
-alias gD="git diff --cached"
-alias gb="git branch -a -v"
-alias gl="git log --graph --pretty=format:'%Cblue%an: %Creset%s - %Cred%h%Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --all"
-alias gz="git log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s' --all"
-alias glh="git log --graph --date=short --pretty=format:'%Creset%s' --all"
-alias glp="git log -p"
-alias gls="git log --pretty=short"
-alias gcp="git cherry-pick"
-alias vim="nvim"
-alias pip="pip3"
-alias python="python3"
-
-alias apidocs="docker run -p 80:8080 -e API_URL=/docs/openapi.yaml -v /Users/knakajima/Work/BYOPD-backend/docs:/usr/share/nginx/html/docs swaggerapi/swagger-ui"
-
-
-bindkey '^R' history-incremental-pattern-search-backward
-bindkey '^S' history-incremental-pattern-search-forward
-
-autoload -U select-bracketed
-zle -N select-bracketed
-for m in visual viopp; do
-  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
-    bindkey -M $m $c select-bracketed
-  done
-done
-
-autoload -Uz surround
-zle -N delete-surround surround
-zle -N change-surround surround
-zle -N add-surround surround
-bindkey -a cs change-surround
-bindkey -a ds delete-surround
-bindkey -a ys add-surround
-bindkey -M visual S add-surround
-
-# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-
+# -----------------------------------------------------------------------------
+# 外部ツール
+# -----------------------------------------------------------------------------
 export FZF_DEFAULT_COMMAND="rg --files --follow --hidden -g '!{**/node_modules/*,**/.git/*}'"
 export FZF_LEGACY_KEYBINDINGS=0
 export FZF_FIND_FILE_COMMAND=$FZF_DEFAULT_COMMAND
 export RIPGREP_CONFIG_PATH=$HOME/.config/.ripgreprc
 
-
-## ======================================
-## env
-## ======================================
-#export PATH="$HOME/.anyenv/bin:$PATH"
-#eval "$(anyenv init -)"
-
-
-## ======================================
-## oh-my-zsh
-## ======================================
-plugins=(
-  asdf last-working-dir command-not-found
-)
-
-## ======================================
-## other
-## ======================================
-command -v sheldon &> /dev/null && eval "$(sheldon source)"
+# スターシップ等のプロンプト初期化 (最後の方に置くのが安全)
 command -v starship &> /dev/null && eval "$(starship init zsh)"
 command -v fzf &> /dev/null && eval "$(fzf --zsh)"
 command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
+command -v direnv &> /dev/null && eval "$(direnv hook zsh)"
 
-## load user .zshrc configuration file
-#
-[ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
+# fzf-tab のスタイル・プレビュー設定（好みで調整）
+zstyle ':fzf-tab:*' fzf-command fzf
+zstyle ':fzf-tab:*' switch-group ',' '.'  # ,/. でグループ切り替え
 
-command -v go &> /dev/null && export PATH="$PATH:$(go env GOPATH)/bin"
+# プレビュー例（git branch 補完時に log 表示など）
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'  # eza 導入時
 
-export ENHANCD_HOOK_AFTER_CD=""
-
-## load user .zshrc.local configuration file
-#
+# -----------------------------------------------------------------------------
+# ローカル設定
+# -----------------------------------------------------------------------------
 [ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
-
