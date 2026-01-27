@@ -94,6 +94,36 @@ dotfiles/
   - `enhancd`: ディレクトリナビゲーション
   - `zsh-vi-mode`: Vi モード（cplugins.toml のみ）
 
+### .zshrc で使うツール
+
+`.zshrc` では以下の外部コマンドを利用しています。未導入の場合は Homebrew でまとめてインストールできます。
+
+| ツール | 用途 |
+|--------|------|
+| **starship** | プロンプト表示 |
+| **fzf** | 曖昧検索・フィルタ UI |
+| **zoxide** | 使用頻度に基づく賢い `cd` |
+| **direnv** | ディレクトリごとの環境変数 (.envrc) |
+| **fd** | `find` の代替（高速・使いやすい） |
+| **eza** | `ls` の代替（アイコン・Git 状態表示） |
+| **bat** | `cat` の代替（シンタックスハイライト） |
+| **ripgrep** | `grep` の代替（高速検索、`fzf` のファイル一覧にも使用） |
+| **atuin** | シェル履歴の検索・同期（`Ctrl+R` でヒストリ検索） |
+
+**インストール（macOS / Linux で Homebrew 利用時）:**
+
+```bash
+brew install starship fzf zoxide direnv fd eza bat ripgrep atuin
+```
+
+**atuin の初回セットアップ（既存シェル履歴の取り込み）:**
+
+```bash
+atuin import auto
+```
+
+※ 各ツールは `command -v` で存在チェックされているため、未導入のものがあっても `.zshrc` は動作します（該当機能が無効になるだけです）。
+
 ### Starship（プロンプト）
 
 - **テーマ**: Gruvbox Dark
