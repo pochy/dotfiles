@@ -22,17 +22,120 @@ dotfiles/
 │           ├── editor.lua
 │           ├── example.lua
 │           └── ui.lua
-├── tmux/                    # tmux設定（Catppuccin Frappe Seamless）
 ├── alacritty/               # Alacritty設定（Transparent & Maximized）
 ├── sheldon/                 # Sheldon設定（Zshプラグインマネージャー）
-│   ├── cplugins.toml       # プラグイン設定（vi-mode有効）
-│   └── plugins.toml        # プラグイン設定（vi-mode無効）
+│   └── plugins.toml        # プラグイン設定
 ├── starship.toml           # Starshipプロンプト設定
-├── wezterm/               # WezTerm設定
+├── wezterm/                # WezTerm設定
 │   └── wezterm.lua
+├── lazygit/                 # Lazygit設定（Git TUI）
+│   └── config.yml
+├── atuin/                   # Atuin設定（シェル履歴検索・同期）
+│   └── config.toml
 ├── gruvbox_256palette.sh   # Gruvboxカラーパレット
+├── .tmux.conf              # tmux設定（Catppuccin Frappe Seamless）
+├── .zshrc                  # Zsh設定
 └── README.md
 ```
+
+## 📦 使用ツール一覧とインストール手順
+
+このプロジェクトで参照しているツール・アプリの一覧と、導入時のインストール手順です。未導入のツールは `command -v` でスキップされるため、必要なものだけ入れても動作します。
+
+### 使用ツール一覧（簡単な説明付き）
+
+| カテゴリ               | ツール               | 説明                                                     | 備考                                      |
+| ---------------------- | -------------------- | -------------------------------------------------------- | ----------------------------------------- |
+| **シェル・基盤**       | **Zsh**              | シェル。補完・履歴・プラグイン基盤                       | 多くの環境で標準                          |
+|                        | **Git**              | バージョン管理                                           | 必須                                      |
+|                        | **Sheldon**          | Zsh プラグインマネージャー（zsh-defer, fzf-tab 等）      | `sheldon/` で管理                         |
+|                        | **Starship**         | プロンプト表示（Gruvbox テーマ）                         | `starship.toml`                           |
+| **エディタ**           | **Neovim**           | エディタ（LazyVim ベース）                               | `nvim/` で設定                            |
+| **ターミナル**         | **tmux**             | ターミナル多重化。Neovim とシームレス移動                | `.tmux.conf`                              |
+|                        | **Alacritty**        | ターミナルエミュレータ（Catppuccin）                     | `alacritty/`                              |
+|                        | **WezTerm**          | ターミナルエミュレータ（オプション）                     | `wezterm/`                                |
+| **CLI ユーティリティ** | **fzf**              | 曖昧検索 UI（補完・セッション切替・sesh）                | sheldon の fzf-tab も使用                 |
+|                        | **zoxide**           | 使用頻度に基づく賢い `cd`（sesh と連携）                 |                                           |
+|                        | **direnv**           | ディレクトリごとの環境変数（`.envrc`）                   |                                           |
+|                        | **fd**               | `find` の代替（高速・使いやすい）                        |                                           |
+|                        | **eza**              | `ls` の代替（アイコン・Git 状態表示）                    |                                           |
+|                        | **bat**              | `cat` の代替（シンタックスハイライト）                   |                                           |
+|                        | **ripgrep**          | `grep` の代替。fzf のファイル一覧にも使用                | `rg`                                      |
+|                        | **delta**            | diff の見やすく表示（git / fzf-tab プレビュー）          | 未導入時は従来 diff                       |
+| **履歴・セッション**   | **atuin**            | シェル履歴の検索・同期（`Ctrl+R`）                       | `atuin/` で設定                           |
+|                        | **sesh**             | tmux セッション・zoxide 履歴の曖昧検索でプロジェクト切替 | Prefix+f                                  |
+| **tmux ポップアップ**  | **lazygit**          | Git の TUI（Prefix+g）                                   | `lazygit/` で設定                         |
+|                        | **btop**             | システムリソース表示（Prefix+t）                         | htop の代わりでも可                       |
+|                        | **Python**           | REPL・計算用ポップアップ（Prefix+p）                     | `python3`                                 |
+| **その他**             | **asdf**             | 実行環境バージョン管理（Node/Ruby 等）                   | 任意。`.zshrc` で PATH に含む             |
+|                        | **Gruvbox パレット** | 256 色用 Gruvbox スクリプト                              | `gruvbox_256palette.sh`（tmux/screen 等） |
+
+※ ターミナルは **Alacritty** と **WezTerm** のどちらか（または両方）を利用する想定です。
+
+### インストール手順
+
+#### macOS（Homebrew）
+
+```bash
+# コア・CLI 一括（推奨）
+brew install zsh git neovim tmux sheldon starship \
+  fzf zoxide direnv fd eza bat ripgrep atuin delta \
+  lazygit btop sesh python@3
+
+# ターミナル（好みでどちらかまたは両方）
+brew install --cask alacritty   # または
+brew install --cask wezterm
+```
+
+- **fzf** のキーバインドを有効にするには、シェル設定に次のいずれかを追加してください（Sheldon 経由で starship 等を読み込んだ**後**に実行されるようにしてください）:
+
+  ```bash
+  eval "$(fzf --zsh)"
+  ```
+
+  本 dotfiles の `.zshrc` には `command -v fzf` で判定してから `eval "$(fzf --zsh)"` を読む行が含まれています。
+
+- **atuin** の初回セットアップ（既存履歴の取り込み）:
+
+  ```bash
+  atuin import auto
+  ```
+
+#### Linux（Homebrew / apt）
+
+**Homebrew を使う場合（推奨）:**
+
+```bash
+# https://brew.sh で導入後
+brew install zsh git neovim tmux sheldon starship \
+  fzf zoxide direnv fd eza bat ripgrep atuin delta \
+  lazygit btop sesh python3
+
+# ターミナル（パッケージ名は distro による）
+brew install --cask alacritty  # または wezterm
+```
+
+**Debian/Ubuntu（apt）で一部を入れる場合の例:**
+
+```bash
+sudo apt update
+sudo apt install zsh git neovim tmux python3
+# 以下は PPA やバイナリ配布を利用するか、cargo/brew で導入
+# starship, fzf, zoxide, direnv, fd-find, eza, bat, ripgrep, atuin, delta, lazygit, btop, sesh
+```
+
+- **sheldon**: `cargo install sheldon` または [公式](https://sheldon.cli.rs/) の手順。
+- **starship**: `curl -sS https://starship.rs/install.sh | sh` または `cargo install starship`.
+- **lazygit**: [Releases](https://github.com/jesseduffield/lazygit/releases) のバイナリ、または `brew install lazygit`（Homebrew 利用時）。
+
+#### オプションで入れておくと便利なもの
+
+| ツール   | 用途                                | 導入例                                                     |
+| -------- | ----------------------------------- | ---------------------------------------------------------- |
+| **asdf** | Node/Ruby/Python 等のバージョン切替 | `git clone https://github.com/asdf-vm/asdf.git ~/.asdf` 等 |
+| **bc**   | 計算（tmux のバージョン判定で使用） | 多くの環境に標準付属。`apt install bc` で追加可能          |
+
+上記のうち、**Zsh / Git / Neovim / tmux / Sheldon / Starship** および **ターミナル（Alacritty か WezTerm のいずれか）** が揃っていれば、リポジトリの「セットアップ手順」に進めます。それ以外は「あると快適」な追加ユーティリティです。
 
 ## 🛠️ 究極のシームレス統合 (The Unified Cockpit)
 
@@ -40,15 +143,15 @@ dotfiles/
 
 ### 1. 視覚的調和 (Catppuccin Frappe Theme)
 
-* **デザイントークンの統一**: 全ツールに `Catppuccin Frappe` を適用し、パステル調の目に優しい配色で統一しています。
-* **ステータスバーの融合**: tmux と Neovim (Lualine) の背景色を `#414559` (Surface0) で同期させ、画面下部を一体化した計器盤のように機能させます。
-* **透過フルスクリーンの実現**: macOS の制限を `SimpleFullscreen` 設定で回避し、壁紙の透明度 (0.9) を維持したままフルスクリーン作業が可能です。
+- **デザイントークンの統一**: 全ツールに `Catppuccin Frappe` を適用し、パステル調の目に優しい配色で統一しています。
+- **ステータスバーの融合**: tmux と Neovim (Lualine) の背景色を `#414559` (Surface0) で同期させ、画面下部を一体化した計器盤のように機能させます。
+- **透過フルスクリーンの実現**: macOS の制限を `SimpleFullscreen` 設定で回避し、壁紙の透明度 (0.9) を維持したままフルスクリーン作業が可能です。
 
 ### 2. 境界なき操作 (Smart Navigation & Popups)
 
-* **Seamless Move**: `Ctrl + h/j/k/l` を使用し、Neovim の分割画面と tmux ペインの間を区別なく自由に行き来できます。
-* **Popup Workflow**: `lazygit`、`btop`、`Python REPL` を `Prefix` ひとつで画面中央にポップアップ表示。文脈を維持したまま補助ツールを爆速で利用可能です。
-* **sesh × fzf**: `zoxide` の履歴や既存セッションを曖昧検索し、プロジェクトを瞬時にワープします。
+- **Seamless Move**: `Ctrl + h/j/k/l` を使用し、Neovim の分割画面と tmux ペインの間を区別なく自由に行き来できます。
+- **Popup Workflow**: `lazygit`、`btop`、`Python REPL` を `Prefix` ひとつで画面中央にポップアップ表示。文脈を維持したまま補助ツールを爆速で利用可能です。
+- **sesh × fzf**: `zoxide` の履歴や既存セッションを曖昧検索し、プロジェクトを瞬時にワープします。
 
 ## 🛠️ 含まれるツールと設定
 
@@ -96,19 +199,19 @@ dotfiles/
 
 ### .zshrc で使うツール
 
-`.zshrc` では以下の外部コマンドを利用しています。未導入の場合は Homebrew でまとめてインストールできます。
+`.zshrc` では以下の外部コマンドを利用しています。**一括インストールや他ツールの導入方法は「[使用ツール一覧とインストール手順](#-使用ツール一覧とインストール手順)」を参照してください。**
 
-| ツール | 用途 |
-|--------|------|
-| **starship** | プロンプト表示 |
-| **fzf** | 曖昧検索・フィルタ UI |
-| **zoxide** | 使用頻度に基づく賢い `cd` |
-| **direnv** | ディレクトリごとの環境変数 (.envrc) |
-| **fd** | `find` の代替（高速・使いやすい） |
-| **eza** | `ls` の代替（アイコン・Git 状態表示） |
-| **bat** | `cat` の代替（シンタックスハイライト） |
-| **ripgrep** | `grep` の代替（高速検索、`fzf` のファイル一覧にも使用） |
-| **atuin** | シェル履歴の検索・同期（`Ctrl+R` でヒストリ検索） |
+| ツール       | 用途                                                    |
+| ------------ | ------------------------------------------------------- |
+| **starship** | プロンプト表示                                          |
+| **fzf**      | 曖昧検索・フィルタ UI                                   |
+| **zoxide**   | 使用頻度に基づく賢い `cd`                               |
+| **direnv**   | ディレクトリごとの環境変数 (.envrc)                     |
+| **fd**       | `find` の代替（高速・使いやすい）                       |
+| **eza**      | `ls` の代替（アイコン・Git 状態表示）                   |
+| **bat**      | `cat` の代替（シンタックスハイライト）                  |
+| **ripgrep**  | `grep` の代替（高速検索、`fzf` のファイル一覧にも使用） |
+| **atuin**    | シェル履歴の検索・同期（`Ctrl+R` でヒストリ検索）       |
 
 **インストール（macOS / Linux で Homebrew 利用時）:**
 
@@ -185,14 +288,13 @@ atuin import auto
 
 ### 前提条件
 
+次のツールがインストール済みであること（未導入の場合は「[使用ツール一覧とインストール手順](#-使用ツール一覧とインストール手順)」を参照）。
+
 - macOS/Linux
-- Zsh
-- Neovim
-- tmux
-- Alacritty
-- Sheldon
-- Starship
-- WezTerm（オプション）
+- Zsh / Git
+- Neovim / tmux
+- Sheldon / Starship
+- ターミナル: Alacritty または WezTerm（いずれか）
 
 ### インストール
 
@@ -209,8 +311,8 @@ atuin import auto
    # Neovim設定
    ln -sf ~/.dotfiles/nvim ~/.config/nvim
 
-   # tmux設定
-   ln -sf ~/.dotfiles/tmux ~/.config/tmux
+   # tmux設定（~/.tmux.conf にリンク）
+   ln -sf ~/.dotfiles/.tmux.conf ~/.tmux.conf
 
    # Alacritty設定
    ln -sf ~/.dotfiles/alacritty ~/.config/alacritty
@@ -223,6 +325,17 @@ atuin import auto
 
    # WezTerm設定（オプション）
    ln -sf ~/.dotfiles/wezterm ~/.config/wezterm
+
+   # Lazygit設定（オプション）
+   # macOS:
+   mkdir -p ~/Library/Application\ Support/lazygit
+   ln -sf ~/.dotfiles/lazygit/config.yml ~/Library/Application\ Support/lazygit/config.yml
+   # Linux:
+   # mkdir -p ~/.config/lazygit && ln -sf ~/.dotfiles/lazygit/config.yml ~/.config/lazygit/config.yml
+
+   # Atuin設定（オプション）
+   mkdir -p ~/.config/atuin
+   ln -sf ~/.dotfiles/atuin/config.toml ~/.config/atuin/config.toml
    ```
 
 3. **Gruvbox カラーパレットの適用**
@@ -285,16 +398,16 @@ atuin import auto
 
 ### 🛰️ 統合・ナビゲーション
 
-* `Ctrl + h/j/k/l`: Neovim / tmux 間のシームレスな移動
-* `Option + Down`: フローティング・ターミナルの表示
-* `Prefix + f`: **sesh** によるプロジェクト検索
+- `Ctrl + h/j/k/l`: Neovim / tmux 間のシームレスな移動
+- `Option + Down`: フローティング・ターミナルの表示
+- `Prefix + f`: **sesh** によるプロジェクト検索
 
 ### 🐚 tmux (Seamless Edition)
 
-* `Prefix + g`: **lazygit** (Git UI) をポップアップ
-* `Prefix + t`: **btop** (システムモニター) をポップアップ
-* `Prefix + p`: **Python REPL** をポップアップ
-* `Prefix + r`: 設定のリロード（反映時に **PREFIX** ラベルが点灯）
+- `Prefix + g`: **lazygit** (Git UI) をポップアップ
+- `Prefix + t`: **btop** (システムモニター) をポップアップ
+- `Prefix + p`: **Python REPL** をポップアップ
+- `Prefix + r`: 設定のリロード（反映時に **PREFIX** ラベルが点灯）
 
 ### 📝 Neovim
 
@@ -369,6 +482,7 @@ atuin import auto
   - 同様に `<>bB` にも対応
 
 **補足**:
+
 - viモードが有効なため、`Esc`でコマンドモード、`i`で挿入モードに切り替え
 - コマンドモードではviの標準キーバインド（`h`/`j`/`k`/`l`、`w`/`b`、`0`/`$`など）が使用可能
 - `Tab`で補完メニューを表示（`menu select`が有効で、矢印キーで選択可能）

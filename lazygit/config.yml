@@ -1,0 +1,64 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+# lazygit 設定（dotfiles 向け最適化）
+# 必要に応じて ~/.config/lazygit/ または ~/Library/Application Support/lazygit/ にシンボリックリンクして使用
+
+gui:
+  # ファイルをツリー表示（nvim/, alacritty/ 等の階層に最適）
+  showFileTree: true
+  showRootItemInFileTree: true
+  # 設定ファイルは長い行が多いため折り返し
+  wrapLinesInStagingView: true
+  # ステージングでハンク単位選択をデフォルトに（細かく add するのに向く）
+  useHunkModeInStagingView: true
+  # 左パネル幅（0.28 = メインの diff を広く）
+  sidePanelWidth: 0.28
+  # Nerd Fonts 使用（starship / ターミナルと揃える）
+  nerdFontsVersion: "3"
+  # 差分ビューで変更行数を表示
+  showNumstatInFilesView: true
+  # フィルタ: fuzzy で nvim/colorschema など短い検索がしやすい
+  filterMode: fuzzy
+  # 日本語表示
+  language: ja
+
+git:
+  # 自動フェッチ（dotfiles は単一リモートが多く、頻度を抑えたい）。間隔は refresher.fetchInterval で指定
+  autoFetch: false
+  # メインブランチ（master / main の両方に対応）
+  mainBranches:
+    - master
+    - main
+  # 差分コンテキスト行数（設定ファイルは前後 5 行あると読みやすい）
+  diffContextSize: 5
+  # コミットまわり
+  commit:
+    autoWrapCommitMessage: true
+    autoWrapWidth: 72
+  # WIP で始めるとフックをスキップ（試行用）
+  skipHookPrefix: WIP
+  # ログ表示
+  log:
+    order: topo-order
+    showGraph: always
+  # diff 表示: delta があれば有効にすると見やすい（未導入なら pager: "" のまま）
+  # paging:
+  #   pager: "delta --dark --paging=never"
+  #   colorArg: always
+
+os:
+  # エディタ: nvim（LazyVim 利用を想定）
+  editPreset: nvim
+  # ターミナルで編集する場合は true（tmux/wezterm から開く場合など）
+  editInTerminal: false
+
+# テーマ（オプション）: gui.theme に以下を追加可能
+# gui:
+#   theme:
+#     activeBorderColor: [cyan, bold]
+#     selectedLineBgColor: [blue]
+#     inactiveBorderColor: [default]
+
+# バックグラウンド更新の間隔（トップレベル）
+refresher:
+  refreshInterval: 10   # ファイル/サブモジュールの更新間隔（秒）
+  fetchInterval: 1800  # フェッチ間隔（秒）。autoFetch: false でも手動 f 時に参照
