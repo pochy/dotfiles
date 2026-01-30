@@ -70,6 +70,7 @@ setopt prompt_subst         # プロンプト内で変数展開
 setopt transient_rprompt    # 実行後に右プロンプトを消す
 setopt complete_aliases     # エイリアスも補完対象
 setopt extendedglob         # (#q...) などの glob 修飾子（compinit キャッシュ判定で使用）
+setopt no_nomatch          # グロブにマッチするファイルが無いときはそのまま渡す（git reset HEAD^ など）
 setopt glob_dots          # . で始まるファイルも glob 補完対象に
 setopt auto_menu          # Tab でメニュー補完（複数候補時）
 setopt menu_complete      # 初回 Tab で即候補表示

@@ -303,6 +303,7 @@ LazyVim が提供する主要なデフォルトキーマップ（リーダーキ
 
 #### LSP・補完
 
+- `<Leader>ux` - コード補完のオン/オフ切り替え（blink.cmp）
 - `<Leader>ca` - コードアクション
 - `<Leader>cr` - シンボルのリネーム
 - `<Leader>cf` - コードフォーマット
@@ -326,6 +327,11 @@ LazyVim が提供する主要なデフォルトキーマップ（リーダーキ
 - `<Leader>ua` - アニメーション切り替え
 - `<Leader>uS` - Scroll 切り替え（snacks.scroll）
 - `<Leader>ug` - インデントガイド切り替え（snacks.indent）
+
+#### 設定・LiveReload
+
+- `<Leader>cR` - 設定の再読み込み（Neovim 再起動なし）。開いているファイルに応じてプラグインまたは config をリロード
+- `:ConfigReload [プラグイン名]` - 指定したプラグインをリロード（例: `ConfigReload blink.cmp` または `ConfigReload saghen/blink.cmp`）。引数なしで実行すると、開いているファイル（`lua/plugins/*.lua` または `lua/config/*.lua`）から対象を自動判定
 
 #### その他
 

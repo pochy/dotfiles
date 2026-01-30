@@ -97,3 +97,46 @@ end, { desc = "Disable lint for all open markdown buffers" })
 
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to system clipboard" })
 vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste from system clipboard" })
+
+-- Config reload (LiveReload): Neovim 再起動なしで設定を反映
+vim.api.nvim_create_user_command("ConfigReload", function(opts)
+  local name = opts.args and opts.args ~= "" and opts.args or nil
+  local buf_path = vim.api.nvim_buf_get_name(0)
+  local ft = vim.bo.ft
+
+  -- 引数でプラグイン名が指定された場合
+  if name then
+    require("lazy").reload({ plugins = { name }, wait = true, show = false })
+    vim.notify("Reloaded: " .. name, vim.log.levels.INFO)
+    return
+  end
+
+  -- 現在のバッファが lua/plugins/*.lua の場合、ファイル名からプラグイン名を推測
+  if buf_path:match("lua/plugins/[^/]+%.lua$") then
+    local fname = buf_path:match("lua/plugins/([^/]+)%.lua$")
+    local plugin_name = fname:gsub("%-", ".")
+    require("lazy").reload({ plugins = { plugin_name }, wait = true, show = false })
+    vim.notify("Reloaded plugin: " .. plugin_name, vim.log.levels.INFO)
+    return
+  end
+
+  -- 現在のバッファが lua/config/*.lua の場合、そのモジュールを再読み込み
+  local config_match = buf_path:match("lua/config/([^/]+)%.lua$")
+  if config_match then
+    local mod = "config." .. config_match
+    package.loaded[mod] = nil
+    require(mod)
+    vim.notify("Reloaded config: " .. mod, vim.log.levels.INFO)
+    return
+  end
+
+  vim.notify(
+    "ConfigReload: プラグイン名を指定するか、lua/plugins/*.lua または lua/config/*.lua を開いた状態で実行してください。例: ConfigReload blink.cmp",
+    vim.log.levels.INFO
+  )
+end, {
+  desc = "Reload config or plugin without restart (LiveReload)",
+  nargs = "?",
+})
+
+vim.keymap.set("n", "<leader>cR", "<cmd>ConfigReload<CR>", { desc = "Config reload (LiveReload)" })
