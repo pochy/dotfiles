@@ -359,11 +359,25 @@ atuin import auto
    echo 'eval "$(starship init zsh)"' >> ~/.zshrc
    ```
 
-6. **Neovim プラグインのインストール**
+6. **zsh-syntax-highlighting（手動導入時・macOS/Linux 共通）**
+
+   Sheldon を使わずに zsh-syntax-highlighting だけを手動で入れる場合、dotfiles のルートで次を実行します（**macOS でも Linux でも同じコマンド**）。
+
+   ```bash
+   # dotfiles のディレクトリにいる状態で実行（例: cd ~/.dotfiles）
+   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+   echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
+   ```
+
+   - 1 行目: リポジトリをカレントディレクトリに clone します。
+   - 2 行目: `.zshrc`（または `$ZDOTDIR` が設定されていればその下の `.zshrc`）に、カレントディレクトリのパスをクォートして `source` する行を追加します。
+   - 2 行目は **Zsh** で実行してください（`${(q-)PWD}` は Zsh の構文です）。`bash` のままの環境では `zsh -c 'echo "source ${(q-)PWD}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc'` のように `zsh -c` で実行するか、先に `zsh` を起動してから実行してください。
+
+7. **Neovim プラグインのインストール**
 
    ```bash
    nvim
-   # Lazy.nvimが自動的にプラグインをインストール
+   # Lazy.nvim が自動的にプラグインをインストール
    ```
 
 ## 🎨 カスタマイズ
