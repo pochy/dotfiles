@@ -276,7 +276,10 @@ if command -v sheldon &> /dev/null; then
   eval "$(sheldon source)"
 fi
 
-source "$DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# zsh-syntax-highlighting（手動導入時）。フルに clone した場合のみ読み込む
+if [[ -d "$DOTFILES/zsh-syntax-highlighting/highlighters" ]]; then
+  source "$DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
 
 # -----------------------------------------------------------------------------
 # ローカル設定
