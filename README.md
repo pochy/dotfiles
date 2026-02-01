@@ -21,6 +21,7 @@ dotfiles/
 │           ├── colorschema.lua
 │           ├── editor.lua
 │           ├── example.lua
+│           ├── neogit.lua   # Neogit（Magit風 Git UI）
 │           └── ui.lua
 ├── alacritty/               # Alacritty設定（Transparent & Maximized）
 ├── sheldon/                 # Sheldon設定（Zshプラグインマネージャー）
@@ -170,6 +171,7 @@ sudo apt install zsh git neovim tmux python3
     - `outline.nvim`: コードアウトライン表示
   - **Git 統合**:
     - `vim-fugitive`: Git 操作
+    - `neogit`: Magit 風のインタラクティブ Git UI（`<leader>gg` で起動、Telescope・diffview 連携）
   - **UI/UX**:
     - `yazi.nvim`: ファイルマネージャー
     - `bufferline.nvim`: バッファライン
@@ -426,6 +428,7 @@ atuin import auto
 ### 📝 Neovim
 
 - **Git 操作**:
+  - `<leader>gg`: **Neogit**（ステータス・コミット・ブランチ・ログなどを Magit 風 UI で操作）
   - `<leader>gs`: Git status
   - `<leader>ga`: Git add
   - `<leader>gA`: Git add .
