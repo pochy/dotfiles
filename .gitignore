@@ -22,3 +22,4 @@ Desktop.ini
 .vim/bundles
 .vimperator/info
 .zshrc.local
+alacritty/alacritty.local.toml
