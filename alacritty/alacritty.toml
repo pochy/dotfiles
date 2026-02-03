@@ -14,7 +14,9 @@ import = [
   # "~/.config/alacritty/catppuccin-latte.toml"
   # "~/.config/alacritty/catppuccin-frappe.toml"
   # "~/.config/alacritty/catppuccin-macchiato.toml"
-  "~/.config/alacritty/catppuccin-mocha.toml"
+  "~/.config/alacritty/catppuccin-mocha.toml",
+  # 個別環境用（存在しなければスキップ。.zshrc.local と同様の運用）
+  "~/.config/alacritty/alacritty.local.toml"
 ]
 
 # ウィンドウ設定
@@ -25,7 +27,7 @@ padding.x = 12                      # 左右余白
 padding.y = 12                      # 上下余白
 decorations = "Buttonless"   # macOSでタイトルバー非表示にしたい場合 "Full" / "None"
 # blur = true
-opacity   = 0.9             # 半透明（0.0〜1.0）
+opacity   = 1             # 半透明（0.0〜1.0）
 startup_mode = "Windowed"    # "Fullscreen" も可
 dynamic_title = true                # タイトルを動的に変更
 option_as_alt = "Both" # OptionキーをAltとしてtmux/Neovimで使える（macOS特有の悩み解消）
@@ -81,7 +83,7 @@ program = "/bin/zsh"          # または /bin/bash, /usr/bin/fish など
 [terminal]
 
 [env]
-TERM = "alacritty"
+# TERM = "alacritty"
 # alacrittyは独自のterminfoを持っており、拡張キー機能をサポートしています
 # tmux内では自動的にtmux-256colorに設定されます
 
