@@ -158,9 +158,12 @@ bindkey "^[[3~" delete-char        # Delete
 bindkey "\e[Z" reverse-menu-complete  # Shift-Tab
 
 # history-substring-search（途中一致検索） - history-search-end の上位互換
-# ↑↓キー（多くのターミナルで有効）
+# ↑↓キー: CSI 形式 (^[[A/B) と AppCursor 形式 (^[OA/OB) の両方をバインド
+# Wezterm は ^[[A、Alacritty は状況により ^[OA を送るため両方必要
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+bindkey '^[OA' history-substring-search-up
+bindkey '^[OB' history-substring-search-down
 # viコマンドモードで k/j を検索に活用（Vimらしい操作）
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
