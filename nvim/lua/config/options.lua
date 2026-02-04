@@ -4,3 +4,6 @@
 
 local opt = vim.opt
 opt.wrap = true
+
+-- ヤンク/プットをシステムクリップボードと連携（マウス選択後のコピーや他アプリとの貼り付けに必要）
+opt.clipboard = "unnamedplus"

@@ -98,6 +98,9 @@ end, { desc = "Disable lint for all open markdown buffers" })
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to system clipboard" })
 vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste from system clipboard" })
 
+-- ビジュアル選択後 Esc で抜けるときにクリップボードへ自動コピー（マウス選択→Esc で他アプリに貼り付け可能）
+vim.keymap.set("x", "<Esc>", '"+y<Esc>', { noremap = true, desc = "Yank selection to clipboard and leave visual mode" })
+
 -- Config reload (LiveReload): Neovim 再起動なしで設定を反映
 vim.api.nvim_create_user_command("ConfigReload", function(opts)
   local name = opts.args and opts.args ~= "" and opts.args or nil
