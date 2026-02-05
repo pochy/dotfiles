@@ -125,6 +125,10 @@ fi
 # -----------------------------------------------------------------------------
 # 補完 (Completion)
 # -----------------------------------------------------------------------------
+# zsh-autosuggestions: 入力中のサジェスト（薄いゴースト文字）の色（sheldon 読み込み前に必要）
+# 入力済みと未入力の境界が分かるよう、サジェストを薄いグレーに
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+
 # Homebrew の補完パス追加 (brew --prefix は遅いので固定パス判定で高速化)
 if [ -d "/opt/homebrew/share/zsh/site-functions" ]; then
   fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
@@ -274,14 +278,26 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'  #
 # -----------------------------------------------------------------------------
 # プラグイン管理 (Sheldon)
 # -----------------------------------------------------------------------------
+# zsh-syntax-highlighting は zsh-autosuggestions より「先」に読み込む。
+# 逆だと syntax-highlighting がサジェスト部分までコマンド色で上書きし、
+# 「gi」入力時の「t」が入力色と同じになってしまう。
+if [[ -d "$DOTFILES/zsh-syntax-highlighting/highlighters" ]]; then
+  source "$DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+
 # 【重要】compinit より前に読み込む (fpath を通すため)
 if command -v sheldon &> /dev/null; then
   eval "$(sheldon source)"
 fi
 
-# zsh-syntax-highlighting（手動導入時）。フルに clone した場合のみ読み込む
-if [[ -d "$DOTFILES/zsh-syntax-highlighting/highlighters" ]]; then
-  source "$DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# -----------------------------------------------------------------------------
+# サジェスト色の強制適用 (zsh-vi-mode / syntax-highlighting の上書き対策)
+# -----------------------------------------------------------------------------
+# 描画直前に autosuggestions の highlight を再適用して、常に薄い色になるようにする。
+if (( ${+functions[_zsh_autosuggest_highlight_apply]} )); then
+  autoload -Uz add-zle-hook-widget
+  _zsh_autosuggest_rehighlight() { _zsh_autosuggest_highlight_apply }
+  add-zle-hook-widget zle-line-pre-redraw _zsh_autosuggest_rehighlight
 fi
 
 # -----------------------------------------------------------------------------
