@@ -48,7 +48,6 @@ return {
     lazy = true,
     priority = 1000,
     config = function()
-      vim.print("setup gruvbox-material")
       vim.g.gruvbox_material_enable_italic = true
       vim.g.gruvbox_material_background = "soft"
       vim.g.gruvbox_material_better_performance = 1

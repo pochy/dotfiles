@@ -94,8 +94,8 @@ return {
     "ojroques/vim-oscyank",
     config = function()
       vim.g.oscyank_term = "default"
-      vim.keymap.set("n", "<leader>y", "<Plug>OSCYankOperator", { noremap = true })
-      vim.keymap.set("v", "<leader>y", "<Plug>OSCYankVisual", { noremap = true })
+      vim.keymap.set("n", "<leader>oy", "<Plug>OSCYankOperator", { noremap = true, desc = "OSC52 yank" })
+      vim.keymap.set("v", "<leader>oy", "<Plug>OSCYankVisual", { noremap = true, desc = "OSC52 yank" })
     end,
   },
 }

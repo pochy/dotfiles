@@ -9,10 +9,6 @@ keymap.set("i", "jj", "<Esc>", opts)
 
 keymap.set("n", "x", '"_x')
 
--- Increment/decrement
-keymap.set("n", "+", "<C-a>")
-keymap.set("n", "-", "<C-x>")
-
 -- Delete a word backwards
 keymap.set("n", "dw", 'vb"_d')
 
@@ -47,11 +43,6 @@ keymap.set("n", "<C-w><left>", "<C-w><")
 keymap.set("n", "<C-w><right>", "<C-w>>")
 keymap.set("n", "<C-w><up>", "<C-w>+")
 keymap.set("n", "<C-w><down>", "<C-w>-")
-
--- Diagnostics
-keymap.set("n", "<C-j>", function()
-  vim.diagnostic.goto_next()
-end, opts)
 
 -- Toggle diagnostics (lint) for current buffer
 keymap.set("n", "<leader>ct", function()
@@ -105,7 +96,6 @@ vim.keymap.set("x", "<Esc>", '"+y<Esc>', { noremap = true, desc = "Yank selectio
 vim.api.nvim_create_user_command("ConfigReload", function(opts)
   local name = opts.args and opts.args ~= "" and opts.args or nil
   local buf_path = vim.api.nvim_buf_get_name(0)
-  local ft = vim.bo.ft
 
   -- 引数でプラグイン名が指定された場合
   if name then
