@@ -32,10 +32,10 @@ return {
 
     local opts = {
       options = {
-        -- テーマを catppuccin に固定（Frappeを使用しているため）
-        theme = "catppuccin",
+        -- テーマを catppuccin Frappe に固定
+        theme = "catppuccin-frappe",
         -- globalstatus = vim.o.laststatus == 3,
-				globalstatus = true,
+        globalstatus = true,
         disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
         -- セパレーターを丸型に変更
         section_separators = { left = "", right = "" },

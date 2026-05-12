@@ -48,13 +48,13 @@ keymap.set("n", "<C-w><down>", "<C-w>-")
 keymap.set("n", "<leader>ct", function()
   local bufnr = vim.api.nvim_get_current_buf()
   -- Check if diagnostics are currently disabled for this buffer
-  local disabled = vim.diagnostic.is_disabled(bufnr)
-  if disabled then
-    vim.diagnostic.enable(bufnr)
-    vim.notify("Diagnostics enabled", vim.log.levels.INFO)
-  else
-    vim.diagnostic.disable(bufnr)
+  local enabled = vim.diagnostic.is_enabled({ bufnr = bufnr })
+  if enabled then
+    vim.diagnostic.enable(false, { bufnr = bufnr })
     vim.notify("Diagnostics disabled", vim.log.levels.INFO)
+  else
+    vim.diagnostic.enable(true, { bufnr = bufnr })
+    vim.notify("Diagnostics enabled", vim.log.levels.INFO)
   end
 end, { desc = "Toggle diagnostics (lint)" })
 
@@ -63,7 +63,7 @@ keymap.set("n", "<leader>cta", function()
   local bufnr = vim.api.nvim_get_current_buf()
   local filetype = vim.bo[bufnr].filetype
   if filetype == "markdown" then
-    vim.diagnostic.disable(bufnr)
+    vim.diagnostic.enable(false, { bufnr = bufnr })
     vim.notify("Markdown diagnostics disabled for this buffer", vim.log.levels.INFO)
   else
     vim.notify("This is not a markdown file", vim.log.levels.WARN)
@@ -75,7 +75,7 @@ vim.api.nvim_create_user_command("DisableMarkdownLint", function()
   local count = 0
   for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].filetype == "markdown" then
-      vim.diagnostic.disable(bufnr)
+      vim.diagnostic.enable(false, { bufnr = bufnr })
       count = count + 1
     end
   end

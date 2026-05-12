@@ -19,6 +19,6 @@ vim.api.nvim_create_autocmd("FileType", {
     -- vim.opt_local.spelllang = { "en", "cjk" }
     vim.opt_local.spell = false
     -- 文章中心のバッファは診断ノイズを抑える。必要なら <leader>ct で再有効化できる。
-    vim.diagnostic.disable(0)
+    vim.diagnostic.enable(false, { bufnr = 0 })
   end,
 })
