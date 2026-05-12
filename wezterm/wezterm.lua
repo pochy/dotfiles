@@ -5,8 +5,21 @@ wezterm.on("gui-startup", function(cmd)
 end)
 
 return {
-	initial_rows = 48,
-	initial_cols = 150,
+	initial_rows = 36,
+	initial_cols = 120,
+
+	-- GPU負荷を抑える
+	front_end = "Software",
+	webgpu_power_preference = "LowPower",
+	max_fps = 10,
+	animation_fps = 1,
+	default_cursor_style = "SteadyBlock",
+	cursor_blink_rate = 0,
+	cursor_blink_ease_in = "Constant",
+	cursor_blink_ease_out = "Constant",
+	text_blink_rate = 0,
+	text_blink_rate_rapid = 0,
+	status_update_interval = 10000,
 
 	keys = {
 		{
@@ -65,47 +78,86 @@ return {
 	},
 
 	-- カラースキーム
-	-- color_scheme = 'nord',
-	color_scheme = "GruvboxDark",
+	colors = {
+		foreground = "#cdd6f4",
+		background = "#1e1e2e",
+		cursor_bg = "#f5e0dc",
+		cursor_fg = "#1e1e2e",
+		cursor_border = "#f5e0dc",
+		selection_fg = "#1e1e2e",
+		selection_bg = "#f5e0dc",
+		scrollbar_thumb = "#585b70",
+		split = "#585b70",
+		ansi = {
+			"#45475a",
+			"#f38ba8",
+			"#a6e3a1",
+			"#f9e2af",
+			"#89b4fa",
+			"#f5c2e7",
+			"#94e2d5",
+			"#bac2de",
+		},
+		brights = {
+			"#585b70",
+			"#f38ba8",
+			"#a6e3a1",
+			"#f9e2af",
+			"#89b4fa",
+			"#f5c2e7",
+			"#94e2d5",
+			"#a6adc8",
+		},
+		indexed = {
+			[16] = "#fab387",
+			[17] = "#f5e0dc",
+		},
+	},
 
 	-- 透明度
 	-- window_background_opacity = 0.90,
-	window_background_opacity = 1,
-	macos_window_background_blur = 30,
+	window_background_opacity = 1.0,
+	macos_window_background_blur = 0,
 
 	hide_tab_bar_if_only_one_tab = true,
+	use_fancy_tab_bar = false,
+	show_tabs_in_tab_bar = false,
+	show_new_tab_button_in_tab_bar = false,
 
 	-- ウィンドウの境界線と影
+	window_decorations = "RESIZE | MACOS_FORCE_DISABLE_SHADOW",
 	window_frame = {
-		border_left_width = 1,
-		border_right_width = 1,
-		border_top_height = 1,
-		border_bottom_height = 1,
+		border_left_width = 0,
+		border_right_width = 0,
+		border_top_height = 0,
+		border_bottom_height = 0,
 		border_left_color = "#555555",
 		border_right_color = "#555555",
 		border_top_color = "#555555",
 		border_bottom_color = "#555555",
 	},
-	window_background_image_hsb = {
-		brightness = 0.8,
-		saturation = 1.0,
-		hue = 1.0,
-	},
 
 	-- フォントとフォントサイズ
-	font_size = 16.0,
-	font = wezterm.font("HackGen Console NF"),
+	font_dirs = { wezterm.home_dir .. "/Library/Fonts" },
+	font_size = 14.0,
+	font = wezterm.font_with_fallback({
+		"HackGen Console NF",
+		"Cica",
+		"JetBrains Mono",
+		"Hiragino Sans",
+		"Symbols Nerd Font Mono",
+	}),
 
 	use_ime = true,
 
 	-- パディング
-	window_padding = { left = 5, right = 5, top = 5, bottom = 5 },
+	window_padding = { left = 2, right = 2, top = 2, bottom = 2 },
 
-	enable_scroll_bar = true,
-	enable_tab_bar = true,
+	enable_scroll_bar = false,
+	enable_tab_bar = false,
 
 	-- tmuxとの互換性を向上させる
-	enable_kitty_graphics = true,
+	enable_kitty_graphics = false,
 
 	-- ハイパーリンクのルールを定義（デフォルトルールを使用）
 	hyperlink_rules = wezterm.default_hyperlink_rules(),

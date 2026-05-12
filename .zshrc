@@ -11,8 +11,10 @@ export EDITOR=vim
 # タイムゾーンは地域名指定が推奨 (JST-9 も可ですが汎用性を考慮)
 export TZ='Asia/Tokyo'
 
-# dotfiles のルート（.zshrc があるディレクトリ）。別の場所なら .zshrc.local で DOTFILES を上書き
-export DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+# dotfiles のルート（この .zshrc 自体の場所）。別の場所なら .zshrc.local で DOTFILES を上書き
+if [[ -z ${DOTFILES:-} ]]; then
+  export DOTFILES="${${(%):-%x}:P:h}"
+fi
 
 # -----------------------------------------------------------------------------
 # 文字コード・ロケール
@@ -125,6 +127,25 @@ fi
 # -----------------------------------------------------------------------------
 # 補完 (Completion)
 # -----------------------------------------------------------------------------
+# zsh-autosuggestions: 入力中のサジェスト（薄いゴースト文字）の色（sheldon 読み込み前に必要）
+# 入力済みと未入力の境界が分かるよう、サジェストを薄いグレーに
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+
+# -----------------------------------------------------------------------------
+# プラグイン管理 (Sheldon)
+# -----------------------------------------------------------------------------
+# zsh-syntax-highlighting は zsh-autosuggestions より「先」に読み込む。
+# 逆だと syntax-highlighting がサジェスト部分までコマンド色で上書きし、
+# 「gi」入力時の「t」が入力色と同じになってしまう。
+if [[ -d "$DOTFILES/zsh-syntax-highlighting/highlighters" ]]; then
+  source "$DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+
+# 【重要】compinit より前に読み込む (fpath を通すため)
+if command -v sheldon &> /dev/null; then
+  eval "$(sheldon source)"
+fi
+
 # Homebrew の補完パス追加 (brew --prefix は遅いので固定パス判定で高速化)
 if [ -d "/opt/homebrew/share/zsh/site-functions" ]; then
   fpath=("/opt/homebrew/share/zsh/site-functions" $fpath)
@@ -158,9 +179,12 @@ bindkey "^[[3~" delete-char        # Delete
 bindkey "\e[Z" reverse-menu-complete  # Shift-Tab
 
 # history-substring-search（途中一致検索） - history-search-end の上位互換
-# ↑↓キー（多くのターミナルで有効）
+# ↑↓キー: CSI 形式 (^[[A/B) と AppCursor 形式 (^[OA/OB) の両方をバインド
+# Wezterm は ^[[A、Alacritty は状況により ^[OA を送るため両方必要
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+bindkey '^[OA' history-substring-search-up
+bindkey '^[OB' history-substring-search-down
 # viコマンドモードで k/j を検索に活用（Vimらしい操作）
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
@@ -269,19 +293,21 @@ zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word 
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'  # eza 導入時
 
 # -----------------------------------------------------------------------------
-# プラグイン管理 (Sheldon)
+# サジェスト色の強制適用 (zsh-vi-mode / syntax-highlighting の上書き対策)
 # -----------------------------------------------------------------------------
-# 【重要】compinit より前に読み込む (fpath を通すため)
-if command -v sheldon &> /dev/null; then
-  eval "$(sheldon source)"
-fi
-
-# zsh-syntax-highlighting（手動導入時）。フルに clone した場合のみ読み込む
-if [[ -d "$DOTFILES/zsh-syntax-highlighting/highlighters" ]]; then
-  source "$DOTFILES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# 描画直前に autosuggestions の highlight を再適用して、常に薄い色になるようにする。
+if (( ${+functions[_zsh_autosuggest_highlight_apply]} )); then
+  autoload -Uz add-zle-hook-widget
+  _zsh_autosuggest_rehighlight() { _zsh_autosuggest_highlight_apply }
+  add-zle-hook-widget zle-line-pre-redraw _zsh_autosuggest_rehighlight
 fi
 
 # -----------------------------------------------------------------------------
 # ローカル設定
 # -----------------------------------------------------------------------------
 [ -f ${HOME}/.zshrc.local ] && source ${HOME}/.zshrc.local
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+[ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

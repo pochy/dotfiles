@@ -18,8 +18,7 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     -- vim.opt_local.spelllang = { "en", "cjk" }
     vim.opt_local.spell = false
-    -- 一時的に markdown の lint を無効化
-    -- 有効化したい場合は、この行をコメントアウトするか、<leader>tl でトグル
+    -- 文章中心のバッファは診断ノイズを抑える。必要なら <leader>ct で再有効化できる。
     vim.diagnostic.disable(0)
   end,
 })
