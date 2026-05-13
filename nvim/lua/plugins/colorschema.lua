@@ -19,6 +19,8 @@ return {
     "catppuccin/nvim",
     lazy = true,
     name = "catppuccin",
+    default_integrations = true,
+    auto_integrations = true,
     opts = {
       flavour = "auto", -- latte, frappe, macchiato, mocha
       background = { -- :h background

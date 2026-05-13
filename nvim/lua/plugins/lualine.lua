@@ -33,7 +33,9 @@ return {
     local opts = {
       options = {
         -- テーマを catppuccin Frappe に固定
-        theme = "catppuccin-frappe",
+        -- theme = "catppuccin-frappe",
+        -- テーマを catppuccin に固定（Frappeを使用しているため）
+        -- theme = "catppuccin-nvim",
         -- globalstatus = vim.o.laststatus == 3,
         globalstatus = true,
         disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
