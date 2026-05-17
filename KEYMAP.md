@@ -1,6 +1,6 @@
 # KEYMAP
 
-更新日: 2026-04-19
+更新日: 2026-05-17
 
 このファイルは、この dotfiles で実際に意味を持つキーボードショートカットをまとめたものです。  
 upstream の全ショートカット一覧ではなく、以下を優先して整理しています。
@@ -29,6 +29,7 @@ upstream の全ショートカット一覧ではなく、以下を優先して�
 | Neovim | `jj` | Insert から `Esc` |
 | Neovim | `ss` / `sv` | 水平 / 垂直 split |
 | Neovim | `<leader>gs` | Fugitive の Git status |
+| Neovim | `<F5>` / `<leader>cx` | 現在ファイルを実行（Python / Go / Rust など） |
 | Neovim | `<leader>~` | Yazi |
 | WezTerm | `Super-Enter` | 上下 split |
 | Alacritty | `Cmd-=` / `Cmd--` / `Cmd-0` | フォントサイズ変更 / リセット |
@@ -289,6 +290,7 @@ Prefix は既定の `Ctrl-b` のままです。
 
 - [`nvim/lua/config/keymaps.lua`](nvim/lua/config/keymaps.lua)
 - [`nvim/lua/plugins/editor.lua`](nvim/lua/plugins/editor.lua)
+- [`nvim/lua/plugins/runner.lua`](nvim/lua/plugins/runner.lua)
 - [`nvim/lua/plugins/ui.lua`](nvim/lua/plugins/ui.lua)
 - [`nvim/lua/plugins/coding.lua`](nvim/lua/plugins/coding.lua)
 - [`nvim/lua/plugins/blink-cmp.lua`](nvim/lua/plugins/blink-cmp.lua)
@@ -335,7 +337,32 @@ Prefix は既定の `Ctrl-b` のままです。
 | `<leader>cta` | Markdown buffer の diagnostics を無効化 |
 | `<leader>cR` | `ConfigReload` |
 
-### 7.4 tmux / terminal 連携
+### 7.4 スクリプト実行 (`asyncrun.vim`)
+
+対象: [`nvim/lua/plugins/runner.lua`](nvim/lua/plugins/runner.lua)
+
+実行前にバッファを自動保存します。未対応の filetype では通知のみ出ます。
+
+| キー | 動作 | 備考 |
+| --- | --- | --- |
+| `<F5>` | 現在ファイルを実行 | `<leader>cx` と同じ |
+| `<leader>cx` | 現在ファイルを実行 | 出力は quickfix（高さ 15 行） |
+| `<leader>cX` | 現在ファイルを実行 | フローティングターミナル |
+| Visual `<leader>cx` | 選択範囲を実行 | Python / Lua のみ |
+| Visual `<leader>cX` | 選択範囲を実行 | フローティングターミナル |
+| `<leader>cs` | `AsyncStop` | 実行中ジョブを停止 |
+
+filetype ごとのコマンド:
+
+| filetype | コマンド |
+| --- | --- |
+| `python` | `python3 -u` |
+| `go` | `go run` |
+| `rust` | 直上に `Cargo.toml` があれば `cargo run`、なければ `rustc` でコンパイルして実行 |
+| `lua` | `lua` |
+| `sh` / `bash` / `zsh` | 各シェルで実行 |
+
+### 7.5 tmux / terminal 連携
 
 | キー | 動作 | 備考 |
 | --- | --- | --- |
@@ -345,7 +372,7 @@ Prefix は既定の `Ctrl-b` のままです。
 | `Ctrl-j` | tmux 下移動ではなく diagnostic next | 上書き済み |
 | `Ctrl-\` | 前の tmux/vim pane | plugin 側 |
 
-### 7.5 Git / tools
+### 7.6 Git / tools
 
 | キー | 動作 |
 | --- | --- |
@@ -364,7 +391,7 @@ Prefix は既定の `Ctrl-b` のままです。
 | Visual `<leader>r` | Refactoring |
 | `<leader>co` | Outline toggle |
 
-### 7.6 Godot プロジェクト内限定
+### 7.7 Godot プロジェクト内限定
 
 | キー | 動作 |
 | --- | --- |
@@ -398,6 +425,7 @@ Prefix は既定の `Ctrl-b` のままです。
 - [`alacritty/alacritty.base.toml`](alacritty/alacritty.base.toml)
 - [`nvim/lua/config/keymaps.lua`](nvim/lua/config/keymaps.lua)
 - [`nvim/lua/plugins/editor.lua`](nvim/lua/plugins/editor.lua)
+- [`nvim/lua/plugins/runner.lua`](nvim/lua/plugins/runner.lua)
 - [`nvim/lua/plugins/ui.lua`](nvim/lua/plugins/ui.lua)
 - [`nvim/lua/plugins/coding.lua`](nvim/lua/plugins/coding.lua)
 - [`nvim/lua/plugins/blink-cmp.lua`](nvim/lua/plugins/blink-cmp.lua)
