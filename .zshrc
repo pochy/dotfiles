@@ -158,11 +158,13 @@ fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 
 # compinit の実行 (キャッシュ利用で高速化)
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
-  compinit -C  # 24時間以内ならキャッシュ利用（チェックなし）
+_zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+if [[ -n "$_zcompdump"(#qN.mh-24) ]]; then
+  compinit -C -d "$_zcompdump"  # 24時間以内ならキャッシュ利用（チェックなし）
 else
-  compinit -i
+  compinit -i -d "$_zcompdump"
 fi
+unset _zcompdump
 
 zstyle ':completion:*' menu select
 setopt complete_aliases
@@ -280,7 +282,20 @@ export RIPGREP_CONFIG_PATH=$HOME/.config/.ripgreprc
 
 # スターシップ等のプロンプト初期化 (最後の方に置くのが安全)
 command -v starship &> /dev/null && eval "$(starship init zsh)"
-command -v fzf &> /dev/null && eval "$(fzf --zsh)"
+if command -v fzf &> /dev/null; then
+  eval "$(fzf --zsh)"
+  # fzf --zsh は ^I(Tab) を fzf-completion に差し替える。
+  # fzf-tab を使う場合は通常の補完入口を維持するため、Tab を戻す。
+  if (( ${+widgets[fzf-tab-complete]} )); then
+    bindkey -M emacs '^I' fzf-tab-complete
+    bindkey -M viins '^I' fzf-tab-complete
+    bindkey -M vicmd '^I' fzf-tab-complete
+  else
+    bindkey -M emacs '^I' expand-or-complete
+    bindkey -M viins '^I' expand-or-complete
+    bindkey -M vicmd '^I' expand-or-complete
+  fi
+fi
 command -v zoxide &> /dev/null && eval "$(zoxide init zsh)"
 command -v direnv &> /dev/null && eval "$(direnv hook zsh)"
 
