@@ -358,7 +358,7 @@ filetype ごとのコマンド:
 | --- | --- |
 | `python` | `python3 -u` |
 | `go` | `go run` |
-| `rust` | 直上に `Cargo.toml` があれば `cargo run`、なければ `rustc` でコンパイルして実行 |
+| `rust` | `rustc` でコンパイルして実行（引数なし） |
 | `lua` | `lua` |
 | `sh` / `bash` / `zsh` | 各シェルで実行 |
 

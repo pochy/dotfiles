@@ -9,15 +9,7 @@ return {
         return vim.fn.shellescape(s, 1)
       end
 
-      local function rust_command()
-        local file = vim.fn.expand("%:p")
-        if file == "" then
-          return nil
-        end
-        local root = vim.fs.root(vim.fn.expand("%:p:h"), { "Cargo.toml" })
-        if root then
-          return "cd " .. shellescape(root) .. " && cargo run"
-        end
+      local function rustc_run(file)
         local out = vim.fn.tempname()
         return string.format("rustc %s -o %s && %s", shellescape(file), shellescape(out), shellescape(out))
       end
@@ -29,7 +21,9 @@ return {
         go = function()
           return "go run " .. shellescape(vim.fn.expand("%:p"))
         end,
-        rust = rust_command,
+        rust = function()
+          return rustc_run(vim.fn.expand("%:p"))
+        end,
         lua = function()
           return "lua " .. shellescape(vim.fn.expand("%:p"))
         end,
