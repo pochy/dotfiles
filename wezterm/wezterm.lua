@@ -75,6 +75,25 @@ return {
 			-- 下にスクロール
 			action = wezterm.action({ ScrollByPage = 0.25 }),
 		},
+		{
+			key = "T",
+			mods = "SUPER|SHIFT",
+			action = wezterm.action.PromptInputLine({
+				description = "Set tab title",
+				action = wezterm.action_callback(function(window, pane, line)
+					if line then
+						window:active_tab():set_title(line)
+					end
+				end),
+			}),
+		},
+		{
+			key = "T",
+			mods = "SUPER|SHIFT|CTRL",
+			action = wezterm.action_callback(function(window, pane)
+				window:active_tab():set_title("")
+			end),
+		},
 	},
 
 	-- カラースキーム
