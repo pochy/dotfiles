@@ -54,11 +54,6 @@ export PATH
 # homebrew (Linux) の初期化
 [ -f /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 
-if [ -f $HOME/.cargo/env ]; then
-  source "$HOME/.cargo/env"
-  export PATH="$HOME/.cargo/bin:$PATH"
-fi
-
 # -----------------------------------------------------------------------------
 # シェルオプション
 # -----------------------------------------------------------------------------
