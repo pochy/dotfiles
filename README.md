@@ -169,6 +169,7 @@ sudo apt install zsh git neovim tmux python3
     - `refactoring.nvim`: リファクタリングツール
     - `dial.nvim`: 数値インクリメント/デクリメント
     - `outline.nvim`: コードアウトライン表示
+    - `asyncrun.vim`: 現在バッファのスクリプトを非同期実行（Python / Go / Rust など）
   - **Git 統合**:
     - `vim-fugitive`: Git 操作
     - `neogit`: Magit 風のインタラクティブ Git UI（`<leader>gg` で起動、Telescope・diffview 連携）
@@ -180,7 +181,6 @@ sudo apt install zsh git neovim tmux python3
     - `vim-godot`: Godot エディタ統合
     - `gdscript-extended-lsp.nvim`: GDScript LSP サポート
     - `snacks.nvim`: ファイルエクスプローラー
-    - `asyncrun.vim`: 非同期実行
 - **言語サポート**: Go, JSON, Markdown, Python, SQL, Tailwind, TypeScript, YAML, GDScript
 - **特殊機能**:
   - Godot プロジェクト自動検出
@@ -441,6 +441,10 @@ atuin import auto
   - `<leader>cn`: アノテーション生成（Neogen）
   - `<leader>r`: リファクタリング（ビジュアルモード）
   - `<leader>co`: アウトライン表示
+  - `<F5>` / `<leader>cx`: 現在ファイルを実行（quickfix に出力）
+  - `<leader>cX`: 現在ファイルをフローティングターミナルで実行
+  - Visual `<leader>cx` / `<leader>cX`: 選択範囲を実行（Python / Lua）
+  - `<leader>cs`: 実行中ジョブを停止
   - `<C-a>`: インクリメント
   - `<C-x>`: デクリメント
 - **ファイル操作**:

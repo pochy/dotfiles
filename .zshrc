@@ -246,10 +246,11 @@ fi
 
 # eza (ls の代替)
 if command -v eza &> /dev/null; then
-  alias ls='eza --icons --git'
-  alias ll='eza --icons --git -l'
-  alias la='eza --icons --git -la'
-  alias lt='eza --icons --git -T' # ツリー表示
+  alias ls='eza --icons'
+  alias ll='eza --icons -l'
+  alias la='eza --icons -la'
+  alias lg='eza --icons --git -l'
+  alias lt='eza --icons -T' # ツリー表示
 fi
 
 # bat (cat の代替)

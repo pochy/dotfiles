@@ -9,7 +9,7 @@ return {
 	initial_cols = 120,
 
 	-- GPU負荷を抑える
-	front_end = "Software",
+	-- front_end = "Software",
 	webgpu_power_preference = "LowPower",
 	max_fps = 10,
 	animation_fps = 1,
@@ -75,6 +75,25 @@ return {
 			-- 下にスクロール
 			action = wezterm.action({ ScrollByPage = 0.25 }),
 		},
+		{
+			key = "T",
+			mods = "SUPER|SHIFT",
+			action = wezterm.action.PromptInputLine({
+				description = "Set tab title",
+				action = wezterm.action_callback(function(window, pane, line)
+					if line then
+						window:active_tab():set_title(line)
+					end
+				end),
+			}),
+		},
+		{
+			key = "T",
+			mods = "SUPER|SHIFT|CTRL",
+			action = wezterm.action_callback(function(window, pane)
+				window:active_tab():set_title("")
+			end),
+		},
 	},
 
 	-- カラースキーム
@@ -120,8 +139,8 @@ return {
 	macos_window_background_blur = 0,
 
 	hide_tab_bar_if_only_one_tab = true,
-	use_fancy_tab_bar = false,
-	show_tabs_in_tab_bar = false,
+	use_fancy_tab_bar = true,
+	show_tabs_in_tab_bar = true,
 	show_new_tab_button_in_tab_bar = false,
 
 	-- ウィンドウの境界線と影
@@ -154,7 +173,7 @@ return {
 	window_padding = { left = 2, right = 2, top = 2, bottom = 2 },
 
 	enable_scroll_bar = false,
-	enable_tab_bar = false,
+	enable_tab_bar = true,
 
 	-- tmuxとの互換性を向上させる
 	enable_kitty_graphics = false,

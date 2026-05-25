@@ -69,7 +69,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "catppuccin-nvim",
       -- colorscheme = "gruvbox-flat",
       -- colorscheme = "gruvbox-material",
       -- colorscheme = "tokyonight",
