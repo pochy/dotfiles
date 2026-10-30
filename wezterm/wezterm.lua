@@ -4,6 +4,16 @@ wezterm.on("gui-startup", function(cmd)
 	-- window:gui_window():maximize()
 end)
 
+wezterm.on("bell", function(window, pane)
+	-- 1. 画面にトースト通知を表示
+	window:toast_notification("🤖お知らせです", "Task completed", nil, 4000)
+
+	-- 2. 同時に通知音（RingBell）を明示的に実行
+	window:perform_action(wezterm.action.RingBell, pane)
+
+	wezterm.run_child_process({ "afplay", "/System/Library/Sounds/Glass.aiff" })
+end)
+
 return {
 	initial_rows = 36,
 	initial_cols = 120,
@@ -20,6 +30,10 @@ return {
 	text_blink_rate = 0,
 	text_blink_rate_rapid = 0,
 	status_update_interval = 10000,
+
+	-- 通知/ベル
+	notification_handling = "AlwaysShow",
+	audible_bell = "SystemBeep",
 
 	keys = {
 		{

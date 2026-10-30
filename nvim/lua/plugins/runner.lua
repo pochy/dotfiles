@@ -14,9 +14,18 @@ return {
         return string.format("rustc %s -o %s && %s", shellescape(file), shellescape(out), shellescape(out))
       end
 
+      local function python_run(file)
+        local activate = ".venv/bin/activate"
+        if vim.fn.filereadable(activate) == 1 then
+          return "source " .. shellescape(activate) .. " && python -u " .. shellescape(file)
+        end
+
+        return "python3 -u " .. shellescape(file)
+      end
+
       local runners = {
         python = function()
-          return "python3 -u " .. shellescape(vim.fn.expand("%:p"))
+          return python_run(vim.fn.expand("%:p"))
         end,
         go = function()
           return "go run " .. shellescape(vim.fn.expand("%:p"))
@@ -85,7 +94,7 @@ return {
         local tmp = vim.fn.tempname() .. ext
         vim.fn.writefile(lines, tmp)
 
-        local cmd = ft == "python" and ("python3 -u " .. shellescape(tmp)) or ("lua " .. shellescape(tmp))
+        local cmd = ft == "python" and python_run(tmp) or ("lua " .. shellescape(tmp))
         async_run(cmd, opts.mode)
       end
 

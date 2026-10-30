@@ -83,8 +83,8 @@ export KEYTIMEOUT=1       # ESC 後のモード切り替えを高速化（遅延
 # 履歴 (History)
 # -----------------------------------------------------------------------------
 HISTFILE=${HOME}/.zsh_history
-HISTSIZE=100000
-SAVEHIST=100000
+HISTSIZE=10000
+SAVEHIST=10000
 
 setopt extended_history      # 開始・終了時刻を記録
 setopt hist_ignore_all_dups  # 重複は古い方を削除

@@ -116,7 +116,9 @@ LazyVim のデフォルトキーマップはここに複製していません。
 ### 設定と補完
 
 - `<leader>ux`
-  `blink.cmp` の補完をトグル
+  現在バッファの `blink.cmp` 補完を ON / OFF（デフォルト OFF）
+- `<leader>ul`
+  現在バッファの LSP を ON / OFF（デフォルト OFF）
 - `<leader>cR`
   現在の設定ファイルに応じて部分リロード
 - `:ConfigReload [plugin]`
