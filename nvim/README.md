@@ -55,6 +55,61 @@ nvim
 - `vim-godot` / `gdscript-extended-lsp.nvim`
   Godot プロジェクト向けの補助設定です。
 
+## プラグイン一覧
+
+インストール済みのプラグインは `lazy-lock.json`、各プラグインの設定は `lua/plugins/` にあります。
+
+### 自分で追加したプラグイン
+
+| プラグイン | リポジトリ | 定義ファイル | 用途 |
+|---|---|---|---|
+| neogen | danymat/neogen | coding.lua | 注釈を自動生成（`<leader>cn`） |
+| refactoring.nvim | ThePrimeagen/refactoring.nvim | coding.lua | リファクタリングメニュー（ビジュアルモードで `<leader>r`） |
+| dial.nvim | monaqa/dial.nvim | coding.lua | `+`/`-` で数値・日付・semver・bool を増減 |
+| outline.nvim | hedyhli/outline.nvim | coding.lua | アウトライン表示（`<leader>co`） |
+| gruvbox-material | sainnhe/gruvbox-material | colorschema.lua | 代替カラースキーム |
+| vim-tmux-navigator | christoomey/vim-tmux-navigator | editor.lua | tmux と Neovim の間を移動 |
+| blame.nvim | FabijanZulj/blame.nvim | editor.lua | Git blame の表示 |
+| vim-fugitive | tpope/vim-fugitive | editor.lua | Git 操作 |
+| vim-godot | habamax/vim-godot | editor.lua | Godot 対応 |
+| gdscript-extended-lsp.nvim | teatek/gdscript-extended-lsp.nvim | editor.lua | GDScript 用の LSP 拡張 |
+| vim-oscyank | ojroques/vim-oscyank | editor.lua | OSC52 経由で yank（`<leader>oy`） |
+| neogit | NeogitOrg/neogit | neogit.lua | Magit 風の Git UI |
+| diffview.nvim | sindrets/diffview.nvim | neogit.lua | 差分ビュー（neogit が依存） |
+| asyncrun.vim | skywind3000/asyncrun.vim | runner.lua | コマンドを非同期で実行 |
+| sidekick.nvim | folke/sidekick.nvim | sidekick.lua | AI 連携（一部の機能は `enabled = false`） |
+| yazi.nvim | mikavilpas/yazi.nvim | ui.lua | Yazi ファイラーを起動 |
+| zen-mode.nvim | folke/zen-mode.nvim | ui.lua | Zen Mode（`<leader>z`） |
+
+### LazyVim 標準のプラグインで、設定を上書きしているもの
+
+| プラグイン | 定義ファイル | 内容 |
+|---|---|---|
+| LazyVim | colorschema.lua | カラースキームを `catppuccin` に指定 |
+| catppuccin | colorschema.lua | デフォルトのカラースキーム |
+| tokyonight.nvim | colorschema.lua | 代替カラースキーム |
+| blink.cmp | blink-cmp.lua | 補完。既定は OFF で、`<leader>ux` で切り替え |
+| nvim-lspconfig | lsp.lua | LSP。既定は OFF で、`<leader>ul` で切り替え |
+| nvim-treesitter | lsp.lua | パーサーなどの設定 |
+| snacks.nvim | editor.lua | ユーティリティ類の設定 |
+| lualine.nvim | lualine.lua | ステータスラインに tmux セッション名を表示 |
+| noice.nvim | noice.lua | メッセージやコマンドラインの UI |
+| bufferline.nvim | ui.lua | タブ・バッファ表示 |
+| plenary.nvim | neogit.lua | Lua ユーティリティ（依存ライブラリ） |
+
+### LazyVim 本体と Extras から入るもの（独自の設定なし）
+
+| 分類 | プラグイン |
+|---|---|
+| 基盤 | lazy.nvim, nui.nvim, mini.icons, which-key.nvim, persistence.nvim |
+| 編集 | flash.nvim, mini.ai, mini.pairs, mini.surround, ts-comments.nvim, nvim-ts-autotag, nvim-treesitter-textobjects, friendly-snippets, grug-far.nvim, todo-comments.nvim |
+| ファイル | mini.files |
+| Git | gitsigns.nvim |
+| LSP・整形・Lint | mason.nvim, mason-lspconfig.nvim, conform.nvim, nvim-lint, lazydev.nvim, trouble.nvim |
+| 言語の Extras | SchemaStore.nvim（json/yaml）, rustaceanvim, crates.nvim（rust）, venv-selector.nvim（python）, markdown-preview.nvim, render-markdown.nvim（markdown）, vim-dadbod, vim-dadbod-ui, vim-dadbod-completion（sql） |
+
+有効にしている Extras（`lazyvim.json`）は `coding.mini-surround`、`editor.mini-files` と、`lang` の go / json / markdown / python / rust / sql / tailwind / typescript / vue / yaml です。
+
 ## カスタムキーマップ
 
 LazyVim のデフォルトキーマップはここに複製していません。標準キーマップは `which-key` か `:map` で確認してください。ここではこのリポジトリ独自の追加分だけを載せます。
