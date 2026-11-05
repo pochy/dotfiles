@@ -261,6 +261,27 @@ Prefix は既定の `Ctrl-b` のままです。
 | `Super-u` / `Super-d` | 1/4 ページ上/下へ scroll | `ScrollByPage ±0.25` |
 | `Ctrl-Click` | リンクを開く | mouse binding |
 
+## 5.5 Ghostty
+
+対象設定: [`ghostty/config.ghostty`](ghostty/config.ghostty)
+
+WezTerm と同じ操作感になるよう揃えています。`macos-option-as-alt = true` なので tmux の `Alt-h/j/k/l` などもそのまま使えます。
+
+| キー | 動作 | 備考 |
+| --- | --- | --- |
+| `Shift-Enter` | `Esc + CR` を送信 | WezTerm / Alacritty と同じ |
+| `Cmd-Enter` | 下に split | 既定の fullscreen は `Cmd-Ctrl-F` を使う |
+| `Cmd-Shift-Enter` | 右に split | |
+| `Cmd-Shift-Z` | split の zoom 切替 | 既定の redo を上書き |
+| `Cmd-Ctrl-E` | split を均等化 | |
+| `Cmd-h/j/k/l` | 左/下/上/右 split へ移動 | 既定の `Cmd-k`（clear）は `Cmd-Shift-K` へ |
+| `Cmd-Ctrl-h/j/k/l` | split リサイズ | |
+| `Cmd-u` / `Cmd-d` | 1/4 ページ上/下へ scroll | 既定の `Cmd-d`（split）を上書き |
+| `Cmd-Shift-↑` / `↓` | 前/次のプロンプトへジャンプ | shell integration |
+| `Cmd-Shift-R` | タブ名を変更 | |
+| ``Ctrl-` `` | Quick Terminal（グローバル） | アクセシビリティ許可が必要 |
+| `Cmd-Click` | リンクを開く | Ghostty 既定 |
+
 ## 6. Alacritty
 
 対象設定:

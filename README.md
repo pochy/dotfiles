@@ -27,6 +27,8 @@ dotfiles/
 ├── sheldon/                 # Sheldon設定（Zshプラグインマネージャー）
 │   └── plugins.toml        # プラグイン設定
 ├── starship.toml           # Starshipプロンプト設定
+├── ghostty/                # Ghostty設定（Catppuccin / WezTerm互換キー）
+│   └── config.ghostty
 ├── wezterm/                # WezTerm設定
 │   └── wezterm.lua
 ├── lazygit/                 # Lazygit設定（Git TUI）
@@ -55,6 +57,7 @@ dotfiles/
 | **ターミナル**         | **tmux**             | ターミナル多重化。Neovim とシームレス移動                | `.tmux.conf`                              |
 |                        | **Alacritty**        | ターミナルエミュレータ（Catppuccin）                     | `alacritty/`                              |
 |                        | **WezTerm**          | ターミナルエミュレータ（オプション）                     | `wezterm/`                                |
+|                        | **Ghostty**          | ターミナルエミュレータ（Catppuccin・WezTerm 互換キー）   | `ghostty/`                                |
 | **CLI ユーティリティ** | **fzf**              | 曖昧検索 UI（補完・セッション切替・sesh）                | sheldon の fzf-tab も使用                 |
 |                        | **zoxide**           | 使用頻度に基づく賢い `cd`（sesh と連携）                 |                                           |
 |                        | **direnv**           | ディレクトリごとの環境変数（`.envrc`）                   |                                           |
@@ -325,6 +328,9 @@ atuin import auto
    # Starship設定
    ln -sf ~/.dotfiles/starship.toml ~/.config/starship.toml
 
+   # Ghostty設定（オプション）
+   ln -sf ~/.dotfiles/ghostty ~/.config/ghostty
+
    # WezTerm設定（オプション）
    ln -sf ~/.dotfiles/wezterm ~/.config/wezterm
 
@@ -409,6 +415,11 @@ atuin import auto
 ### WezTerm
 
 - `wezterm/wezterm.lua` を編集してターミナルの設定を変更
+
+### Ghostty
+
+- `ghostty/config.ghostty` を編集（`Cmd+Shift+,` で再読込、`ghostty +validate-config` で検証）
+- マシン固有の上書きは `ghostty/local.ghostty`（git 管理外）
 
 ## 🔧 主要なキーバインド
 

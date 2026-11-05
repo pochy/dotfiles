@@ -1,0 +1,141 @@
+# =============================================================================
+# Ghostty 設定  (~/.config/ghostty/config.ghostty)
+#   ln -sf ~/dotfiles/ghostty ~/.config/ghostty
+#
+# 方針
+#   - Neovim (catppuccin, transparent) / tmux (Catppuccin Frappe) と配色を統一
+#   - キー操作は wezterm/wezterm.lua と揃える (Cmd+Enter で split, Cmd+hjkl で移動)
+#   - Alacritty と同じく Option を Alt として扱い、tmux の M-h/j/k/l 等を通す
+#
+# 反映: Cmd+Shift+, (reload_config)   一覧: ghostty +show-config --default --docs
+# 検証: ghostty +validate-config
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 外観
+# -----------------------------------------------------------------------------
+# Neovim の catppuccin (flavour = "auto": light=latte / dark=frappe) と同じ組み合わせ。
+# nvim は transparent_background = true なので、ここの背景色がそのまま nvim の背景になる。
+# tmux のステータスバー (#303446 / #414559) とも Frappe で一致する。
+theme = light:Catppuccin Latte,dark:Catppuccin Frappe
+
+font-family = HackGen Console NF
+font-size = 14
+# 日本語の縦位置が気になる場合は adjust-cell-height = 5% などで調整
+# adjust-cell-height = 0
+
+background-opacity = 1
+# background-opacity = 0.92
+# background-blur = 20
+
+window-padding-x = 8
+window-padding-y = 6
+window-padding-balance = true
+window-padding-color = extend
+
+window-width = 140
+window-height = 40
+window-save-state = always
+
+# タイトルバーとタブバーを一体化してコンパクトに
+macos-titlebar-style = tabs
+window-theme = auto
+
+# 非アクティブ split を少し暗くしてフォーカス位置を分かりやすく
+unfocused-split-opacity = 0.85
+
+# -----------------------------------------------------------------------------
+# カーソル
+# -----------------------------------------------------------------------------
+# カーソル形状は zsh-vi-mode と Neovim が切り替えるので、shell integration
+# 側の cursor 機能は切る (no-cursor)。
+cursor-style = block
+cursor-style-blink = false
+
+# -----------------------------------------------------------------------------
+# シェル統合
+# -----------------------------------------------------------------------------
+#   no-cursor   : zsh-vi-mode のカーソル形状と競合させない
+#   sudo        : sudo 越しでも terminfo を保持
+#   ssh-terminfo: ssh 先に xterm-ghostty の terminfo を自動インストール
+#   ssh-env     : terminfo が無いホストでは TERM=xterm-256color にフォールバック
+shell-integration = zsh
+shell-integration-features = no-cursor,sudo,title,ssh-env,ssh-terminfo,path
+
+# -----------------------------------------------------------------------------
+# 入力・マウス・クリップボード
+# -----------------------------------------------------------------------------
+# tmux の M-h/j/k/l, M-n/p, M-1..9, M-down を使うため Option を Alt に
+macos-option-as-alt = true
+
+mouse-hide-while-typing = true
+# Alacritty の save_to_clipboard / nvim の "Esc でクリップボードへ" と同じ感覚で
+copy-on-select = clipboard
+clipboard-read = allow
+clipboard-trim-trailing-spaces = true
+
+scrollback-limit = 100000000
+
+# -----------------------------------------------------------------------------
+# 通知・ベル (wezterm の bell → トースト + Glass.aiff 相当)
+# -----------------------------------------------------------------------------
+bell-features = no-system,audio,attention,title,border
+bell-audio-path = /System/Library/Sounds/Glass.aiff
+bell-audio-volume = 0.5
+
+# ウィンドウ非フォーカス中に 10 秒以上かかったコマンドが終わったら通知
+notify-on-command-finish = unfocused
+notify-on-command-finish-after = 10s
+notify-on-command-finish-action = bell,notify
+
+# -----------------------------------------------------------------------------
+# Quick Terminal (どこからでも Ctrl+` でドロップダウン端末)
+#   ※ global: キーは「システム設定 > プライバシーとセキュリティ > アクセシビリティ」
+#     で Ghostty を許可する必要あり
+# -----------------------------------------------------------------------------
+quick-terminal-position = top
+quick-terminal-animation-duration = 0.15
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
+
+# -----------------------------------------------------------------------------
+# キーバインド (wezterm/wezterm.lua と揃える)
+# -----------------------------------------------------------------------------
+# Shift+Enter で ESC+CR (Claude Code などで改行入力。wezterm/alacritty と同じ)
+keybind = shift+enter=text:\x1b\r
+
+# split: Cmd+Enter = 下に分割 / Cmd+Shift+Enter = 右に分割
+#   (Ghostty 既定の Cmd+Enter=fullscreen は Cmd+Ctrl+F を使う)
+keybind = super+enter=new_split:down
+keybind = super+shift+enter=new_split:right
+keybind = super+shift+z=toggle_split_zoom
+keybind = super+ctrl+e=equalize_splits
+
+# split 間移動: Cmd+h/j/k/l
+#   (Cmd+k の clear_screen は Cmd+Shift+k へ退避)
+keybind = super+h=goto_split:left
+keybind = super+j=goto_split:down
+keybind = super+k=goto_split:up
+keybind = super+l=goto_split:right
+keybind = super+shift+k=clear_screen
+
+# split リサイズ: Cmd+Ctrl+h/j/k/l (nvim の <C-w><arrows> 相当)
+keybind = super+ctrl+h=resize_split:left,20
+keybind = super+ctrl+j=resize_split:down,20
+keybind = super+ctrl+k=resize_split:up,20
+keybind = super+ctrl+l=resize_split:right,20
+
+# スクロール: Cmd+u / Cmd+d で 1/4 ページ
+keybind = super+u=scroll_page_fractional:-0.25
+keybind = super+d=scroll_page_fractional:0.25
+
+# プロンプト間ジャンプ (shell integration 利用)
+keybind = super+shift+arrow_up=jump_to_prompt:-1
+keybind = super+shift+arrow_down=jump_to_prompt:1
+
+# タブ名の変更 (wezterm の Cmd+Shift+T 相当。Cmd+Shift+T は既定の「閉じたタブを戻す」を残す)
+keybind = super+shift+r=prompt_tab_title
+
+# -----------------------------------------------------------------------------
+# 端末ごとの上書き (存在しなければスキップ。.zshrc.local と同じ運用)
+# -----------------------------------------------------------------------------
+config-file = ?local.ghostty
